@@ -15,17 +15,43 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
      
-        let camera = GMSCameraPosition.cameraWithLatitude(-33.86,
-            longitude: 151.20, zoom: 6)
-        let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-        mapView.myLocationEnabled = true
-        self.view = mapView
+        var chicago = Location()
         
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(-33.86, 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = mapView
+        let query = PFQuery(className:"Location")
+        query.whereKey("name", equalTo:"Chicago")
+        query.findObjectsInBackgroundWithBlock {
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                // The find succeeded.
+                //print("Successfully retrieved \(objects!.count) location.")
+                // Do something with the found objects
+                if let objects = objects {
+                    chicago = objects[0] as! Location
+                    
+                    let loc = chicago.location
+                    let zoom = chicago.zoomLevel
+                    
+                    
+                    let camera = GMSCameraPosition.cameraWithLatitude(loc.latitude,
+                        longitude: loc.longitude, zoom: zoom)
+                    let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
+                    mapView.myLocationEnabled = true
+                    self.view = mapView
+                    
+                    let marker = GMSMarker()
+                    marker.position = CLLocationCoordinate2DMake(loc.latitude, loc.longitude)
+                    marker.title = "Chicago"
+                    marker.snippet = "Machine"
+                    marker.map = mapView
+
+                }
+            } else {
+                // Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+            }
+        }
+        
         
     }
 
