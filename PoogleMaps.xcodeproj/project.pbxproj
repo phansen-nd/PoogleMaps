@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2FF6834008A3560251ED28D6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA9B08045CC8F02704C797 /* libPods.a */; };
 		434795EE1C589D1100585CFF /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434795ED1C589D1100585CFF /* Location.swift */; };
+		434795F01C596BB000585CFF /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 434795EF1C596BB000585CFF /* todo */; };
 		43DCCC271C58854A00B64A85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCCC261C58854A00B64A85 /* AppDelegate.swift */; };
 		43DCCC291C58854A00B64A85 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCCC281C58854A00B64A85 /* ViewController.swift */; };
 		43DCCC2C1C58854A00B64A85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43DCCC2A1C58854A00B64A85 /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		434795ED1C589D1100585CFF /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		434795EF1C596BB000585CFF /* todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo; sourceTree = "<group>"; };
 		43DCCC231C58854A00B64A85 /* PoogleMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoogleMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DCCC261C58854A00B64A85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43DCCC281C58854A00B64A85 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				43DCCC2D1C58854A00B64A85 /* Assets.xcassets */,
 				43DCCC2F1C58854A00B64A85 /* LaunchScreen.storyboard */,
 				43DCCC321C58854A00B64A85 /* Info.plist */,
+				434795EF1C596BB000585CFF /* todo */,
 			);
 			path = PoogleMaps;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			files = (
 				43DCCC311C58854A00B64A85 /* LaunchScreen.storyboard in Resources */,
 				43DCCC2E1C58854A00B64A85 /* Assets.xcassets in Resources */,
+				434795F01C596BB000585CFF /* todo in Resources */,
 				43DCCC2C1C58854A00B64A85 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

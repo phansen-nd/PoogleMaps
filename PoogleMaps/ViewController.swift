@@ -13,8 +13,11 @@ import GoogleMaps
 class ViewController: UIViewController {
 
     @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
+
     let locationManager = CLLocationManager()
+    var buttonRotated = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +26,10 @@ class ViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         
         mapView.delegate = self
+        
+        // Make plus button circle
+        plusButton.clipsToBounds = true
+        plusButton.layer.cornerRadius = plusButton.frame.width/2.0
         
 //
 //        var chicago = Location()
@@ -66,24 +73,28 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func plusButtonTouched(sender: AnyObject) {
+    
+        if !buttonRotated {
+            plusButton.transform = CGAffineTransformMakeRotation(3.14 / -4.0)
+            buttonRotated = true
+        } else {
+            plusButton.transform = CGAffineTransformMakeRotation(0.0)
+            buttonRotated = false
+        }
+        
+    }
     
     func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
         
-        // 1
         let geocoder = GMSGeocoder()
         
-        // 2
+        // Get address from coordinate
         geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
             if let address = response?.firstResult() {
-                
-                // 3
                 let lines = address.lines as! [String]
                 self.locationLabel.text = lines.joinWithSeparator("\n")
-                
-                // 4
-                UIView.animateWithDuration(0.25) {
-                    self.view.layoutIfNeeded()
-                }
+            
             }
         }
     }
@@ -129,4 +140,5 @@ extension ViewController: GMSMapViewDelegate {
         // Could switch position.target to a custom location based on crosshairs or something
         reverseGeocodeCoordinate(position.target)
     }
+    
 }
