@@ -14,11 +14,13 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var addScreenView: UIView!
      
     let locationManager = CLLocationManager()
     let addScreenHeight: CGFloat = 200.0
+    let checkPlusMargin: CGFloat = 5.0
     var plusButtonOffset: CGFloat = 0.0
     var addScreenUp = false
     
@@ -30,9 +32,11 @@ class ViewController: UIViewController {
         
         mapView.delegate = self
         
-        // Make plus button circle
+        // Make buttons circles
         plusButton.clipsToBounds = true
         plusButton.layer.cornerRadius = plusButton.frame.width/2.0
+        checkButton.clipsToBounds = true
+        checkButton.layer.cornerRadius = checkButton.frame.width/2.0
         
         // Calculate plus button offset
         plusButtonOffset = UIScreen.mainScreen().bounds.height - plusButton.frame.origin.y
@@ -83,23 +87,41 @@ class ViewController: UIViewController {
     
         if !addScreenUp {
             UIView.animateWithDuration(0.5, animations: {
-                let rotate = CGAffineTransformMakeRotation(5*3.14 / -4.0)
-                let translate = CGAffineTransformMakeTranslation(0.0, -self.plusButtonOffset)
-                self.plusButton.transform = CGAffineTransformConcat(rotate, translate)
+                self.plusButton.center.y -= self.plusButtonOffset
+                self.plusButton.transform = CGAffineTransformMakeRotation(5*3.14 / -4.0)
+                self.checkButton.center.y -= self.plusButtonOffset
                 self.addScreenView.transform = CGAffineTransformMakeTranslation(0.0, -self.addScreenHeight)
                 
+                }, completion: { finished in
+                    
+                    self.checkButton.transform = CGAffineTransformMakeRotation(3.14)
+                    
+                    UIView.animateWithDuration(0.3, animations: {
+                    
+                        self.checkButton.center.x -= (self.checkPlusMargin + self.plusButton.bounds.width)
+                        self.checkButton.transform = CGAffineTransformMakeRotation(0.0)
+                        
+                        }, completion: { finished in
+                                self.checkButton.enabled = false
+                    })
+                    
             })
-            
-            
-            
             addScreenUp = true
         } else {
-            UIView.animateWithDuration(0.5, animations: {
-                let rotateBack = CGAffineTransformMakeRotation(0.0)
-                let translateBack = CGAffineTransformMakeTranslation(0.0, self.plusButtonOffset)
-                self.plusButton.transform = CGAffineTransformConcat(rotateBack, translateBack)
-                self.addScreenView.transform = CGAffineTransformMakeTranslation(0.0, self.addScreenHeight)
+            UIView.animateWithDuration(0.3, animations: {
+                self.checkButton.transform = CGAffineTransformMakeRotation(3.14)
+                self.checkButton.center.x += (self.checkPlusMargin + self.plusButton.bounds.width)
+                }, completion: {finished in
+            
+                    UIView.animateWithDuration(0.5, animations: {
+                        self.plusButton.transform = CGAffineTransformMakeRotation(0.0)
+                        self.plusButton.center.y += self.plusButtonOffset
+                        self.checkButton.center.y += self.plusButtonOffset
+                        self.addScreenView.transform = CGAffineTransformMakeTranslation(0.0, self.addScreenHeight)
+                    })
             })
+            
+            
             addScreenUp = false
         }
         

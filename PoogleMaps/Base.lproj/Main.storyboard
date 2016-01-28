@@ -22,6 +22,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ya-Td-3xa">
+                                <rect key="frame" x="528" y="467" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="J4t-zN-dGe"/>
+                                    <constraint firstAttribute="height" constant="60" id="OPc-vo-jb6"/>
+                                </constraints>
+                                <state key="normal" image="checkicon">
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="plusButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wDx-cA-ZnH"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJZ-vi-AQ9">
                                 <rect key="frame" x="528" y="467" width="60" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -65,6 +79,8 @@
                             <constraint firstItem="ac2-mS-f43" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="GLr-pm-Doh"/>
                             <constraint firstItem="ac2-mS-f43" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="H2d-VP-wPp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BJZ-vi-AQ9" secondAttribute="trailing" constant="-8" id="H9n-xd-Scs"/>
+                            <constraint firstItem="4Ya-Td-3xa" firstAttribute="top" secondItem="BJZ-vi-AQ9" secondAttribute="bottom" constant="-60" id="Hdz-di-z34"/>
+                            <constraint firstItem="4Ya-Td-3xa" firstAttribute="leading" secondItem="BJZ-vi-AQ9" secondAttribute="trailing" constant="-60" id="R0g-rE-hpZ"/>
                             <constraint firstAttribute="trailing" secondItem="ac2-mS-f43" secondAttribute="trailing" id="TME-Id-3zL"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BJZ-vi-AQ9" secondAttribute="bottom" constant="73" id="UP4-dn-vRG"/>
                             <constraint firstItem="0Nn-wj-dEM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="VuH-4y-E7v"/>
@@ -78,6 +94,7 @@
                     </view>
                     <connections>
                         <outlet property="addScreenView" destination="Csa-9D-MHG" id="1I5-co-7x6"/>
+                        <outlet property="checkButton" destination="4Ya-Td-3xa" id="eHY-Oo-cBM"/>
                         <outlet property="locationLabel" destination="0Nn-wj-dEM" id="jdp-sT-eTa"/>
                         <outlet property="mapView" destination="ac2-mS-f43" id="Hb1-sj-ecD"/>
                         <outlet property="plusButton" destination="BJZ-vi-AQ9" id="K4o-mk-pgq"/>
@@ -89,6 +106,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkicon" width="1024" height="1024"/>
         <image name="plusbutton" width="256" height="256"/>
     </resources>
 </document>
