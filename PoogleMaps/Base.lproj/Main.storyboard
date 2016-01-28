@@ -36,13 +36,14 @@
                                     <action selector="plusButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wDx-cA-ZnH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJZ-vi-AQ9">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJZ-vi-AQ9">
                                 <rect key="frame" x="528" y="467" width="60" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="YNW-0G-oSF"/>
                                     <constraint firstAttribute="width" constant="60" id="fAE-4a-DEp"/>
                                 </constraints>
+                                <size key="titleShadowOffset" width="0.0" height="2.2250738585072014e-308"/>
                                 <state key="normal" image="plusbutton">
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -61,11 +62,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Csa-9D-MHG">
-                                <rect key="frame" x="0.0" y="600" width="600" height="200"/>
+                                <rect key="frame" x="0.0" y="600" width="600" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="Cjh-gU-0z1"/>
-                                    <constraint firstAttribute="height" constant="200" id="yBP-XT-tog"/>
+                                    <constraint firstAttribute="height" constant="300" id="yBP-XT-tog"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -95,9 +96,11 @@
                     <connections>
                         <outlet property="addScreenView" destination="Csa-9D-MHG" id="1I5-co-7x6"/>
                         <outlet property="checkButton" destination="4Ya-Td-3xa" id="eHY-Oo-cBM"/>
+                        <outlet property="checkButtonTrailingSpaceConstraint" destination="R0g-rE-hpZ" id="kbn-IB-sdT"/>
                         <outlet property="locationLabel" destination="0Nn-wj-dEM" id="jdp-sT-eTa"/>
                         <outlet property="mapView" destination="ac2-mS-f43" id="Hb1-sj-ecD"/>
                         <outlet property="plusButton" destination="BJZ-vi-AQ9" id="K4o-mk-pgq"/>
+                        <outlet property="plusButtonBottomSpaceConstraint" destination="UP4-dn-vRG" id="ibc-BF-81R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
