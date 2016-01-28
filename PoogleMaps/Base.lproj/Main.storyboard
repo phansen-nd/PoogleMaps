@@ -46,6 +46,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Csa-9D-MHG">
+                                <rect key="frame" x="0.0" y="600" width="600" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="Cjh-gU-0z1"/>
+                                    <constraint firstAttribute="height" constant="200" id="yBP-XT-tog"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Cjh-gU-0z1"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -55,12 +68,16 @@
                             <constraint firstAttribute="trailing" secondItem="ac2-mS-f43" secondAttribute="trailing" id="TME-Id-3zL"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BJZ-vi-AQ9" secondAttribute="bottom" constant="73" id="UP4-dn-vRG"/>
                             <constraint firstItem="0Nn-wj-dEM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="VuH-4y-E7v"/>
+                            <constraint firstItem="Csa-9D-MHG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="580" id="XPf-uu-xwq"/>
                             <constraint firstItem="ac2-mS-f43" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="ZvN-F0-EpF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0Nn-wj-dEM" secondAttribute="trailing" constant="-20" id="eLI-X0-Cem"/>
                             <constraint firstItem="0Nn-wj-dEM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="5" id="evp-Tq-x1d"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Csa-9D-MHG" secondAttribute="trailing" constant="-20" id="hy9-dm-zj4"/>
+                            <constraint firstItem="Csa-9D-MHG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="yrY-Nc-QKs"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addScreenView" destination="Csa-9D-MHG" id="1I5-co-7x6"/>
                         <outlet property="locationLabel" destination="0Nn-wj-dEM" id="jdp-sT-eTa"/>
                         <outlet property="mapView" destination="ac2-mS-f43" id="Hb1-sj-ecD"/>
                         <outlet property="plusButton" destination="BJZ-vi-AQ9" id="K4o-mk-pgq"/>

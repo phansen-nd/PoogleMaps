@@ -15,9 +15,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
-
+    @IBOutlet weak var addScreenView: UIView!
+     
     let locationManager = CLLocationManager()
-    var buttonRotated = false
+    let addScreenHeight: CGFloat = 200.0
+    var plusButtonOffset: CGFloat = 0.0
+    var addScreenUp = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +33,9 @@ class ViewController: UIViewController {
         // Make plus button circle
         plusButton.clipsToBounds = true
         plusButton.layer.cornerRadius = plusButton.frame.width/2.0
+        
+        // Calculate plus button offset
+        plusButtonOffset = UIScreen.mainScreen().bounds.height - plusButton.frame.origin.y
         
 //
 //        var chicago = Location()
@@ -75,12 +81,26 @@ class ViewController: UIViewController {
     
     @IBAction func plusButtonTouched(sender: AnyObject) {
     
-        if !buttonRotated {
-            plusButton.transform = CGAffineTransformMakeRotation(3.14 / -4.0)
-            buttonRotated = true
+        if !addScreenUp {
+            UIView.animateWithDuration(0.5, animations: {
+                let rotate = CGAffineTransformMakeRotation(5*3.14 / -4.0)
+                let translate = CGAffineTransformMakeTranslation(0.0, -self.plusButtonOffset)
+                self.plusButton.transform = CGAffineTransformConcat(rotate, translate)
+                self.addScreenView.transform = CGAffineTransformMakeTranslation(0.0, -self.addScreenHeight)
+                
+            })
+            
+            
+            
+            addScreenUp = true
         } else {
-            plusButton.transform = CGAffineTransformMakeRotation(0.0)
-            buttonRotated = false
+            UIView.animateWithDuration(0.5, animations: {
+                let rotateBack = CGAffineTransformMakeRotation(0.0)
+                let translateBack = CGAffineTransformMakeTranslation(0.0, self.plusButtonOffset)
+                self.plusButton.transform = CGAffineTransformConcat(rotateBack, translateBack)
+                self.addScreenView.transform = CGAffineTransformMakeTranslation(0.0, self.addScreenHeight)
+            })
+            addScreenUp = false
         }
         
     }
