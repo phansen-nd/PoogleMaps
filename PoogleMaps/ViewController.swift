@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import GoogleMaps
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var plusButton: UIButton!
@@ -19,7 +19,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var addScreenView: UIView!
     @IBOutlet weak var plusButtonBottomSpaceConstraint: NSLayoutConstraint!
     @IBOutlet weak var checkButtonTrailingSpaceConstraint: NSLayoutConstraint!
-     
+    @IBOutlet weak var ownerTextField: UITextField!
+    @IBOutlet weak var nameTextField: UITextField!
+    
     let locationManager = CLLocationManager()
     var addScreenHeight: CGFloat = 0.0
     let checkPlusMargin: CGFloat = 5.0
@@ -52,6 +54,22 @@ class ViewController: UIViewController {
         // Calculate plus button offset
         plusButtonOffset = UIScreen.mainScreen().bounds.height - plusButton.frame.origin.y - 5.0
         addScreenHeight = addScreenView.frame.height
+  
+        // Set text field delegates
+        nameTextField.delegate = self
+        ownerTextField.delegate = self
+        
+        // Add bottom line to text fields
+        let underline: CALayer = CALayer()
+        let underline2: CALayer = CALayer()
+        underline.frame = CGRectMake(0.0, nameTextField.frame.height - 1, nameTextField.frame.width, 1.0)
+        underline2.frame = CGRectMake(0.0, nameTextField.frame.height - 1, nameTextField.frame.width, 1.0)
+        underline.backgroundColor = UIColor.grayColor().CGColor
+        underline2.backgroundColor = UIColor.grayColor().CGColor
+        underline.opacity = 0.5
+        underline2.opacity = 0.5
+        nameTextField.layer.addSublayer(underline)
+        ownerTextField.layer.addSublayer(underline2)
         
 //
 //        var chicago = Location()
@@ -98,73 +116,134 @@ class ViewController: UIViewController {
     @IBAction func plusButtonTouched(sender: AnyObject) {
     
         if !addScreenUp {
-            
-            self.view.layoutIfNeeded()
-            let angleInRadians: CGFloat = -5/4*3.14
-            
-            UIView.animateWithDuration(0.5, animations: {
-                self.plusButtonBottomSpaceConstraint.constant += (self.addScreenView.frame.height - self.plusButtonOffset)
-                self.plusButton.transform = CGAffineTransformMakeRotation(angleInRadians)
-                self.addScreenView.transform = CGAffineTransformMakeTranslation(0.0, -self.addScreenHeight)
-
-                // Transform button shadows
-                self.plusButton.layer.shadowOffset = self.correctedShadowOffsetForRotatedView(Float(angleInRadians), anOffset: CGSizeMake(0.0, 2.0))
-
-                // Add shadow to add view
-                self.addScreenView.layer.masksToBounds = false
-                self.addScreenView.layer.shadowOffset = CGSizeMake(0, -3.0)
-                self.addScreenView.layer.shadowOpacity = 0.15
-                self.addScreenView.layer.shadowRadius = 1.0
-                
-                self.view.layoutIfNeeded()
-                
-                }, completion: { finished in
-                    
-                    // Start the check button upside down so it can roll out
-                    self.checkButton.transform = CGAffineTransformMakeRotation(3.14)
-                    
-                    UIView.animateWithDuration(0.3, animations: {
-                    
-                        self.checkButtonTrailingSpaceConstraint.constant -= (self.checkPlusMargin + self.plusButton.bounds.width)
-                        self.checkButton.transform = CGAffineTransformMakeRotation(0.0)
-                        self.checkButton.layer.shadowOpacity = 0.3
-                        
-                        self.view.layoutIfNeeded()
-                        
-                        }, completion: { finished in
-                                self.checkButton.enabled = false
-                    })
-                    
-            })
-            addScreenUp = true
+            showAddView()
         } else {
-            
-            self.view.layoutIfNeeded()
-            
-            UIView.animateWithDuration(0.3, animations: {
-                self.checkButton.transform = CGAffineTransformMakeRotation(3.14)
-                self.checkButton.layer.shadowOpacity = 0.0
-                self.checkButtonTrailingSpaceConstraint.constant += (self.checkPlusMargin + self.plusButton.bounds.width)
-                
-                self.view.layoutIfNeeded()
-                
-                }, completion: {finished in
-            
-                    UIView.animateWithDuration(0.5, animations: {
-                        self.plusButton.transform = CGAffineTransformMakeRotation(0.0)
-                        self.plusButtonBottomSpaceConstraint.constant -= (self.addScreenView.frame.height - self.plusButtonOffset)
-                        self.addScreenView.transform = CGAffineTransformMakeTranslation(0.0, self.addScreenHeight)
-                        
-                        // Rotate shadow back
-                        self.plusButton.layer.shadowOffset = self.correctedShadowOffsetForRotatedView(0.0, anOffset: CGSizeMake(0.0, 2.0))
-                        
-                        self.view.layoutIfNeeded()
-                    })
-            })
-            
-            addScreenUp = false
+            hideAddView()
         }
         
+    }
+    
+    @IBAction func checkButtonTouched(sender: AnyObject) {
+    
+        // Create Poogle object
+        let poo = Poogle()
+        //let user = PFUser()
+        
+        //user.setValue(ownerTextField.text, forKey: "username")
+        poo.name = nameTextField.text!
+        //poo.creator = user
+        poo.credit = 0.0
+        poo.rating = 5.0
+        
+        let loc: CLLocationCoordinate2D = mapView.projection.coordinateForPoint(mapView.center)
+        poo.location = PFGeoPoint(latitude: loc.latitude, longitude: loc.longitude)
+        
+        // Store in backend
+        poo.saveInBackgroundWithBlock {
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                
+            } else {
+                // There was a problem, check error.description
+            }
+        }
+        
+        // Create map marker
+        let marker = GMSMarker()
+        marker.position = loc
+        marker.title = nameTextField.text!
+        marker.snippet = ownerTextField.text!
+        marker.map = mapView
+        
+        // Hide add controller
+        hideAddView()
+        
+        // Clear text fields
+        nameTextField.text = ""
+        ownerTextField.text = ""
+    
+    }
+    
+    func showAddView() {
+        // Pre layout to ensure any pending changes take place before animation
+        self.view.layoutIfNeeded()
+        
+        // Keep track of 5pi/4
+        let angleInRadians: CGFloat = -5/4*3.14
+        
+        UIView.animateWithDuration(0.5, animations: {
+            
+            // Plus button pushes up from bottom and spins
+            self.plusButtonBottomSpaceConstraint.constant += (self.addScreenView.frame.height - self.plusButtonOffset)
+            self.plusButton.transform = CGAffineTransformMakeRotation(angleInRadians)
+            
+            // Transform button shadow along with spin
+            self.plusButton.layer.shadowOffset = self.correctedShadowOffsetForRotatedView(Float(angleInRadians), anOffset: CGSizeMake(0.0, 2.0))
+            
+            // Show add screen and add shadow
+            self.addScreenView.transform = CGAffineTransformMakeTranslation(0.0, -self.addScreenHeight)
+            self.addScreenView.layer.masksToBounds = false
+            self.addScreenView.layer.shadowOffset = CGSizeMake(0, -3.0)
+            self.addScreenView.layer.shadowOpacity = 0.15
+            self.addScreenView.layer.shadowRadius = 1.0
+            
+            // Enact constraint changes
+            self.view.layoutIfNeeded()
+            
+            }, completion: { finished in
+                
+                // Start the check button upside down so it can roll out
+                self.checkButton.transform = CGAffineTransformMakeRotation(3.14)
+                
+                UIView.animateWithDuration(0.3, animations: {
+                    
+                    // Check button pushes out from plus button, spins, and grows shadow
+                    self.checkButtonTrailingSpaceConstraint.constant -= (self.checkPlusMargin + self.plusButton.bounds.width)
+                    self.checkButton.transform = CGAffineTransformMakeRotation(0.0)
+                    self.checkButton.layer.shadowOpacity = 0.3
+                    
+                    // Enact constraint changes again
+                    self.view.layoutIfNeeded()
+                    
+                    }, completion: { finished in
+                        
+                        // Initially, disable the add button - enable once the fields are filled out
+                        self.checkButton.enabled = false
+                })
+        })
+        
+        // Update switch
+        addScreenUp = true
+
+    }
+    
+    func hideAddView() {
+        // Undo everything
+        
+        self.view.layoutIfNeeded()
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.checkButton.transform = CGAffineTransformMakeRotation(3.14)
+            self.checkButton.layer.shadowOpacity = 0.0
+            self.checkButtonTrailingSpaceConstraint.constant += (self.checkPlusMargin + self.plusButton.bounds.width)
+            
+            self.view.layoutIfNeeded()
+            
+            }, completion: {finished in
+                
+                UIView.animateWithDuration(0.5, animations: {
+                    self.plusButton.transform = CGAffineTransformMakeRotation(0.0)
+                    self.plusButtonBottomSpaceConstraint.constant -= (self.addScreenView.frame.height - self.plusButtonOffset)
+                    
+                    self.plusButton.layer.shadowOffset = self.correctedShadowOffsetForRotatedView(0.0, anOffset: CGSizeMake(0.0, 2.0))
+                    
+                    self.addScreenView.transform = CGAffineTransformMakeTranslation(0.0, self.addScreenHeight)
+                    
+                    self.view.layoutIfNeeded()
+                })
+        })
+        
+        addScreenUp = false
     }
     
     func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
@@ -185,6 +264,17 @@ class ViewController: UIViewController {
         let y: Float = Float(anOffset.height)*cosf(anAngle) - Float(anOffset.width)*sinf(anAngle);
     
         return CGSizeMake(CGFloat(x), CGFloat(y));
+    }
+    
+    /*
+     *  Text Field functions
+     */
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        self.checkButton.enabled = true
+        
+        return false
     }
     
     
