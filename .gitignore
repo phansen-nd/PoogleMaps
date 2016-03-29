@@ -1,4 +1,6 @@
-Poogle\ Maps/Pods/
-Poogle\ Maps/Podfile
-Poogle\ Maps/Podfile.lock
-Poogle\ Maps/*.framework
+Pods/
+Podfile
+Podfile.lock
+*.framework
+PoogleMaps.xcodeproj
+PoogleMaps.xcworkspace
