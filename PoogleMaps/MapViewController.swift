@@ -1,8 +1,8 @@
 //
-//  ViewController.swift
+//  MapViewController.swift
 //  PoogleMaps
 //
-//  Created by Patrick Hansen on 1/26/16.
+//  Created by Patrick Hansen on 3/29/16.
 //  Copyright © 2016 Patrick Hansen. All rights reserved.
 //
 
@@ -10,8 +10,8 @@ import UIKit
 import GoogleMaps
 import Firebase
 
-class ViewController: UIViewController, UITextFieldDelegate {
-
+class MapViewController: UIViewController, UITextFieldDelegate {
+    
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var checkButton: UIButton!
@@ -61,7 +61,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Calculate plus button offset
         plusButtonOffset = UIScreen.mainScreen().bounds.height - plusButton.frame.origin.y - 5.0
         addScreenHeight = addScreenView.frame.height
-  
+        
         // Set text field delegates
         nameTextField.delegate = self
         ownerTextField.delegate = self
@@ -78,44 +78,44 @@ class ViewController: UIViewController, UITextFieldDelegate {
         nameTextField.layer.addSublayer(underline)
         ownerTextField.layer.addSublayer(underline2)
         
-//
-//        var chicago = Location()
-//        
-//        let query = PFQuery(className:"Location")
-//        query.whereKey("name", equalTo:"Chicago")
-//        query.findObjectsInBackgroundWithBlock {
-//            (objects: [PFObject]?, error: NSError?) -> Void in
-//            
-//            if error == nil {
-//                // The find succeeded.
-//                //print("Successfully retrieved \(objects!.count) location.")
-//                // Do something with the found objects
-//                if let objects = objects {
-//                    chicago = objects[0] as! Location
-//                    
-//                    let loc = chicago.location
-//                    let zoom = chicago.zoomLevel
-//                    
-//                    
-//                    let camera = GMSCameraPosition.cameraWithLatitude(loc.latitude,
-//                        longitude: loc.longitude, zoom: zoom)
-//                    self.mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-//                    self.mapView.myLocationEnabled = true
-//
-//                    
-//                    let marker = GMSMarker()
-//                    marker.position = CLLocationCoordinate2DMake(loc.latitude, loc.longitude)
-//                    marker.title = "Chicago"
-//                    marker.snippet = "Machine"
-//                    marker.map = self.mapView
-//                    
-//
-//                }
-//            } else {
-//                // Log details of the failure
-//                print("Error: \(error!) \(error!.userInfo)")
-//            }
-//        }
+        //
+        //        var chicago = Location()
+        //
+        //        let query = PFQuery(className:"Location")
+        //        query.whereKey("name", equalTo:"Chicago")
+        //        query.findObjectsInBackgroundWithBlock {
+        //            (objects: [PFObject]?, error: NSError?) -> Void in
+        //
+        //            if error == nil {
+        //                // The find succeeded.
+        //                //print("Successfully retrieved \(objects!.count) location.")
+        //                // Do something with the found objects
+        //                if let objects = objects {
+        //                    chicago = objects[0] as! Location
+        //
+        //                    let loc = chicago.location
+        //                    let zoom = chicago.zoomLevel
+        //
+        //
+        //                    let camera = GMSCameraPosition.cameraWithLatitude(loc.latitude,
+        //                        longitude: loc.longitude, zoom: zoom)
+        //                    self.mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
+        //                    self.mapView.myLocationEnabled = true
+        //
+        //
+        //                    let marker = GMSMarker()
+        //                    marker.position = CLLocationCoordinate2DMake(loc.latitude, loc.longitude)
+        //                    marker.title = "Chicago"
+        //                    marker.snippet = "Machine"
+        //                    marker.map = self.mapView
+        //
+        //
+        //                }
+        //            } else {
+        //                // Log details of the failure
+        //                print("Error: \(error!) \(error!.userInfo)")
+        //            }
+        //        }
         
         // Read data and react to changes
         myRootRef.observeEventType(.Value, withBlock: {
@@ -177,7 +177,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Clear text fields
         nameTextField.text = ""
         ownerTextField.text = ""
-    
+        
     }
     
     func showAddView() {
@@ -230,7 +230,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // Update switch
         addScreenUp = true
-
+        
     }
     
     func hideAddView() {
@@ -278,13 +278,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func correctedShadowOffsetForRotatedView(anAngle: Float, anOffset: CGSize) -> CGSize {
         let x: Float = Float(anOffset.height)*sinf(anAngle) + Float(anOffset.width)*cosf(anAngle);
         let y: Float = Float(anOffset.height)*cosf(anAngle) - Float(anOffset.width)*sinf(anAngle);
-    
+        
         return CGSizeMake(CGFloat(x), CGFloat(y));
     }
     
     /*
-     *  Text Field functions
-     */
+    *  Text Field functions
+    */
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
@@ -294,11 +294,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-
+    
 }
 
 // CLLocationManagerDelegate
-extension ViewController: CLLocationManagerDelegate {
+extension MapViewController: CLLocationManagerDelegate {
     
     // Called when user authorizes or deauthorizes app to use location
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -327,7 +327,7 @@ extension ViewController: CLLocationManagerDelegate {
 }
 
 // GMSMapViewDelegate
-extension ViewController: GMSMapViewDelegate {
+extension MapViewController: GMSMapViewDelegate {
     func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
         
         // Reverse geocodes the center of the screen
