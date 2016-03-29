@@ -1,4 +1,4 @@
-Pods/
-Podfile
-Podfile.lock
-*.framework
+Poogle\ Maps/Pods/
+Poogle\ Maps/Podfile
+Poogle\ Maps/Podfile.lock
+Poogle\ Maps/*.framework
