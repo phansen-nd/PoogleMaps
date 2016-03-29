@@ -35,7 +35,7 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         // Firebase test
-        myRootRef.setValue("Hello, world!")
+        //myRootRef.setValue("Hello, world!")
         
         
         locationManager.delegate = self
@@ -269,7 +269,7 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         // Get address from coordinate
         geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
             if let address = response?.firstResult() {
-                let lines = address.lines as! [String]
+                let lines = address.lines! as [String]
                 self.locationLabel.text = lines.joinWithSeparator("\n")
             }
         }
@@ -328,7 +328,7 @@ extension MapViewController: CLLocationManagerDelegate {
 
 // GMSMapViewDelegate
 extension MapViewController: GMSMapViewDelegate {
-    func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
+    func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
         
         // Reverse geocodes the center of the screen
         // Could switch position.target to a custom location based on crosshairs or something
