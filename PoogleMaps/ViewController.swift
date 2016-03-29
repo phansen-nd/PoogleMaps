@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parse
 import GoogleMaps
 import Firebase
 
@@ -139,17 +138,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func checkButtonTouched(sender: AnyObject) {
         
         // Create Poogle object
-        let poo = Poogle()
+        //let poo = Poogle()
         //let user = PFUser()
         
         //user.setValue(ownerTextField.text, forKey: "username")
-        poo.name = nameTextField.text!
+        //poo.name = nameTextField.text!
         //poo.creator = user
-        poo.credit = 0.0
-        poo.rating = 5.0
+        //poo.credit = 0.0
+        //poo.rating = 5.0
         
         let loc: CLLocationCoordinate2D = mapView.projection.coordinateForPoint(mapView.center)
-        poo.location = PFGeoPoint(latitude: loc.latitude, longitude: loc.longitude)
+        //poo.location = PFGeoPoint(latitude: loc.latitude, longitude: loc.longitude)
         
         // Store in backend
         
