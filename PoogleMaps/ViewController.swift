@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import GoogleMaps
+import Firebase
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
@@ -28,8 +29,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var plusButtonOffset: CGFloat = 0.0
     var addScreenUp = false
     
+    // Create a reference to a Firebase location
+    var myRootRef = Firebase(url:"https://poogle-maps.firebaseio.com/")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Firebase test
+        myRootRef.setValue("Hello, world!")
+        
         
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -110,11 +118,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //            }
 //        }
         
+        // Read data and react to changes
+        myRootRef.observeEventType(.Value, withBlock: {
+            snapshot in
+            print("\(snapshot.key) -> \(snapshot.value)")
+        })
         
     }
     
     @IBAction func plusButtonTouched(sender: AnyObject) {
-    
+        
         if !addScreenUp {
             showAddView()
         } else {
@@ -124,7 +137,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func checkButtonTouched(sender: AnyObject) {
-    
+        
         // Create Poogle object
         let poo = Poogle()
         //let user = PFUser()
@@ -139,14 +152,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
         poo.location = PFGeoPoint(latitude: loc.latitude, longitude: loc.longitude)
         
         // Store in backend
-        poo.saveInBackgroundWithBlock {
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
+        
+        // Sign up user
+        myRootRef.createUser(ownerTextField.text!, password: "correcthorsebatterystaple",
+            withValueCompletionBlock: { error, result in
                 
-            } else {
-                // There was a problem, check error.description
-            }
-        }
+                if error != nil {
+                    // There was an error creating the account
+                } else {
+                    let uid = result["uid"] as? String
+                    print("Successfully created user account with uid: \(uid)")
+                }
+        })
         
         // Create map marker
         let marker = GMSMarker()

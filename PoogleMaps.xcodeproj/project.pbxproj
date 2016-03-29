@@ -11,6 +11,9 @@
 		434795EE1C589D1100585CFF /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434795ED1C589D1100585CFF /* Location.swift */; };
 		434795F01C596BB000585CFF /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 434795EF1C596BB000585CFF /* todo */; };
 		4347961E1C629D3300585CFF /* Poogle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4347961D1C629D3300585CFF /* Poogle.swift */; };
+		436A796E1C62A78200C36BAE /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A796D1C62A78200C36BAE /* Firebase.framework */; };
+		436A79701C62A7A300C36BAE /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A796F1C62A7A300C36BAE /* libicucore.tbd */; };
+		436A79721C62A7B300C36BAE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A79711C62A7B300C36BAE /* libc++.tbd */; };
 		43DCCC271C58854A00B64A85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCCC261C58854A00B64A85 /* AppDelegate.swift */; };
 		43DCCC291C58854A00B64A85 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCCC281C58854A00B64A85 /* ViewController.swift */; };
 		43DCCC2C1C58854A00B64A85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43DCCC2A1C58854A00B64A85 /* Main.storyboard */; };
@@ -34,6 +37,9 @@
 		434795ED1C589D1100585CFF /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		434795EF1C596BB000585CFF /* todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo; sourceTree = "<group>"; };
 		4347961D1C629D3300585CFF /* Poogle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poogle.swift; sourceTree = "<group>"; };
+		436A796D1C62A78200C36BAE /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
+		436A796F1C62A7A300C36BAE /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		436A79711C62A7B300C36BAE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		43DCCC231C58854A00B64A85 /* PoogleMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoogleMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DCCC261C58854A00B64A85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43DCCC281C58854A00B64A85 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,9 +69,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				436A79721C62A7B300C36BAE /* libc++.tbd in Frameworks */,
+				436A79701C62A7A300C36BAE /* libicucore.tbd in Frameworks */,
 				43DCCC501C58863C00B64A85 /* libsqlite3.tbd in Frameworks */,
 				43DCCC4E1C58862E00B64A85 /* libz.tbd in Frameworks */,
 				43DCCC4C1C58862700B64A85 /* SystemConfiguration.framework in Frameworks */,
+				436A796E1C62A78200C36BAE /* Firebase.framework in Frameworks */,
 				43DCCC4A1C58861F00B64A85 /* StoreKit.framework in Frameworks */,
 				43DCCC481C58861B00B64A85 /* Security.framework in Frameworks */,
 				43DCCC461C58861500B64A85 /* QuartzCore.framework in Frameworks */,
@@ -143,6 +152,9 @@
 		43DCCC381C5885AE00B64A85 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				436A79711C62A7B300C36BAE /* libc++.tbd */,
+				436A796F1C62A7A300C36BAE /* libicucore.tbd */,
+				436A796D1C62A78200C36BAE /* Firebase.framework */,
 				43DCCC4F1C58863C00B64A85 /* libsqlite3.tbd */,
 				43DCCC4D1C58862E00B64A85 /* libz.tbd */,
 				43DCCC4B1C58862700B64A85 /* SystemConfiguration.framework */,
@@ -401,6 +413,10 @@
 				);
 				INFOPLIST_FILE = PoogleMaps/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = self.nd.PoogleMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -418,6 +434,10 @@
 				);
 				INFOPLIST_FILE = PoogleMaps/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = self.nd.PoogleMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
