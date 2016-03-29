@@ -17,10 +17,11 @@ class MapViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var addScreenView: UIView!
+    @IBOutlet weak var createdByLabel: UILabel!
     @IBOutlet weak var plusButtonBottomSpaceConstraint: NSLayoutConstraint!
     @IBOutlet weak var checkButtonTrailingSpaceConstraint: NSLayoutConstraint!
-    @IBOutlet weak var ownerTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var imageView: UIImageView!
     
     let locationManager = CLLocationManager()
     var addScreenHeight: CGFloat = 0.0
@@ -62,21 +63,19 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         plusButtonOffset = UIScreen.mainScreen().bounds.height - plusButton.frame.origin.y - 5.0
         addScreenHeight = addScreenView.frame.height
         
+        // Clip image view
+        imageView.clipsToBounds = true
+        self.view.layoutIfNeeded()
+        
         // Set text field delegates
         nameTextField.delegate = self
-        ownerTextField.delegate = self
         
         // Add bottom line to text fields
         let underline: CALayer = CALayer()
-        let underline2: CALayer = CALayer()
         underline.frame = CGRectMake(0.0, nameTextField.frame.height - 1, nameTextField.frame.width, 1.0)
-        underline2.frame = CGRectMake(0.0, nameTextField.frame.height - 1, nameTextField.frame.width, 1.0)
         underline.backgroundColor = UIColor.grayColor().CGColor
-        underline2.backgroundColor = UIColor.grayColor().CGColor
         underline.opacity = 0.5
-        underline2.opacity = 0.5
         nameTextField.layer.addSublayer(underline)
-        ownerTextField.layer.addSublayer(underline2)
         
         //
         //        var chicago = Location()
@@ -120,13 +119,13 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         // Read data and react to changes
         myRootRef.observeEventType(.Value, withBlock: {
             snapshot in
-            print("\(snapshot.key) -> \(snapshot.value)")
+            //print("\(snapshot.key) -> \(snapshot.value)")
         })
         
     }
     
     @IBAction func plusButtonTouched(sender: AnyObject) {
-        
+
         if !addScreenUp {
             showAddView()
         } else {
@@ -147,11 +146,13 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         //poo.credit = 0.0
         //poo.rating = 5.0
         
+        // Currently just takes center of the screen -- eventually put in crosshairs
         let loc: CLLocationCoordinate2D = mapView.projection.coordinateForPoint(mapView.center)
         //poo.location = PFGeoPoint(latitude: loc.latitude, longitude: loc.longitude)
         
         // Store in backend
         
+        /*
         // Sign up user
         myRootRef.createUser(ownerTextField.text!, password: "correcthorsebatterystaple",
             withValueCompletionBlock: { error, result in
@@ -162,13 +163,13 @@ class MapViewController: UIViewController, UITextFieldDelegate {
                     let uid = result["uid"] as? String
                     print("Successfully created user account with uid: \(uid)")
                 }
-        })
+        })*/
         
         // Create map marker
         let marker = GMSMarker()
         marker.position = loc
         marker.title = nameTextField.text!
-        marker.snippet = ownerTextField.text!
+        marker.snippet = "User"
         marker.map = mapView
         
         // Hide add controller
@@ -176,7 +177,6 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         
         // Clear text fields
         nameTextField.text = ""
-        ownerTextField.text = ""
         
     }
     
@@ -214,7 +214,7 @@ class MapViewController: UIViewController, UITextFieldDelegate {
                 UIView.animateWithDuration(0.3, animations: {
                     
                     // Check button pushes out from plus button, spins, and grows shadow
-                    self.checkButtonTrailingSpaceConstraint.constant -= (self.checkPlusMargin + self.plusButton.bounds.width)
+                    self.checkButtonTrailingSpaceConstraint.constant += (self.checkPlusMargin + self.plusButton.bounds.width)
                     self.checkButton.transform = CGAffineTransformMakeRotation(0.0)
                     self.checkButton.layer.shadowOpacity = 0.3
                     
@@ -241,7 +241,7 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         UIView.animateWithDuration(0.3, animations: {
             self.checkButton.transform = CGAffineTransformMakeRotation(3.14)
             self.checkButton.layer.shadowOpacity = 0.0
-            self.checkButtonTrailingSpaceConstraint.constant += (self.checkPlusMargin + self.plusButton.bounds.width)
+            self.checkButtonTrailingSpaceConstraint.constant -= (self.checkPlusMargin + self.plusButton.bounds.width)
             
             self.view.layoutIfNeeded()
             
