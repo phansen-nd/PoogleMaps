@@ -27,6 +27,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Alllways.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Use for localization.</string>
 	<key>UILaunchStoryboardName</key>

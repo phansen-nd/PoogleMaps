@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -65,7 +65,7 @@
                                 <rect key="frame" x="0.0" y="600" width="600" height="300"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Poogle name..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HTT-I9-U55">
-                                        <rect key="frame" x="8" y="24" width="584" height="30"/>
+                                        <rect key="frame" x="8" y="21" width="584" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Dl2-JU-b83"/>
                                         </constraints>
@@ -78,29 +78,44 @@
                                             <constraint firstAttribute="height" constant="150" id="NgO-ge-7Rl"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by user_name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIA-Ly-5KD">
-                                        <rect key="frame" x="33" y="62" width="559" height="21"/>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="SRb-Ow-ywN">
+                                        <rect key="frame" x="8" y="57" width="584" height="29"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="QhB-ME-xwS"/>
+                                            <constraint firstAttribute="height" constant="28" id="zwp-ea-Jbf"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <segments>
+                                            <segment title="Men"/>
+                                            <segment title="Mixed"/>
+                                            <segment title="Women"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="188-nx-Maf">
+                                        <rect key="frame" x="0.0" y="90" width="600" height="150"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="cEA-zi-gNf"/>
+                                        </constraints>
+                                        <state key="normal" title="Upload Image"/>
+                                        <connections>
+                                            <action selector="uploadImageButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="85m-t3-2tq"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="KIA-Ly-5KD" firstAttribute="leading" secondItem="Csa-9D-MHG" secondAttribute="leading" constant="33" id="11r-tB-YCX"/>
                                     <constraint firstAttribute="trailing" secondItem="HTT-I9-U55" secondAttribute="trailing" constant="8" id="1gl-GA-nOP"/>
                                     <constraint firstItem="SIt-L4-xoe" firstAttribute="leading" secondItem="Csa-9D-MHG" secondAttribute="leading" id="44j-qg-xQ8"/>
+                                    <constraint firstItem="188-nx-Maf" firstAttribute="top" secondItem="Csa-9D-MHG" secondAttribute="top" constant="90" id="4ee-Ed-DEg"/>
                                     <constraint firstAttribute="height" constant="300" id="B1T-8N-Opg"/>
                                     <constraint firstAttribute="width" constant="600" id="Cjh-gU-0z1"/>
+                                    <constraint firstItem="188-nx-Maf" firstAttribute="leading" secondItem="Csa-9D-MHG" secondAttribute="leading" id="Qmm-6P-T1x"/>
                                     <constraint firstItem="HTT-I9-U55" firstAttribute="leading" secondItem="Csa-9D-MHG" secondAttribute="leading" constant="8" id="X8A-vf-Lpu"/>
+                                    <constraint firstItem="SRb-Ow-ywN" firstAttribute="top" secondItem="Csa-9D-MHG" secondAttribute="top" constant="57" id="bds-1i-V2v"/>
                                     <constraint firstAttribute="trailing" secondItem="SIt-L4-xoe" secondAttribute="trailing" id="bp4-cd-dLh"/>
-                                    <constraint firstItem="KIA-Ly-5KD" firstAttribute="top" secondItem="Csa-9D-MHG" secondAttribute="top" constant="62" id="iRd-dV-yNY"/>
-                                    <constraint firstAttribute="trailing" secondItem="KIA-Ly-5KD" secondAttribute="trailing" constant="8" id="iXv-w0-Y8e"/>
+                                    <constraint firstAttribute="trailing" secondItem="SRb-Ow-ywN" secondAttribute="trailing" constant="8" id="hJS-2X-dDA"/>
+                                    <constraint firstAttribute="trailing" secondItem="188-nx-Maf" secondAttribute="trailing" id="iBM-O7-px4"/>
                                     <constraint firstItem="SIt-L4-xoe" firstAttribute="top" secondItem="Csa-9D-MHG" secondAttribute="top" constant="90" id="pL8-qo-rHU"/>
-                                    <constraint firstItem="HTT-I9-U55" firstAttribute="top" secondItem="Csa-9D-MHG" secondAttribute="top" constant="24" id="zDE-Kn-azV"/>
+                                    <constraint firstItem="SRb-Ow-ywN" firstAttribute="leading" secondItem="Csa-9D-MHG" secondAttribute="leading" constant="8" id="xP2-a4-y3M"/>
+                                    <constraint firstItem="HTT-I9-U55" firstAttribute="top" secondItem="Csa-9D-MHG" secondAttribute="top" constant="21" id="zDE-Kn-azV"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -131,13 +146,14 @@
                         <outlet property="addScreenView" destination="Csa-9D-MHG" id="dza-tK-6du"/>
                         <outlet property="checkButton" destination="4Ya-Td-3xa" id="eHY-Oo-cBM"/>
                         <outlet property="checkButtonTrailingSpaceConstraint" destination="C4M-Sk-HdH" id="QZL-Lo-RoC"/>
-                        <outlet property="createdByLabel" destination="KIA-Ly-5KD" id="nx0-iJ-HrJ"/>
+                        <outlet property="genderSegmentedControl" destination="SRb-Ow-ywN" id="Urj-v0-l0T"/>
                         <outlet property="imageView" destination="SIt-L4-xoe" id="5KD-N7-MTw"/>
                         <outlet property="locationLabel" destination="0Nn-wj-dEM" id="jdp-sT-eTa"/>
-                        <outlet property="mapView" destination="ac2-mS-f43" id="Hb1-sj-ecD"/>
+                        <outlet property="mapView" destination="ac2-mS-f43" id="yyh-vG-TDE"/>
                         <outlet property="nameTextField" destination="HTT-I9-U55" id="KKv-QM-WAO"/>
                         <outlet property="plusButton" destination="BJZ-vi-AQ9" id="K4o-mk-pgq"/>
                         <outlet property="plusButtonBottomSpaceConstraint" destination="itv-kF-x1z" id="4vJ-Mg-m85"/>
+                        <outlet property="uploadImageButton" destination="188-nx-Maf" id="oly-zc-hkh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

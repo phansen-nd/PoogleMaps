@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import Firebase
+import CoreLocation
 
 class MapViewController: UIViewController, UITextFieldDelegate {
     
@@ -17,11 +18,12 @@ class MapViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var addScreenView: UIView!
-    @IBOutlet weak var createdByLabel: UILabel!
     @IBOutlet weak var plusButtonBottomSpaceConstraint: NSLayoutConstraint!
     @IBOutlet weak var checkButtonTrailingSpaceConstraint: NSLayoutConstraint!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var uploadImageButton: UIButton!
+    @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
     
     let locationManager = CLLocationManager()
     var addScreenHeight: CGFloat = 0.0
@@ -29,19 +31,18 @@ class MapViewController: UIViewController, UITextFieldDelegate {
     var plusButtonOffset: CGFloat = 0.0
     var addScreenUp = false
     
+    var currentLocale: Locale = Locale(type: .Campus, center: CLLocationCoordinate2DMake(41.702744, -86.238997), zoom: 15.0, name: "Notre Dame", snippet: "Home of Papal Rage")
+    
     // Create a reference to a Firebase location
-    var myRootRef = Firebase(url:"https://poogle-maps.firebaseio.com/")
+    var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Firebase test
-        //myRootRef.setValue("Hello, world!")
-        
-        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
+    
         mapView.delegate = self
         
         // Make buttons circles with little shadows under
@@ -77,51 +78,53 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         underline.opacity = 0.5
         nameTextField.layer.addSublayer(underline)
         
-        //
-        //        var chicago = Location()
-        //
-        //        let query = PFQuery(className:"Location")
-        //        query.whereKey("name", equalTo:"Chicago")
-        //        query.findObjectsInBackgroundWithBlock {
-        //            (objects: [PFObject]?, error: NSError?) -> Void in
-        //
-        //            if error == nil {
-        //                // The find succeeded.
-        //                //print("Successfully retrieved \(objects!.count) location.")
-        //                // Do something with the found objects
-        //                if let objects = objects {
-        //                    chicago = objects[0] as! Location
-        //
-        //                    let loc = chicago.location
-        //                    let zoom = chicago.zoomLevel
-        //
-        //
-        //                    let camera = GMSCameraPosition.cameraWithLatitude(loc.latitude,
-        //                        longitude: loc.longitude, zoom: zoom)
-        //                    self.mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-        //                    self.mapView.myLocationEnabled = true
-        //
-        //
-        //                    let marker = GMSMarker()
-        //                    marker.position = CLLocationCoordinate2DMake(loc.latitude, loc.longitude)
-        //                    marker.title = "Chicago"
-        //                    marker.snippet = "Machine"
-        //                    marker.map = self.mapView
-        //
-        //
-        //                }
-        //            } else {
-        //                // Log details of the failure
-        //                print("Error: \(error!) \(error!.userInfo)")
-        //            }
-        //        }
+        /*
+        // Get initial locale
+        let ref = root.childByAppendingPath("/locales/Chicago")
+        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            let lat = snapshot.value["lat"] as! Double
+            let long = snapshot.value["long"] as! Double
+            let loc = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            let loctype: LocationType = ((snapshot.value["type"] as! String) == "City") ? .City : .Campus
+            let zoom = snapshot.value["zoomLevel"] as! Float
+            let name = snapshot.value["name"] as! String
+            let snippet = snapshot.value["snippet"] as! String
+            
+            self.currentLocale = Locale(type: loctype, center: loc, zoom: zoom, name: name, snippet: snippet)
+            
+            let camera = GMSCameraPosition.cameraWithLatitude((self.currentLocale?.center.latitude)!,
+                longitude: (self.currentLocale?.center.longitude)!, zoom: (self.currentLocale?.zoomLevel)!)
+            self.mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
+            //self.mapView.myLocationEnabled = true
+            
+            
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2DMake((self.currentLocale?.center.latitude)!, (self.currentLocale?.center.longitude)!)
+            print(marker.position)
+            marker.title = self.currentLocale?.name
+            marker.snippet = self.currentLocale?.snippet
+            marker.map = self.mapView
+            
+        })*/
         
-        // Read data and react to changes
-        myRootRef.observeEventType(.Value, withBlock: {
-            snapshot in
-            //print("\(snapshot.key) -> \(snapshot.value)")
-        })
+        //let camera = GMSCameraPosition.cameraWithLatitude((self.currentLocale.center.latitude),
+        //    longitude: (self.currentLocale.center.longitude), zoom: (self.currentLocale.zoomLevel))
         
+        //self.mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
+        
+        self.mapView.myLocationEnabled = true
+        
+        
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2DMake((self.currentLocale.center.latitude), (self.currentLocale.center.longitude))
+        marker.title = self.currentLocale.name
+        marker.snippet = self.currentLocale.snippet
+        marker.map = self.mapView
+        
+    }
+    
+    @IBAction func uploadImageButtonTouched(sender: AnyObject) {
+
     }
     
     @IBAction func plusButtonTouched(sender: AnyObject) {
@@ -315,7 +318,7 @@ extension MapViewController: CLLocationManagerDelegate {
     // Once location manager starts receiving locations
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            
+      
             // Update the camera to user's location
             mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
             
@@ -323,6 +326,11 @@ extension MapViewController: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
         }
         
+    }
+    
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Error finding location: \(error.localizedDescription)")
     }
 }
 
