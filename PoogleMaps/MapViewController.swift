@@ -139,21 +139,25 @@ class MapViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func checkButtonTouched(sender: AnyObject) {
         
-        // Create Poogle object
-        //let poo = Poogle()
-        //let user = PFUser()
-        
-        //user.setValue(ownerTextField.text, forKey: "username")
-        //poo.name = nameTextField.text!
-        //poo.creator = user
-        //poo.credit = 0.0
-        //poo.rating = 5.0
-        
+        // Get current map location
         // Currently just takes center of the screen -- eventually put in crosshairs
         let loc: CLLocationCoordinate2D = mapView.projection.coordinateForPoint(mapView.center)
-        //poo.location = PFGeoPoint(latitude: loc.latitude, longitude: loc.longitude)
         
-        // Store in backend
+        // Get gender from segmented control
+        var gender = GenderType.Men
+        if genderSegmentedControl.selectedSegmentIndex == 1 {
+            gender = GenderType.Mixed
+        } else if genderSegmentedControl.selectedSegmentIndex == 2 {
+            gender = GenderType.Women
+        }
+        
+        // Create Poogle object
+        let poo = Poogle(name: nameTextField.text!, location: loc, image: imageView.image!, locale: currentLocale, gender: gender)
+        
+        
+        // Upload to Firebase
+        let newRef = root.childByAppendingPath("poogles/\(nameTextField.text!)")
+        newRef.setValue(poo.toDict())
         
         /*
         // Sign up user
@@ -172,7 +176,7 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         let marker = GMSMarker()
         marker.position = loc
         marker.title = nameTextField.text!
-        marker.snippet = "User"
+        marker.snippet = "phansen-nd"
         marker.map = mapView
         
         // Hide add controller
