@@ -47,7 +47,7 @@ class Poogle {
     }
     
     func toDict() -> NSDictionary {
-        let dict: NSDictionary = ["name": name, "credit": credit, "rating": rating]
+        let dict: NSDictionary = ["name": name, "credit": credit, "rating": rating, "locLat": location.latitude, "locLong": location.longitude, "locale": locale.toDict()]
         
         return dict
     }

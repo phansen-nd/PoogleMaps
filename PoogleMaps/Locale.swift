@@ -32,7 +32,7 @@ class Locale {
     }
     
     func toDict() -> NSDictionary {
-        let dict: NSDictionary = ["name": name]
+        let dict: NSDictionary = ["name": name, "zoom": zoomLevel, "centerLat": center.latitude, "centerLong": center.longitude, "snippet": snippet]
         
         return dict
     }

@@ -116,13 +116,21 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         self.mapView.myLocationEnabled = true
         
-        
+        // Initial locale marker
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2DMake((self.currentLocale.center.latitude), (self.currentLocale.center.longitude))
         marker.title = self.currentLocale.name
         marker.snippet = self.currentLocale.snippet
         marker.map = self.mapView
         
+        
+        // Load all currently stored Poogles
+        let newref = root.childByAppendingPath("/poogles/")
+        newref.observeEventType(.Value, withBlock: { snapshot in
+            if let dict = snapshot.value as! NSDictionary? {
+                self.preloadMarkers(dict)
+            }
+        })
     }
     
     //
@@ -131,6 +139,11 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     @IBAction func takeImageButtonTouched(sender: AnyObject) {
     
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .Camera
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+        
     }
     
     @IBAction func uploadImageButtonTouched(sender: AnyObject) {
@@ -205,6 +218,24 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     //
     // MARK: - Class helper functions
     //
+    
+    func preloadMarkers (poogles: NSDictionary) {
+        
+        let pooglesList: [NSDictionary] = poogles.allValues as! [NSDictionary]
+        
+        for dict: NSDictionary in pooglesList {
+            
+            // Create location
+            let loc = CLLocationCoordinate2D(latitude: (dict["locLat"] as! Double), longitude: (dict["locLong"] as! Double))
+            
+            // Create map marker
+            let marker = GMSMarker()
+            marker.position = loc
+            marker.title = dict["name"] as? String
+            marker.snippet = "phansen-nd"
+            marker.map = self.mapView
+        }
+    }
     
     func showAddView() {
         // Pre layout to ensure any pending changes take place before animation
