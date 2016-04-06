@@ -11,7 +11,7 @@ import GoogleMaps
 import Firebase
 import CoreLocation
 
-class MapViewController: UIViewController, UITextFieldDelegate {
+class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var plusButton: UIButton!
@@ -26,6 +26,7 @@ class MapViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
     
     let locationManager = CLLocationManager()
+    let imagePicker = UIImagePickerController()
     var addScreenHeight: CGFloat = 0.0
     let checkPlusMargin: CGFloat = 5.0
     var plusButtonOffset: CGFloat = 0.0
@@ -42,7 +43,7 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
-    
+        imagePicker.delegate = self
         mapView.delegate = self
         
         // Make buttons circles with little shadows under
@@ -123,8 +124,17 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    //
+    // MARK: - Actions
+    //
+    
     @IBAction func uploadImageButtonTouched(sender: AnyObject) {
 
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .PhotoLibrary
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+        
     }
     
     @IBAction func plusButtonTouched(sender: AnyObject) {
@@ -186,6 +196,10 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         nameTextField.text = ""
         
     }
+    
+    //
+    // MARK: - Class helper functions
+    //
     
     func showAddView() {
         // Pre layout to ensure any pending changes take place before animation
@@ -298,6 +312,20 @@ class MapViewController: UIViewController, UITextFieldDelegate {
         self.checkButton.enabled = true
         
         return false
+    }
+    
+    // 
+    // MARK: - Image Picker Delegate
+    //
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageView.contentMode = .ScaleAspectFill
+            imageView.image = pickedImage
+            imageView.clipsToBounds = true
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     

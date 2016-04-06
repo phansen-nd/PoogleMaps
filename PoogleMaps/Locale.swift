@@ -30,6 +30,12 @@ class Locale {
         
         return poogles
     }
+    
+    func toDict() -> NSDictionary {
+        let dict: NSDictionary = ["name": name]
+        
+        return dict
+    }
 }
 
 enum LocationType {
