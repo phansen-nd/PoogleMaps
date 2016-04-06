@@ -24,6 +24,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var uploadImageButton: UIButton!
     @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var takeImageButton: UIButton!
     
     let locationManager = CLLocationManager()
     let imagePicker = UIImagePickerController()
@@ -127,6 +128,10 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     //
     // MARK: - Actions
     //
+    
+    @IBAction func takeImageButtonTouched(sender: AnyObject) {
+    
+    }
     
     @IBAction func uploadImageButtonTouched(sender: AnyObject) {
 

@@ -89,30 +89,54 @@
                                             <segment title="Women"/>
                                         </segments>
                                     </segmentedControl>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="188-nx-Maf">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="52R-q7-BCr">
                                         <rect key="frame" x="0.0" y="90" width="600" height="150"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="188-nx-Maf">
+                                                <rect key="frame" x="8" y="55" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="pvF-DH-v3H"/>
+                                                    <constraint firstAttribute="height" constant="40" id="xxV-Y1-ELX"/>
+                                                </constraints>
+                                                <state key="normal" image="pictures-icon"/>
+                                                <connections>
+                                                    <action selector="uploadImageButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="85m-t3-2tq"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qvH-3F-fb9">
+                                                <rect key="frame" x="552" y="55" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="Ebd-AU-tIY"/>
+                                                    <constraint firstAttribute="height" constant="40" id="kdU-Q3-seL"/>
+                                                </constraints>
+                                                <state key="normal" image="camera-icon"/>
+                                                <connections>
+                                                    <action selector="takeImageButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KAn-iK-O2U"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="cEA-zi-gNf"/>
+                                            <constraint firstItem="188-nx-Maf" firstAttribute="leading" secondItem="52R-q7-BCr" secondAttribute="leading" constant="8" id="96m-tA-Dbo"/>
+                                            <constraint firstItem="188-nx-Maf" firstAttribute="top" secondItem="52R-q7-BCr" secondAttribute="top" constant="55" id="9uO-vB-W6x"/>
+                                            <constraint firstItem="qvH-3F-fb9" firstAttribute="top" secondItem="52R-q7-BCr" secondAttribute="top" constant="55" id="cRZ-cR-tSK"/>
+                                            <constraint firstAttribute="trailing" secondItem="qvH-3F-fb9" secondAttribute="trailing" constant="8" id="fVl-Cd-ngh"/>
+                                            <constraint firstAttribute="height" constant="150" id="oCF-pk-zAt"/>
                                         </constraints>
-                                        <state key="normal" title="Upload Image"/>
-                                        <connections>
-                                            <action selector="uploadImageButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="85m-t3-2tq"/>
-                                        </connections>
-                                    </button>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="HTT-I9-U55" secondAttribute="trailing" constant="8" id="1gl-GA-nOP"/>
                                     <constraint firstItem="SIt-L4-xoe" firstAttribute="leading" secondItem="Csa-9D-MHG" secondAttribute="leading" id="44j-qg-xQ8"/>
-                                    <constraint firstItem="188-nx-Maf" firstAttribute="top" secondItem="Csa-9D-MHG" secondAttribute="top" constant="90" id="4ee-Ed-DEg"/>
                                     <constraint firstAttribute="height" constant="300" id="B1T-8N-Opg"/>
                                     <constraint firstAttribute="width" constant="600" id="Cjh-gU-0z1"/>
-                                    <constraint firstItem="188-nx-Maf" firstAttribute="leading" secondItem="Csa-9D-MHG" secondAttribute="leading" id="Qmm-6P-T1x"/>
+                                    <constraint firstAttribute="trailing" secondItem="52R-q7-BCr" secondAttribute="trailing" id="Mfs-sq-KLC"/>
                                     <constraint firstItem="HTT-I9-U55" firstAttribute="leading" secondItem="Csa-9D-MHG" secondAttribute="leading" constant="8" id="X8A-vf-Lpu"/>
                                     <constraint firstItem="SRb-Ow-ywN" firstAttribute="top" secondItem="Csa-9D-MHG" secondAttribute="top" constant="57" id="bds-1i-V2v"/>
                                     <constraint firstAttribute="trailing" secondItem="SIt-L4-xoe" secondAttribute="trailing" id="bp4-cd-dLh"/>
+                                    <constraint firstItem="52R-q7-BCr" firstAttribute="top" secondItem="Csa-9D-MHG" secondAttribute="top" constant="90" id="eyE-VS-0eZ"/>
+                                    <constraint firstItem="52R-q7-BCr" firstAttribute="leading" secondItem="Csa-9D-MHG" secondAttribute="leading" id="gqY-p5-ryb"/>
                                     <constraint firstAttribute="trailing" secondItem="SRb-Ow-ywN" secondAttribute="trailing" constant="8" id="hJS-2X-dDA"/>
-                                    <constraint firstAttribute="trailing" secondItem="188-nx-Maf" secondAttribute="trailing" id="iBM-O7-px4"/>
                                     <constraint firstItem="SIt-L4-xoe" firstAttribute="top" secondItem="Csa-9D-MHG" secondAttribute="top" constant="90" id="pL8-qo-rHU"/>
                                     <constraint firstItem="SRb-Ow-ywN" firstAttribute="leading" secondItem="Csa-9D-MHG" secondAttribute="leading" constant="8" id="xP2-a4-y3M"/>
                                     <constraint firstItem="HTT-I9-U55" firstAttribute="top" secondItem="Csa-9D-MHG" secondAttribute="top" constant="21" id="zDE-Kn-azV"/>
@@ -153,6 +177,7 @@
                         <outlet property="nameTextField" destination="HTT-I9-U55" id="KKv-QM-WAO"/>
                         <outlet property="plusButton" destination="BJZ-vi-AQ9" id="K4o-mk-pgq"/>
                         <outlet property="plusButtonBottomSpaceConstraint" destination="itv-kF-x1z" id="4vJ-Mg-m85"/>
+                        <outlet property="takeImageButton" destination="qvH-3F-fb9" id="dzf-A2-AZo"/>
                         <outlet property="uploadImageButton" destination="188-nx-Maf" id="oly-zc-hkh"/>
                     </connections>
                 </viewController>
@@ -162,7 +187,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera-icon" width="512" height="512"/>
         <image name="checkicon" width="1024" height="1024"/>
+        <image name="pictures-icon" width="512" height="512"/>
         <image name="plusbutton" width="256" height="256"/>
         <image name="wide_placeholder" width="1280" height="800"/>
     </resources>
