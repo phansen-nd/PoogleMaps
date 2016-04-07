@@ -172,8 +172,12 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             gender = "Women"
         }
         
+        // Create image object
+        let imageRef = root.childByAppendingPath("images/\(nameTextField.text!)")
+        imageRef.setValue(encodedImage(imageView.image!))
+        
         // Create Poogle object
-        let poo = Poogle(name: nameTextField.text!, creator: "phansen-nd", lat: loc.latitude, long: loc.longitude, owner: "phansen-nd", image: imageView.image!, locale: "Campus", gender: gender)
+        let poo = Poogle(name: nameTextField.text!, creator: "phansen-nd", lat: loc.latitude, long: loc.longitude, owner: "phansen-nd", image: nameTextField.text!, locale: "Campus", gender: gender)
         
         
         // Upload to Firebase
@@ -213,6 +217,21 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     //
     // MARK: - Class helper functions
     //
+    
+    func encodedImage (image: UIImage) -> String {
+        
+        let imageData: NSData = UIImageJPEGRepresentation(image, 0.7)!
+        let str = imageData.base64EncodedStringWithOptions([.Encoding64CharacterLineLength])
+        return str
+    }
+    
+    func decodedImage (str: String) -> UIImage {
+        let decodedData = NSData(base64EncodedString: str, options: .IgnoreUnknownCharacters)
+        
+        let decodedImage = UIImage(data: decodedData!)
+        
+        return decodedImage!
+    }
     
     func preloadMarkers (poogles: NSDictionary) {
         

@@ -19,11 +19,11 @@ class Poogle {
     var credit: Int = 0
     var rating: Float = 3.0
     var owner: String?
-    var image: UIImage?
+    var image: String?
     var locale: String?
     var gender: String?
     
-    init (name: String, creator: String, lat: Double, long: Double, owner: String, image: UIImage, locale: String, gender: String) {
+    init (name: String, creator: String, lat: Double, long: Double, owner: String, image: String, locale: String, gender: String) {
         self.name = name
         self.creator = creator
         self.lat = lat
@@ -39,7 +39,7 @@ class Poogle {
         self.name = dict["name"] as? String
         self.lat = dict["lat"] as? Double
         self.long = dict["long"] as? Double
-        self.image = decodedImage(dict["image"] as! String)
+        self.image = dict["image"] as? String
         self.locale = dict["locale"] as? String
         self.gender = dict["gender"] as? String
         self.creator = dict["creator"] as? String
@@ -49,7 +49,7 @@ class Poogle {
     }
     
     func toDict() -> NSDictionary {
-        let dict: NSDictionary = ["name": name!, "credit": credit, "rating": rating, "lat": lat!, "long": long!, "locale": locale!, "image":encodedImage(self.image!), "creator": creator!, "owner": owner!, "gender": gender!]
+        let dict: NSDictionary = ["name": name!, "credit": credit, "rating": rating, "lat": lat!, "long": long!, "locale": locale!, "image":image!, "creator": creator!, "owner": owner!, "gender": gender!]
         
         return dict
     }
@@ -59,19 +59,4 @@ class Poogle {
         
         return testimonials
     }
-}
-
-func encodedImage (image: UIImage) -> String {
-    
-    let imageData: NSData = UIImageJPEGRepresentation(image, 0.7)!
-    let str = imageData.base64EncodedStringWithOptions([.Encoding64CharacterLineLength])
-    return str
-}
-
-func decodedImage (str: String) -> UIImage {
-    let decodedData = NSData(base64EncodedString: str, options: .IgnoreUnknownCharacters)
-    
-    let decodedImage = UIImage(data: decodedData!)
-    
-    return decodedImage!
 }
