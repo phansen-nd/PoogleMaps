@@ -212,6 +212,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         // Clear text fields
         nameTextField.text = ""
+        imageView.image = UIImage(named: "wide_placeholder")
         
     }
     
@@ -225,14 +226,15 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         for dict: NSDictionary in pooglesList {
             
-            // Create location
-            let loc = CLLocationCoordinate2D(latitude: (dict["locLat"] as! Double), longitude: (dict["locLong"] as! Double))
+            // Create Poogle
+            let poo = Poogle(dict: dict)
             
             // Create map marker
             let marker = GMSMarker()
-            marker.position = loc
-            marker.title = dict["name"] as? String
+            marker.position = poo.location
+            marker.title = poo.name
             marker.snippet = "phansen-nd"
+            marker.infoWindowAnchor = CGPointMake(0.0, 0.4)
             marker.map = self.mapView
         }
     }
@@ -409,6 +411,13 @@ extension MapViewController: GMSMapViewDelegate {
         // Reverse geocodes the center of the screen
         // Could switch position.target to a custom location based on crosshairs or something
         reverseGeocodeCoordinate(position.target)
+    }
+    
+    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        let view = NSBundle.mainBundle().loadNibNamed("InfoWindow", owner: self, options: nil)[0] as! InfoWindow
+        
+        return view
+    
     }
     
 }

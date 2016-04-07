@@ -11,18 +11,29 @@ import CoreLocation
 
 class Locale {
     
-    var type: LocationType
-    var name: String = ""
-    var center: CLLocationCoordinate2D
-    var zoomLevel: Float = 13.0
-    var snippet: String = ""
+    var type: String?
+    var name: String?
+    var lat: Double?
+    var long: Double?
+    var zoom: Float = 13.0
+    var snippet: String?
     
-    init(type: LocationType, center: CLLocationCoordinate2D, zoom: Float, name: String, snippet: String) {
-        self.type = type
-        self.center = center
-        self.zoomLevel = zoom
-        self.name = name
-        self.snippet = snippet
+    init(dict: NSDictionary) {
+        
+        self.type = dict["type"] as? String
+        self.lat = dict["lat"] as? Double
+        self.long = dict["lat"] as? Double
+        self.zoom = dict["zoom"] as! Float
+        self.name = dict["name"] as? String
+        self.snippet = dict["snippet"] as? String
+        
+        
+    }
+    
+    func toDict() -> NSDictionary {
+        let dict: NSDictionary = ["name": name!, "zoom": zoom, "lat": lat!, "long": long!, "snippet": snippet!, "type": type!]
+        
+        return dict
     }
     
     func getPoogles() -> [Poogle] {
@@ -30,15 +41,4 @@ class Locale {
         
         return poogles
     }
-    
-    func toDict() -> NSDictionary {
-        let dict: NSDictionary = ["name": name, "zoom": zoomLevel, "centerLat": center.latitude, "centerLong": center.longitude, "snippet": snippet]
-        
-        return dict
-    }
-}
-
-enum LocationType {
-    case City
-    case Campus
 }
