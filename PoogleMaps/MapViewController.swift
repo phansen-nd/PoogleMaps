@@ -33,8 +33,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     var plusButtonOffset: CGFloat = 0.0
     var addScreenUp = false
     
-    var currentLocale: Locale = Locale(type: .Campus, center: CLLocationCoordinate2DMake(41.702744, -86.238997), zoom: 15.0, name: "Notre Dame", snippet: "Home of Papal Rage")
-    
     // Create a reference to a Firebase location
     var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
     
@@ -117,11 +115,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         self.mapView.myLocationEnabled = true
         
         // Initial locale marker
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake((self.currentLocale.center.latitude), (self.currentLocale.center.longitude))
-        marker.title = self.currentLocale.name
-        marker.snippet = self.currentLocale.snippet
-        marker.map = self.mapView
         
         
         // Load all currently stored Poogles
@@ -172,15 +165,15 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         let loc: CLLocationCoordinate2D = mapView.projection.coordinateForPoint(mapView.center)
         
         // Get gender from segmented control
-        var gender = GenderType.Men
+        var gender = "Men"
         if genderSegmentedControl.selectedSegmentIndex == 1 {
-            gender = GenderType.Mixed
+            gender = "Mixed"
         } else if genderSegmentedControl.selectedSegmentIndex == 2 {
-            gender = GenderType.Women
+            gender = "Women"
         }
         
         // Create Poogle object
-        let poo = Poogle(name: nameTextField.text!, location: loc, image: imageView.image!, locale: currentLocale, gender: gender)
+        let poo = Poogle(name: nameTextField.text!, creator: "phansen-nd", lat: loc.latitude, long: loc.longitude, owner: "phansen-nd", image: imageView.image!, locale: "Campus", gender: gender)
         
         
         // Upload to Firebase
@@ -204,7 +197,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         let marker = GMSMarker()
         marker.position = loc
         marker.title = nameTextField.text!
-        marker.snippet = "phansen-nd"
+        marker.snippet = poo.creator
+        marker.icon = UIImage(named: "toilet-icon")
         marker.map = mapView
         
         // Hide add controller
@@ -223,6 +217,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     func preloadMarkers (poogles: NSDictionary) {
         
         let pooglesList: [NSDictionary] = poogles.allValues as! [NSDictionary]
+        let icon = UIImage(named: "toilet-icon")
+        
         
         for dict: NSDictionary in pooglesList {
             
@@ -231,10 +227,11 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             
             // Create map marker
             let marker = GMSMarker()
-            marker.position = poo.location
+            marker.position = CLLocationCoordinate2DMake(poo.lat!, poo.long!)
             marker.title = poo.name
-            marker.snippet = "phansen-nd"
-            marker.infoWindowAnchor = CGPointMake(0.0, 0.4)
+            marker.snippet = poo.creator
+            //marker.infoWindowAnchor = CGPointMake(0.0, 0.4)
+            marker.icon = icon
             marker.map = self.mapView
         }
     }
@@ -413,11 +410,6 @@ extension MapViewController: GMSMapViewDelegate {
         reverseGeocodeCoordinate(position.target)
     }
     
-    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        let view = NSBundle.mainBundle().loadNibNamed("InfoWindow", owner: self, options: nil)[0] as! InfoWindow
-        
-        return view
     
-    }
     
 }

@@ -23,6 +23,17 @@ class Poogle {
     var locale: String?
     var gender: String?
     
+    init (name: String, creator: String, lat: Double, long: Double, owner: String, image: UIImage, locale: String, gender: String) {
+        self.name = name
+        self.creator = creator
+        self.lat = lat
+        self.long = long
+        self.owner = owner
+        self.image = image
+        self.locale = locale
+        self.gender = gender
+    }
+    
     init (dict: NSDictionary) {
         
         self.name = dict["name"] as? String
