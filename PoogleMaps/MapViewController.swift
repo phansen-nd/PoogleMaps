@@ -73,8 +73,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         // Add bottom line to text fields
         let underline: CALayer = CALayer()
-        underline.frame = CGRectMake(0.0, nameTextField.frame.height - 1, nameTextField.frame.width, 1.0)
-        underline.backgroundColor = UIColor.grayColor().CGColor
+        underline.frame = CGRectMake(5.0, nameTextField.frame.height - 1, nameTextField.frame.width - 20, 1.0)
+        underline.backgroundColor = UIColor(netHex: 0x0b0b7a).CGColor
         underline.opacity = 0.5
         nameTextField.layer.addSublayer(underline)
         
@@ -431,4 +431,19 @@ extension MapViewController: GMSMapViewDelegate {
     
     
     
+}
+
+// UIColor extension
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(netHex:Int) {
+        self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
+    }
 }
