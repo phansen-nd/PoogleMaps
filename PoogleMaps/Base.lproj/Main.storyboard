@@ -199,7 +199,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8rL-uq-Xbh">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8rL-uq-Xbh">
                                 <rect key="frame" x="0.0" y="20" width="600" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="gsS-UZ-78y"/>
@@ -266,9 +266,14 @@
                                     <constraint firstItem="l28-5c-Iex" firstAttribute="top" secondItem="Hix-WK-2op" secondAttribute="top" id="ri2-2z-fK7"/>
                                 </constraints>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aAd-Gs-mrW">
+                                <rect key="frame" x="282" y="65" width="37" height="37"/>
+                                <color key="color" red="0.043137254899999998" green="0.043137254899999998" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="aAd-Gs-mrW" firstAttribute="centerX" secondItem="8rL-uq-Xbh" secondAttribute="centerX" id="Aw7-c5-s5l"/>
                             <constraint firstItem="VdP-XU-AWp" firstAttribute="top" secondItem="Hix-WK-2op" secondAttribute="bottom" id="FNr-cP-VhW"/>
                             <constraint firstItem="8rL-uq-Xbh" firstAttribute="top" secondItem="c1G-kJ-3zi" secondAttribute="bottom" id="FTe-cJ-u80"/>
                             <constraint firstItem="Hix-WK-2op" firstAttribute="top" secondItem="c1G-kJ-3zi" secondAttribute="bottom" constant="141" id="KlB-1m-jlG"/>
@@ -276,9 +281,11 @@
                             <constraint firstAttribute="trailingMargin" secondItem="8rL-uq-Xbh" secondAttribute="trailing" constant="-20" id="ZlT-fm-P1G"/>
                             <constraint firstItem="Hix-WK-2op" firstAttribute="leading" secondItem="3M5-mR-jje" secondAttribute="leadingMargin" constant="-20" id="fqb-Zx-wAc"/>
                             <constraint firstItem="8rL-uq-Xbh" firstAttribute="leading" secondItem="3M5-mR-jje" secondAttribute="leadingMargin" constant="-20" id="jLX-cE-V63"/>
+                            <constraint firstItem="aAd-Gs-mrW" firstAttribute="centerY" secondItem="8rL-uq-Xbh" secondAttribute="centerY" id="o47-W5-5Nw"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageLoadingActivityIndicator" destination="aAd-Gs-mrW" id="g99-MU-gNB"/>
                         <outlet property="nameLabel" destination="jub-Cv-bQf" id="bBu-R1-lJT"/>
                         <outlet property="ratingView" destination="gH1-yA-89c" id="Pmm-KL-Ipo"/>
                         <outlet property="topImageView" destination="8rL-uq-Xbh" id="tgH-Ig-l3j"/>

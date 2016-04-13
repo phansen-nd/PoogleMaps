@@ -220,7 +220,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     func encodedImage (image: UIImage) -> String {
         
-        let imageData: NSData = UIImageJPEGRepresentation(image, 0.7)!
+        let imageData: NSData = UIImageJPEGRepresentation(image, 0.25)!
         let str = imageData.base64EncodedStringWithOptions([.Encoding64CharacterLineLength])
         return str
     }
@@ -444,6 +444,8 @@ extension MapViewController: GMSMapViewDelegate {
             
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let poogleVC: PoogleViewController = storyboard.instantiateViewControllerWithIdentifier("PoogleViewController") as! PoogleViewController
+            
+            print(snapshot.value)
             
             // Set value of poogle's infoDict
             poogleVC.infoDict = snapshot.value as? NSDictionary

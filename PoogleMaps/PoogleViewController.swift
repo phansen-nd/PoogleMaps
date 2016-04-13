@@ -7,20 +7,57 @@
 //
 
 import UIKit
+import Firebase
 
 class PoogleViewController: UIViewController {
 
     @IBOutlet weak var topImageView: UIImageView!
     @IBOutlet weak var ratingView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var imageLoadingActivityIndicator: UIActivityIndicatorView!
     
     var infoDict: NSDictionary?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print(infoDict)
+        // Start loading icon
+        imageLoadingActivityIndicator.startAnimating()
         
+        // Create url string
+        let urlStr: String = "https://poogle-maps.firebaseio.com/images/\(infoDict!["image"] as! String)"
+        
+        let imageRef = Firebase(url:urlStr)
+        imageRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            self.topImageView.image = self.decodedImage(snapshot.value as! String)
+            self.imageLoadingActivityIndicator.stopAnimating()
+        })
+
+        // Add swipe to dismiss gesture
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(PoogleViewController.swipedDown(_:)))
+        swipeDown.direction = .Down
+        topImageView.addGestureRecognizer(swipeDown)
+        
+    }
+    
+    //
+    // MARK: - Helper functions
+    //
+    
+    func decodedImage (str: String) -> UIImage {
+        let decodedData = NSData(base64EncodedString: str, options: .IgnoreUnknownCharacters)
+        
+        let decodedImage = UIImage(data: decodedData!)
+        
+        return decodedImage!
+    }
+    
+    //
+    // MARK: - Gesture Recognizer Actions
+    //
+    
+    func swipedDown(recognizer: UISwipeGestureRecognizer) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     /*
