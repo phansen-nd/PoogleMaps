@@ -14,9 +14,12 @@ class PoogleViewController: UIViewController {
     @IBOutlet weak var ratingView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     
+    var infoDict: NSDictionary?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        print(infoDict)
         
     }
 

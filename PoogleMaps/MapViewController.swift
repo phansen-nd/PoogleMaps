@@ -441,10 +441,13 @@ extension MapViewController: GMSMapViewDelegate {
         
         let ref = root.childByAppendingPath("/poogles/\(marker.title!)")
         ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            print(snapshot.value)
             
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let poogleVC: PoogleViewController = storyboard.instantiateViewControllerWithIdentifier("PoogleViewController") as! PoogleViewController
+            
+            // Set value of poogle's infoDict
+            poogleVC.infoDict = snapshot.value as? NSDictionary
+            
             self.presentViewController(poogleVC, animated: true, completion: nil)
         })
         
