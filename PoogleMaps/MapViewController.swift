@@ -382,6 +382,14 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    //
+    // MARK: - Navigation
+    //
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //
+    }
+    
     
     
 }
@@ -429,7 +437,19 @@ extension MapViewController: GMSMapViewDelegate {
         reverseGeocodeCoordinate(position.target)
     }
     
-    
+    func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
+        
+        let ref = root.childByAppendingPath("/poogles/\(marker.title!)")
+        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            print(snapshot.value)
+            
+            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let poogleVC: PoogleViewController = storyboard.instantiateViewControllerWithIdentifier("PoogleViewController") as! PoogleViewController
+            self.presentViewController(poogleVC, animated: true, completion: nil)
+        })
+        
+        return true
+    }
     
 }
 
