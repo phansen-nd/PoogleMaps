@@ -33,7 +33,22 @@ class PoogleBasicInfoTableViewCell: UITableViewCell {
     }
     
     func setRating (rating: Int) {
-        print(rating)
+        if rating >= 1 {
+            star1.image = UIImage(named: "star")
+            if rating >= 2 {
+                star2.image = UIImage(named: "star")
+                if rating >= 3 {
+                    star3.image = UIImage(named: "star")
+                    if rating >= 4 {
+                        star4.image = UIImage(named: "star")
+                        if rating >= 5 {
+                            star5.image = UIImage(named: "star")
+                            
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
