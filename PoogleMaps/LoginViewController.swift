@@ -41,7 +41,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
             } else {
-                print("success")
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
             
         })
