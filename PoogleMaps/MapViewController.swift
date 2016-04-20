@@ -158,6 +158,13 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
     }
     
+    @IBAction func login(sender: AnyObject) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC: LoginViewController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+        
+        self.presentViewController(loginVC, animated: true, completion: nil)
+    }
+    
     @IBAction func checkButtonTouched(sender: AnyObject) {
         
         // Get current map location
