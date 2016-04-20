@@ -80,7 +80,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 160
+            return 140
         default:
             return 160
         }
@@ -108,20 +108,23 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = UITableViewCell()
+        var basicCell: PoogleBasicInfoTableViewCell
+        var testimonialCell: TestimonialTableViewCell
         
         switch indexPath.section {
         case 0:
-            cell = tableView.dequeueReusableCellWithIdentifier("basicInfo")!
+            basicCell = tableView.dequeueReusableCellWithIdentifier("basicInfo", forIndexPath: indexPath) as! PoogleBasicInfoTableViewCell
+            basicCell.nameLabel.text = infoDict!["name"] as? String
+            basicCell.genderLabel.text = infoDict!["gender"] as? String
+            basicCell.userLabel.text = infoDict!["creator"] as? String
+            return basicCell
         case 1:
-            cell = tableView.dequeueReusableCellWithIdentifier("testimonial")!
+            testimonialCell = tableView.dequeueReusableCellWithIdentifier("testimonial")! as! TestimonialTableViewCell
+            return testimonialCell
         default:
-            cell = tableView.dequeueReusableCellWithIdentifier("basicInfo")!
+            basicCell = tableView.dequeueReusableCellWithIdentifier("basicInfo", forIndexPath: indexPath) as! PoogleBasicInfoTableViewCell
+            return basicCell
         }
-        
-        
-        
-        return cell
     }
 
     /*
