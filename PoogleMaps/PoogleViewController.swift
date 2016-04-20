@@ -35,7 +35,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
 
         // Set image background
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "blue-back")!)        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "blue-back")!)
         
         // Add swipe to dismiss gesture
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(PoogleViewController.swipedDown(_:)))
@@ -129,6 +129,13 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             basicCell = tableView.dequeueReusableCellWithIdentifier("basicInfo", forIndexPath: indexPath) as! PoogleBasicInfoTableViewCell
             return basicCell
         }
+    }
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
+        
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.whiteColor()
     }
 
     /*
