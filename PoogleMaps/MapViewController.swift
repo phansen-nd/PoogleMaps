@@ -241,8 +241,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         let pooglesList: [NSDictionary] = poogles.allValues as! [NSDictionary]
         let icon = UIImage(named: "toilet-icon")
-        
-        
+
         for dict: NSDictionary in pooglesList {
             
             // Create Poogle
@@ -253,7 +252,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             marker.position = CLLocationCoordinate2DMake(poo.lat!, poo.long!)
             marker.title = poo.name
             marker.snippet = poo.creator
-            //marker.infoWindowAnchor = CGPointMake(0.0, 0.4)
             marker.icon = icon
             marker.map = self.mapView
         }
@@ -431,21 +429,27 @@ extension MapViewController: GMSMapViewDelegate {
         reverseGeocodeCoordinate(position.target)
     }
     
-    func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
+    /*
+    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         
+        let infoWindow: CustomInfoWindow = NSBundle.mainBundle().loadNibNamed("InfoWindow", owner: self, options: nil).first! as! CustomInfoWindow
+        infoWindow.nameLabel.text = "Pat"
+        
+        return infoWindow
+    }*/
+    
+    func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
         let ref = root.childByAppendingPath("/poogles/\(marker.title!)")
         ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let poogleVC: PoogleViewController = storyboard.instantiateViewControllerWithIdentifier("PoogleViewController") as! PoogleViewController
-                        
+            
             // Set value of poogle's infoDict
             poogleVC.infoDict = snapshot.value as? NSDictionary
             
             self.presentViewController(poogleVC, animated: true, completion: nil)
         })
-        
-        return true
     }
     
 }

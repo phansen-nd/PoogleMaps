@@ -35,7 +35,13 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
 
         // Set image background
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "blue-back")!)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "lightblue-back")!)
+        
+        // Give top image shadow
+        topImageView.layer.shadowColor = UIColor.blackColor().CGColor
+        topImageView.layer.shadowRadius = 10
+        topImageView.layer.shadowOpacity = 1.0
+        topImageView.layer.shadowOffset = CGSizeMake(5, 5)
         
         // Add swipe to dismiss gesture
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(PoogleViewController.swipedDown(_:)))
@@ -80,6 +86,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    // Hard code alert!!!!!!!!!!!!!!!!!!!!!
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
@@ -90,6 +97,8 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
         // Eventually, if indexpath is greater than 0, launch testimonial VC
     }
     

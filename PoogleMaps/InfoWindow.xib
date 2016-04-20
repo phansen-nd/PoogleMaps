@@ -3,26 +3,120 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InfoWindow" customModule="PoogleMaps" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CustomInfoWindow" customModule="PoogleMaps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="80"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTQ-mp-UGO">
-                    <rect key="frame" x="279" y="289" width="42" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LXE-IQ-rWT">
+                    <rect key="frame" x="8" y="5" width="70" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="uHm-w4-mc5"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eLD-py-SqL">
+                    <rect key="frame" x="84" y="50" width="82" height="23"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="TM0-MV-t0a">
+                            <rect key="frame" x="2" y="2" width="15" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="15" id="hcA-xv-ghK"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="cpK-Hb-sbu">
+                            <rect key="frame" x="17" y="2" width="15" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="15" id="RZa-6V-ucq"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="o1q-hy-3x2">
+                            <rect key="frame" x="32" y="2" width="15" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="15" id="1cL-Jh-GdD"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="oXB-Ug-px8">
+                            <rect key="frame" x="47" y="2" width="15" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="15" id="C85-g7-95n"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="KTB-lO-WwH">
+                            <rect key="frame" x="62" y="2" width="15" height="15"/>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="oXB-Ug-px8" firstAttribute="leading" secondItem="o1q-hy-3x2" secondAttribute="trailing" id="0jk-nY-eVt"/>
+                        <constraint firstItem="TM0-MV-t0a" firstAttribute="top" secondItem="eLD-py-SqL" secondAttribute="top" constant="2" id="1dS-7n-IDg"/>
+                        <constraint firstItem="oXB-Ug-px8" firstAttribute="bottom" secondItem="KTB-lO-WwH" secondAttribute="bottom" id="1iW-BC-hTb"/>
+                        <constraint firstItem="o1q-hy-3x2" firstAttribute="leading" secondItem="cpK-Hb-sbu" secondAttribute="trailing" id="7eh-nx-Rxq"/>
+                        <constraint firstAttribute="bottom" secondItem="TM0-MV-t0a" secondAttribute="bottom" constant="6" id="9H1-8a-iBv"/>
+                        <constraint firstAttribute="trailing" secondItem="KTB-lO-WwH" secondAttribute="trailing" constant="5" id="AA0-LL-oEz"/>
+                        <constraint firstItem="TM0-MV-t0a" firstAttribute="leading" secondItem="eLD-py-SqL" secondAttribute="leading" constant="2" id="FZq-H9-Rt7"/>
+                        <constraint firstItem="cpK-Hb-sbu" firstAttribute="leading" secondItem="TM0-MV-t0a" secondAttribute="trailing" id="JFt-I1-sE8"/>
+                        <constraint firstItem="KTB-lO-WwH" firstAttribute="leading" secondItem="oXB-Ug-px8" secondAttribute="trailing" id="LV2-JU-1Oh"/>
+                        <constraint firstItem="TM0-MV-t0a" firstAttribute="top" secondItem="cpK-Hb-sbu" secondAttribute="top" id="Y7B-cf-MEv"/>
+                        <constraint firstItem="o1q-hy-3x2" firstAttribute="top" secondItem="oXB-Ug-px8" secondAttribute="top" id="aeV-uZ-5P7"/>
+                        <constraint firstItem="cpK-Hb-sbu" firstAttribute="bottom" secondItem="o1q-hy-3x2" secondAttribute="bottom" id="f65-gf-7xc"/>
+                        <constraint firstItem="o1q-hy-3x2" firstAttribute="bottom" secondItem="oXB-Ug-px8" secondAttribute="bottom" id="iMj-5X-agb"/>
+                        <constraint firstItem="cpK-Hb-sbu" firstAttribute="top" secondItem="o1q-hy-3x2" secondAttribute="top" id="qRk-TA-FyT"/>
+                        <constraint firstItem="oXB-Ug-px8" firstAttribute="top" secondItem="KTB-lO-WwH" secondAttribute="top" id="rks-8Q-lPx"/>
+                        <constraint firstItem="TM0-MV-t0a" firstAttribute="bottom" secondItem="cpK-Hb-sbu" secondAttribute="bottom" id="vt9-6W-SvP"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTQ-mp-UGO">
+                    <rect key="frame" x="86" y="8" width="106" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="1m9-0V-abd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcE-7g-FLU">
+                    <rect key="frame" x="86" y="28" width="106" height="24"/>
+                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="PTQ-mp-UGO" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="RdZ-fo-q0H"/>
-                <constraint firstItem="PTQ-mp-UGO" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="lQj-u0-m1R"/>
+                <constraint firstItem="LXE-IQ-rWT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="2u7-hd-Ke9"/>
+                <constraint firstItem="PTQ-mp-UGO" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="7tt-Qy-gR2"/>
+                <constraint firstItem="LXE-IQ-rWT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="Erf-rQ-BwT"/>
+                <constraint firstItem="LXE-IQ-rWT" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ixj-8K-BG4"/>
+                <constraint firstItem="LXE-IQ-rWT" firstAttribute="centerY" secondItem="pcE-7g-FLU" secondAttribute="centerY" id="POK-ef-Hc6"/>
+                <constraint firstItem="PTQ-mp-UGO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="PbB-Ph-arK"/>
+                <constraint firstItem="PTQ-mp-UGO" firstAttribute="trailing" secondItem="pcE-7g-FLU" secondAttribute="trailing" id="TCy-Th-lpA"/>
+                <constraint firstItem="PTQ-mp-UGO" firstAttribute="leading" secondItem="pcE-7g-FLU" secondAttribute="leading" id="U76-kj-vz8"/>
+                <constraint firstItem="PTQ-mp-UGO" firstAttribute="leading" secondItem="LXE-IQ-rWT" secondAttribute="trailing" constant="8" symbolic="YES" id="UMW-yK-QdR"/>
+                <constraint firstItem="pcE-7g-FLU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="28" id="fcJ-G5-8cV"/>
+                <constraint firstItem="eLD-py-SqL" firstAttribute="leading" secondItem="LXE-IQ-rWT" secondAttribute="trailing" constant="6" id="h4G-Th-UHt"/>
+                <constraint firstAttribute="trailing" secondItem="eLD-py-SqL" secondAttribute="trailing" constant="34" id="kuP-uI-LGF"/>
+                <constraint firstAttribute="bottom" secondItem="eLD-py-SqL" secondAttribute="bottom" constant="7" id="svm-lT-0w9"/>
+                <constraint firstItem="eLD-py-SqL" firstAttribute="top" secondItem="PTQ-mp-UGO" secondAttribute="bottom" constant="18" id="ybn-hg-Bnw"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="imageView" destination="LXE-IQ-rWT" id="GdY-qo-vzC"/>
+                <outlet property="nameLabel" destination="PTQ-mp-UGO" id="Kzj-sW-OtF"/>
+                <outlet property="star1" destination="TM0-MV-t0a" id="wQ6-ZP-Aob"/>
+                <outlet property="star2" destination="cpK-Hb-sbu" id="M2x-Z4-MtB"/>
+                <outlet property="star3" destination="o1q-hy-3x2" id="WZX-eH-jra"/>
+                <outlet property="star4" destination="oXB-Ug-px8" id="fmp-dD-A9o"/>
+                <outlet property="star5" destination="KTB-lO-WwH" id="B9w-4h-oTN"/>
+                <outlet property="userLabel" destination="pcE-7g-FLU" id="uE2-Gk-LTL"/>
+            </connections>
+            <point key="canvasLocation" x="159" y="160.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="star-empty" width="128" height="128"/>
+    </resources>
 </document>
