@@ -19,17 +19,19 @@ class Poogle {
     var credit: Int = 0
     var rating: Float = 3.0
     var owner: String?
-    var image: String?
+    var smallImage: String?
+    var largeImage: String?
     var locale: String?
     var gender: String?
     
-    init (name: String, creator: String, lat: Double, long: Double, owner: String, image: String, locale: String, gender: String) {
+    init (name: String, creator: String, lat: Double, long: Double, owner: String, smallImage: String, largeImage: String, locale: String, gender: String) {
         self.name = name
         self.creator = creator
         self.lat = lat
         self.long = long
         self.owner = owner
-        self.image = image
+        self.smallImage = smallImage
+        self.largeImage = largeImage
         self.locale = locale
         self.gender = gender
     }
@@ -39,7 +41,8 @@ class Poogle {
         self.name = dict["name"] as? String
         self.lat = dict["lat"] as? Double
         self.long = dict["long"] as? Double
-        self.image = dict["image"] as? String
+        self.smallImage = dict["smallImage"] as? String
+        self.largeImage = dict["largeImage"] as? String
         self.locale = dict["locale"] as? String
         self.gender = dict["gender"] as? String
         self.creator = dict["creator"] as? String
@@ -49,7 +52,7 @@ class Poogle {
     }
     
     func toDict() -> NSDictionary {
-        let dict: NSDictionary = ["name": name!, "credit": credit, "rating": rating, "lat": lat!, "long": long!, "locale": locale!, "image":image!, "creator": creator!, "owner": owner!, "gender": gender!]
+        let dict: NSDictionary = ["name": name!, "credit": credit, "rating": rating, "lat": lat!, "long": long!, "locale": locale!, "smallImage":smallImage!, "largeImage": largeImage!, "creator": creator!, "owner": owner!, "gender": gender!]
         
         return dict
     }

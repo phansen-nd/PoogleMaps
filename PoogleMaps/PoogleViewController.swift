@@ -9,12 +9,13 @@
 import UIKit
 import Firebase
 
-class PoogleViewController: UIViewController {
+class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var topImageView: UIImageView!
-    @IBOutlet weak var ratingView: UIView!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var imageLoadingActivityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     
     var infoDict: NSDictionary?
     
@@ -25,7 +26,7 @@ class PoogleViewController: UIViewController {
         imageLoadingActivityIndicator.startAnimating()
         
         // Create url string
-        let urlStr: String = "https://poogle-maps.firebaseio.com/images/\(infoDict!["image"] as! String)"
+        let urlStr: String = "https://poogle-maps.firebaseio.com/largeImages/\(infoDict!["largeImage"] as! String)"
         
         let imageRef = Firebase(url:urlStr)
         imageRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
@@ -58,6 +59,69 @@ class PoogleViewController: UIViewController {
     
     func swipedDown(recognizer: UISwipeGestureRecognizer) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //
+    // MARK: - TableViewDelegate
+    //
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            // Ultimately return count of [Testimonials]
+            return 5
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return 160
+        default:
+            return 160
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // Eventually, if indexpath is greater than 0, launch testimonial VC
+    }
+    
+    // Hard code alert!!!!!!!!!!!!!!!!!!!!!
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return nil
+        case 1:
+            return "Testimonials"
+        default:
+            return "Default"
+        }
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var cell = UITableViewCell()
+        
+        switch indexPath.section {
+        case 0:
+            cell = tableView.dequeueReusableCellWithIdentifier("basicInfo")!
+        case 1:
+            cell = tableView.dequeueReusableCellWithIdentifier("testimonial")!
+        default:
+            cell = tableView.dequeueReusableCellWithIdentifier("basicInfo")!
+        }
+        
+        
+        
+        return cell
     }
 
     /*

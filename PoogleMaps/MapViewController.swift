@@ -172,12 +172,16 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             gender = "Women"
         }
         
-        // Create image object
-        let imageRef = root.childByAppendingPath("images/\(nameTextField.text!)")
-        imageRef.setValue(encodedImage(imageView.image!))
+        // Create a small image object
+        let smallImageRef = root.childByAppendingPath("smallImages/\(nameTextField.text!)")
+        smallImageRef.setValue(encodedImage(imageView.image!, compressionFactor: 0.1))
+        
+        // Create a large image object
+        let largeImageRef = root.childByAppendingPath("largeImages/\(nameTextField.text!)")
+        largeImageRef.setValue(encodedImage(imageView.image!, compressionFactor: 0.7))
         
         // Create Poogle object
-        let poo = Poogle(name: nameTextField.text!, creator: "phansen-nd", lat: loc.latitude, long: loc.longitude, owner: "phansen-nd", image: nameTextField.text!, locale: "Campus", gender: gender)
+        let poo = Poogle(name: nameTextField.text!, creator: "phansen-nd", lat: loc.latitude, long: loc.longitude, owner: "phansen-nd", smallImage: nameTextField.text!, largeImage: nameTextField.text!, locale: "Campus", gender: gender)
         
         
         // Upload to Firebase
@@ -218,9 +222,9 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     // MARK: - Class helper functions
     //
     
-    func encodedImage (image: UIImage) -> String {
+    func encodedImage (image: UIImage, compressionFactor: CGFloat) -> String {
         
-        let imageData: NSData = UIImageJPEGRepresentation(image, 0.25)!
+        let imageData: NSData = UIImageJPEGRepresentation(image, compressionFactor)!
         let str = imageData.base64EncodedStringWithOptions([.Encoding64CharacterLineLength])
         return str
     }
@@ -382,16 +386,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    //
-    // MARK: - Navigation
-    //
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        //
-    }
-    
-    
-    
 }
 
 // CLLocationManagerDelegate
@@ -444,9 +438,7 @@ extension MapViewController: GMSMapViewDelegate {
             
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let poogleVC: PoogleViewController = storyboard.instantiateViewControllerWithIdentifier("PoogleViewController") as! PoogleViewController
-            
-            print(snapshot.value)
-            
+                        
             // Set value of poogle's infoDict
             poogleVC.infoDict = snapshot.value as? NSDictionary
             
