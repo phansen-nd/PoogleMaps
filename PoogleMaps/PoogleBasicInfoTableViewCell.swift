@@ -31,5 +31,9 @@ class PoogleBasicInfoTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func setRating (rating: Int) {
+        print(rating)
+    }
 
 }

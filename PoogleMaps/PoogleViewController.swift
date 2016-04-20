@@ -117,6 +117,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             basicCell.nameLabel.text = infoDict!["name"] as? String
             basicCell.genderLabel.text = infoDict!["gender"] as? String
             basicCell.userLabel.text = infoDict!["creator"] as? String
+            basicCell.setRating((infoDict!["rating"] as? Int)!)
             return basicCell
         case 1:
             testimonialCell = tableView.dequeueReusableCellWithIdentifier("testimonial")! as! TestimonialTableViewCell
