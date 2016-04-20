@@ -210,11 +210,11 @@
                                 <rect key="frame" x="282" y="100" width="37" height="37"/>
                                 <color key="color" red="0.043137254899999998" green="0.043137254899999998" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Lxu-JL-ZNT">
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Lxu-JL-ZNT">
                                 <rect key="frame" x="0.0" y="226" width="600" height="374"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="basicInfo" rowHeight="140" id="ZI0-sE-34f" customClass="PoogleBasicInfoTableViewCell" customModule="PoogleMaps" customModuleProvider="target">
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="basicInfo" rowHeight="140" id="ZI0-sE-34f" customClass="PoogleBasicInfoTableViewCell" customModule="PoogleMaps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZI0-sE-34f" id="rf1-P0-ewI">
@@ -252,7 +252,6 @@
                                                             <rect key="frame" x="116" y="2" width="25" height="25"/>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="Um5-LK-k7W" firstAttribute="bottom" secondItem="1va-dc-M61" secondAttribute="bottom" id="3gy-W6-dX7"/>
                                                         <constraint firstAttribute="width" constant="141" id="CEd-pZ-nvk"/>
@@ -403,7 +402,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="aAd-Gs-mrW" firstAttribute="centerX" secondItem="8rL-uq-Xbh" secondAttribute="centerX" id="Aw7-c5-s5l"/>
                             <constraint firstItem="8rL-uq-Xbh" firstAttribute="top" secondItem="c1G-kJ-3zi" secondAttribute="bottom" id="FTe-cJ-u80"/>

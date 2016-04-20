@@ -34,6 +34,9 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.imageLoadingActivityIndicator.stopAnimating()
         })
 
+        // Set image background
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "blue-back")!)        
+        
         // Add swipe to dismiss gesture
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(PoogleViewController.swipedDown(_:)))
         swipeDown.direction = .Down

@@ -24,6 +24,9 @@ class PoogleBasicInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.contentView.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clearColor()
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
