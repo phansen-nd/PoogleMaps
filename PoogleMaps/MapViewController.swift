@@ -32,6 +32,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     let checkPlusMargin: CGFloat = 5.0
     var plusButtonOffset: CGFloat = 0.0
     var addScreenUp = false
+    var localPoogles = [:]
     
     // Create a reference to a Firebase location
     var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
@@ -118,10 +119,12 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         // Initial locale marker
         
         
-        // Load all currently stored Poogles
+        // Load all currently stored Poogles 
+        // Eventually this will need to be JUST local Poogles
         let newref = root.childByAppendingPath("/poogles/")
         newref.observeEventType(.Value, withBlock: { snapshot in
             if let dict = snapshot.value as! NSDictionary? {
+                self.localPoogles = dict
                 self.preloadMarkers(dict)
             }
         })
@@ -285,12 +288,13 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             let poo = Poogle(dict: dict)
             
             // Create map marker
-            let marker = GMSMarker()
-            marker.position = CLLocationCoordinate2DMake(poo.lat!, poo.long!)
-            marker.title = poo.name
-            marker.snippet = poo.creator
-            marker.icon = icon
+            let coordinates = CLLocationCoordinate2D(latitude: poo.lat!, longitude: poo.long!)
+            let marker = GMSMarker(position: coordinates)
             marker.map = self.mapView
+            marker.icon = icon
+            marker.infoWindowAnchor = CGPointMake(0.6, 0.0)
+            marker.title = poo.name
+            
         }
     }
     
@@ -383,7 +387,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         // Get address from coordinate
         geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
             if let address = response?.firstResult() {
-                let lines = address.lines! as [String]
+                let lines = address.lines! as! [String]
                 self.locationLabel.text = lines.joinWithSeparator("\n")
             }
         }
@@ -466,14 +470,31 @@ extension MapViewController: GMSMapViewDelegate {
         reverseGeocodeCoordinate(position.target)
     }
     
-    /*
+    func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
+        
+        // Get small image from Firebase, show marker when it arrives
+        let smallImageRef = root.childByAppendingPath("smallImages/\(marker.title)")
+        smallImageRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            marker.snippet = snapshot.value as! String
+            mapView.selectedMarker = marker
+        })
+
+        return true
+    }
+    
     func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         
-        let infoWindow: CustomInfoWindow = NSBundle.mainBundle().loadNibNamed("InfoWindow", owner: self, options: nil).first! as! CustomInfoWindow
-        infoWindow.nameLabel.text = "Pat"
+        // Get Poogle info from dict
+        let info = localPoogles[marker.title]
+        
+        let infoWindow: CustomInfoWindow = NSBundle.mainBundle().loadNibNamed("InfoWindow", owner: self, options: nil)[0] as! CustomInfoWindow
+        infoWindow.nameLabel.text = info!["name"] as? String
+        infoWindow.userLabel.text = info!["creator"] as? String
+        infoWindow.setRating((info!["rating"] as? Int)!)
+        infoWindow.imageView.image = decodedImage(marker.snippet)
         
         return infoWindow
-    }*/
+    }
     
     func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
         let ref = root.childByAppendingPath("/poogles/\(marker.title!)")
