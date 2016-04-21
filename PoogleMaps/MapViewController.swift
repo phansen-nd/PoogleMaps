@@ -35,6 +35,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     // Create a reference to a Firebase location
     var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
+    var currentUsername: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +125,20 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
                 self.preloadMarkers(dict)
             }
         })
+        
+        // Set observer for auth updates
+        root.observeAuthEventWithBlock { authData in
+            if authData != nil {
+                
+                // Get username
+                let newref = self.root.childByAppendingPath("/users/\(authData.uid)")
+                newref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                    if let dict = snapshot.value as! NSDictionary? {
+                        self.currentUsername = dict["name"] as! String
+                    }
+                })
+            }
+        }
     }
     
     //
@@ -151,6 +166,15 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     @IBAction func plusButtonTouched(sender: AnyObject) {
 
         if !addScreenUp {
+            // Check for user
+            if root.authData == nil {
+                // No user - warn and return
+                let alert = UIAlertController(title: "Whoops", message: "You have to be logged in to create a Poogle!", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
+            
             showAddView()
         } else {
             hideAddView()
@@ -188,8 +212,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         largeImageRef.setValue(encodedImage(imageView.image!, compressionFactor: 0.7))
         
         // Create Poogle object
-        let poo = Poogle(name: nameTextField.text!, creator: "phansen-nd", lat: loc.latitude, long: loc.longitude, owner: "phansen-nd", smallImage: nameTextField.text!, largeImage: nameTextField.text!, locale: "Campus", gender: gender)
-        
+        let poo = Poogle(name: nameTextField.text!, creator: currentUsername, lat: loc.latitude, long: loc.longitude, owner: currentUsername, smallImage: nameTextField.text!, largeImage: nameTextField.text!, locale: "Campus", gender: gender)
         
         // Upload to Firebase
         let newRef = root.childByAppendingPath("poogles/\(nameTextField.text!)")

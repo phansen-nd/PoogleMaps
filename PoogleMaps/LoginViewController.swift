@@ -77,7 +77,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 } else {
-                    print(result)
+                    
+                    // Create a username based on email
+                    let username = self.emailTextField.text?.componentsSeparatedByString("@")[0]
+                    
+                    // Create a user object in Firebase
+                    let newUser: [String: AnyObject] = ["name": username!, "auth": result]
+                    let newUserRef = self.root.childByAppendingPath("/users/\(result["uid"]!)")
+                    newUserRef.setValue(newUser)
                     
                     // If sign up was a success, log the user in
                     self.root.authUser(self.emailTextField.text, password: self.passwordTextField.text, withCompletionBlock: { error, authData in
