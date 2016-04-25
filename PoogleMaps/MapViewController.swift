@@ -26,6 +26,15 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
     @IBOutlet weak var takeImageButton: UIButton!
     
+    // Stars
+    @IBOutlet weak var ratingsView: UIView!
+    @IBOutlet weak var star1: UIImageView!
+    @IBOutlet weak var star2: UIImageView!
+    @IBOutlet weak var star3: UIImageView!
+    @IBOutlet weak var star4: UIImageView!
+    @IBOutlet weak var star5: UIImageView!
+    
+    
     let locationManager = CLLocationManager()
     let imagePicker = UIImagePickerController()
     var addScreenHeight: CGFloat = 0.0
@@ -33,6 +42,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     var plusButtonOffset: CGFloat = 0.0
     var addScreenUp = false
     var localPoogles = [:]
+    var currentRating: Int = 0
     
     // Create a reference to a Firebase location
     var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
@@ -80,44 +90,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         underline.opacity = 0.5
         nameTextField.layer.addSublayer(underline)
         
-        /*
-        // Get initial locale
-        let ref = root.childByAppendingPath("/locales/Chicago")
-        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            let lat = snapshot.value["lat"] as! Double
-            let long = snapshot.value["long"] as! Double
-            let loc = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            let loctype: LocationType = ((snapshot.value["type"] as! String) == "City") ? .City : .Campus
-            let zoom = snapshot.value["zoomLevel"] as! Float
-            let name = snapshot.value["name"] as! String
-            let snippet = snapshot.value["snippet"] as! String
-            
-            self.currentLocale = Locale(type: loctype, center: loc, zoom: zoom, name: name, snippet: snippet)
-            
-            let camera = GMSCameraPosition.cameraWithLatitude((self.currentLocale?.center.latitude)!,
-                longitude: (self.currentLocale?.center.longitude)!, zoom: (self.currentLocale?.zoomLevel)!)
-            self.mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-            //self.mapView.myLocationEnabled = true
-            
-            
-            let marker = GMSMarker()
-            marker.position = CLLocationCoordinate2DMake((self.currentLocale?.center.latitude)!, (self.currentLocale?.center.longitude)!)
-            print(marker.position)
-            marker.title = self.currentLocale?.name
-            marker.snippet = self.currentLocale?.snippet
-            marker.map = self.mapView
-            
-        })*/
-        
-        //let camera = GMSCameraPosition.cameraWithLatitude((self.currentLocale.center.latitude),
-        //    longitude: (self.currentLocale.center.longitude), zoom: (self.currentLocale.zoomLevel))
-        
-        //self.mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-        
         self.mapView.myLocationEnabled = true
-        
-        // Initial locale marker
-        
         
         // Load all currently stored Poogles 
         // Eventually this will need to be JUST local Poogles
@@ -147,6 +120,28 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     //
     // MARK: - Actions
     //
+    @IBAction func ratingsButtonTouched(sender: UITapGestureRecognizer) {
+    
+        let w = sender.view?.frame.width
+        
+        if sender.locationInView(sender.view).x < w!/5 {
+            setRating(1)
+            currentRating = 1
+        } else if sender.locationInView(sender.view).x < 2*w!/5 {
+            setRating(2)
+            currentRating = 2
+        } else if sender.locationInView(sender.view).x < 3*w!/5 {
+            setRating(3)
+            currentRating = 3
+        } else if sender.locationInView(sender.view).x < 4*w!/5 {
+            setRating(4)
+            currentRating = 4
+        } else {
+            setRating(5)
+            currentRating = 5
+        }
+    
+    }
     
     @IBAction func takeImageButtonTouched(sender: AnyObject) {
     
@@ -222,7 +217,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         largeImageRef.setValue(encodedImage(imageView.image!, compressionFactor: 0.7))
         
         // Create Poogle object
-        let poo = Poogle(name: nameTextField.text!, creator: currentUsername, lat: loc.latitude, long: loc.longitude, owner: currentUsername, smallImage: nameTextField.text!, largeImage: nameTextField.text!, locale: "Campus", gender: gender)
+        let poo = Poogle(name: nameTextField.text!, creator: currentUsername, lat: loc.latitude, long: loc.longitude, owner: currentUsername, smallImage: nameTextField.text!, largeImage: nameTextField.text!, locale: "Campus", gender: gender, rating: currentRating)
         
         // Upload to Firebase
         let newRef = root.childByAppendingPath("poogles/\(nameTextField.text!)")
@@ -261,6 +256,32 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     //
     // MARK: - Class helper functions
     //
+    
+    func setRating (rating: Int) {
+        
+        star1.image = UIImage(named: "star-empty")
+        star2.image = UIImage(named: "star-empty")
+        star3.image = UIImage(named: "star-empty")
+        star4.image = UIImage(named: "star-empty")
+        star5.image = UIImage(named: "star-empty")
+        
+        if rating >= 1 {
+            star1.image = UIImage(named: "star")
+            if rating >= 2 {
+                star2.image = UIImage(named: "star")
+                if rating >= 3 {
+                    star3.image = UIImage(named: "star")
+                    if rating >= 4 {
+                        star4.image = UIImage(named: "star")
+                        if rating >= 5 {
+                            star5.image = UIImage(named: "star")
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     func encodedImage (image: UIImage, compressionFactor: CGFloat) -> String {
         
