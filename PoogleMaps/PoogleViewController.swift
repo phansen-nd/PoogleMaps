@@ -16,8 +16,10 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var tableView: UITableView!
     
-    
     var infoDict: NSDictionary?
+    
+    // Create a reference to a Firebase location
+    var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +37,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
 
         // Set image background
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "lightblue-back")!)
+        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "lightblue-back")!)
         
         // Give top image shadow
         topImageView.layer.shadowColor = UIColor.blackColor().CGColor
@@ -68,6 +70,14 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func swipedDown(recognizer: UISwipeGestureRecognizer) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //
+    // MARK: - IB Actions
+    //
+    
+    @IBAction func testifyButtonTouched(sender: AnyObject) {
+        
     }
     
     //
@@ -147,16 +157,29 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         header.textLabel?.textColor = UIColor.whiteColor()
     }
 
-    /*
     //
     // MARK: - Navigation
     //
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == "addTestimonial" {
+            // Check for user
+            if root.authData == nil {
+                // No user - warn and return
+                let alert = UIAlertController(title: "Whoops", message: "You have to be logged in to add a Testimonial!", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+                return false
+            }
+        }
+        
+        return true
     }
-    */
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let dest: AddTestimonialViewController = segue.destinationViewController as! AddTestimonialViewController
+        dest.name = (infoDict!["name"] as? String)!
+    }
 
 }
