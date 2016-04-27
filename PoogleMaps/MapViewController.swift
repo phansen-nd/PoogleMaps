@@ -223,19 +223,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         let newRef = root.childByAppendingPath("poogles/\(nameTextField.text!)")
         newRef.setValue(poo.toDict())
         
-        /*
-        // Sign up user
-        myRootRef.createUser(ownerTextField.text!, password: "correcthorsebatterystaple",
-            withValueCompletionBlock: { error, result in
-                
-                if error != nil {
-                    // There was an error creating the account
-                } else {
-                    let uid = result["uid"] as? String
-                    print("Successfully created user account with uid: \(uid)")
-                }
-        })*/
-        
         // Create map marker
         let marker = GMSMarker()
         marker.position = loc

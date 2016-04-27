@@ -715,7 +715,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Add a comment..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lx0-ND-9Tf">
-                                <rect key="frame" x="20" y="113" width="560" height="158"/>
+                                <rect key="frame" x="20" y="153" width="560" height="158"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="158" id="POz-Tz-QbK"/>
@@ -729,7 +729,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRp-LR-1DI">
-                                <rect key="frame" x="20" y="279" width="560" height="164"/>
+                                <rect key="frame" x="20" y="319" width="560" height="164"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fGa-BI-W0U">
                                         <rect key="frame" x="231" y="8" width="99" height="29"/>
@@ -781,7 +781,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1EY-gH-Yrr">
-                                <rect key="frame" x="20" y="451" width="560" height="44"/>
+                                <rect key="frame" x="20" y="491" width="560" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="gim-ka-dqD"/>
                                 </constraints>
@@ -799,22 +799,52 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a title..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7UH-3L-BjM">
-                                <rect key="frame" x="20" y="70" width="560" height="30"/>
+                                <rect key="frame" x="20" y="110" width="560" height="30"/>
                                 <color key="textColor" red="0.043137254899999998" green="0.043137254899999998" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fn0-Wa-yuf" userLabel="Rating View">
+                                <rect key="frame" x="199" y="63" width="202" height="47"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="XCP-wI-BQP">
+                                        <rect key="frame" x="2" y="2" width="40" height="40"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="Jeg-Gm-xve">
+                                        <rect key="frame" x="42" y="2" width="40" height="40"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="KqS-bJ-Xf7">
+                                        <rect key="frame" x="82" y="2" width="40" height="40"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="rRd-PI-4cb">
+                                        <rect key="frame" x="122" y="2" width="40" height="40"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="wV9-G7-HNp">
+                                        <rect key="frame" x="162" y="2" width="40" height="40"/>
+                                    </imageView>
+                                </subviews>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="202" id="41d-hU-YHA"/>
+                                    <constraint firstAttribute="height" constant="47" id="reO-i1-5HM"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="IlB-7v-DM9" appends="YES" id="c80-dN-2vX"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="TEP-ZU-TrB" secondAttribute="trailing" constant="-20" id="BVA-En-uiy"/>
-                            <constraint firstItem="1EY-gH-Yrr" firstAttribute="top" secondItem="y8t-zc-hv6" secondAttribute="bottom" constant="431" id="GB5-sh-aSs"/>
+                            <constraint firstItem="Fn0-Wa-yuf" firstAttribute="top" secondItem="y8t-zc-hv6" secondAttribute="bottom" constant="43" id="Ft5-au-GuR"/>
+                            <constraint firstItem="1EY-gH-Yrr" firstAttribute="top" secondItem="y8t-zc-hv6" secondAttribute="bottom" constant="471" id="GB5-sh-aSs"/>
                             <constraint firstAttribute="leadingMargin" secondItem="lx0-ND-9Tf" secondAttribute="leading" id="HKQ-OI-iHj"/>
                             <constraint firstItem="TEP-ZU-TrB" firstAttribute="top" secondItem="y8t-zc-hv6" secondAttribute="bottom" id="NdI-gY-3O8"/>
+                            <constraint firstItem="Fn0-Wa-yuf" firstAttribute="centerX" secondItem="HbV-Cx-YNp" secondAttribute="centerX" id="SFu-rp-eR1"/>
                             <constraint firstAttribute="leadingMargin" secondItem="1EY-gH-Yrr" secondAttribute="leading" id="XOy-nX-iWk"/>
-                            <constraint firstItem="fRp-LR-1DI" firstAttribute="top" secondItem="y8t-zc-hv6" secondAttribute="bottom" constant="259" id="Y4C-Lh-fmK"/>
-                            <constraint firstItem="7UH-3L-BjM" firstAttribute="top" secondItem="y8t-zc-hv6" secondAttribute="bottom" constant="50" id="ZDA-9l-o59"/>
-                            <constraint firstItem="lx0-ND-9Tf" firstAttribute="top" secondItem="y8t-zc-hv6" secondAttribute="bottom" constant="93" id="Zgu-yM-MBy"/>
+                            <constraint firstItem="fRp-LR-1DI" firstAttribute="top" secondItem="y8t-zc-hv6" secondAttribute="bottom" constant="299" id="Y4C-Lh-fmK"/>
+                            <constraint firstItem="7UH-3L-BjM" firstAttribute="top" secondItem="y8t-zc-hv6" secondAttribute="bottom" constant="90" id="ZDA-9l-o59"/>
+                            <constraint firstItem="lx0-ND-9Tf" firstAttribute="top" secondItem="y8t-zc-hv6" secondAttribute="bottom" constant="133" id="Zgu-yM-MBy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7UH-3L-BjM" secondAttribute="trailing" id="bzQ-Vj-2zG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fRp-LR-1DI" secondAttribute="trailing" id="g4n-Vp-tFw"/>
                             <constraint firstAttribute="leadingMargin" secondItem="fRp-LR-1DI" secondAttribute="leading" id="h4h-0N-o2i"/>
@@ -826,11 +856,21 @@
                     </view>
                     <connections>
                         <outlet property="nameLabel" destination="TEP-ZU-TrB" id="4aV-I1-JTd"/>
+                        <outlet property="star1" destination="XCP-wI-BQP" id="bKx-Mw-c1t"/>
+                        <outlet property="star2" destination="Jeg-Gm-xve" id="3d9-fF-QE3"/>
+                        <outlet property="star3" destination="KqS-bJ-Xf7" id="0NB-My-bOl"/>
+                        <outlet property="star4" destination="rRd-PI-4cb" id="0XK-Xb-Ru0"/>
+                        <outlet property="star5" destination="wV9-G7-HNp" id="ZQy-Ug-KxZ"/>
                         <outlet property="textField" destination="7UH-3L-BjM" id="MxV-V2-kMf"/>
                         <outlet property="textView" destination="lx0-ND-9Tf" id="SUf-AV-z70"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LUx-G4-ddi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="IlB-7v-DM9">
+                    <connections>
+                        <action selector="ratingsViewTouched:" destination="fEG-ek-9O3" id="c0J-zl-PCI"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1153" y="944"/>
         </scene>

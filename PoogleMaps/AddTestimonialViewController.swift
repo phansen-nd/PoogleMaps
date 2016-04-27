@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class AddTestimonialViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
@@ -14,7 +15,18 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var textField: UITextField!
     
+    // Rating view
+    @IBOutlet weak var star1: UIImageView!
+    @IBOutlet weak var star2: UIImageView!
+    @IBOutlet weak var star3: UIImageView!
+    @IBOutlet weak var star4: UIImageView!
+    @IBOutlet weak var star5: UIImageView!
+    
+    
     var name: String = ""
+    var currentRating = 0
+    
+    var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,17 +78,86 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
         textView.endEditing(true)
     }
     
+    func setRating (rating: Int) {
+        
+        star1.image = UIImage(named: "star-empty")
+        star2.image = UIImage(named: "star-empty")
+        star3.image = UIImage(named: "star-empty")
+        star4.image = UIImage(named: "star-empty")
+        star5.image = UIImage(named: "star-empty")
+        
+        if rating >= 1 {
+            star1.image = UIImage(named: "star")
+            if rating >= 2 {
+                star2.image = UIImage(named: "star")
+                if rating >= 3 {
+                    star3.image = UIImage(named: "star")
+                    if rating >= 4 {
+                        star4.image = UIImage(named: "star")
+                        if rating >= 5 {
+                            star5.image = UIImage(named: "star")
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     //
     // MARK: - IB Actions
     //
+    @IBAction func ratingsViewTouched(sender: AnyObject) {
+    
+        let w = sender.view?.frame.width
+        
+        if sender.locationInView(sender.view).x < w!/5 {
+            setRating(1)
+            currentRating = 1
+        } else if sender.locationInView(sender.view).x < 2*w!/5 {
+            setRating(2)
+            currentRating = 2
+        } else if sender.locationInView(sender.view).x < 3*w!/5 {
+            setRating(3)
+            currentRating = 3
+        } else if sender.locationInView(sender.view).x < 4*w!/5 {
+            setRating(4)
+            currentRating = 4
+        } else {
+            setRating(5)
+            currentRating = 5
+        }
+    
+    }
     
     @IBAction func testifyButtonPressed(sender: AnyObject) {
     
         // Validate fields
-        
+        if textField.text == "" || textView.text == "" || textView.text == "Add a comment..." || currentRating == 0 {
+            let alert = UIAlertController(title: "Whoops", message: "All fields are required to submit a Testimonial!", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
         
         // Create a Testimonial Object
-        
+        //
+        // Get username
+        var username = ""
+        let newref = self.root.childByAppendingPath("/users/\(root.authData.uid)")
+        newref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            if let dict = snapshot.value as! NSDictionary? {
+                username = dict["name"] as! String
+                
+                // Create the rest of the object
+                let testimonial = Testimonial(creator: username, title: self.textField.text!, subject: self.name, attributes: ["None"], rating: Float(self.currentRating), comment: self.textView.text!)
+                
+                // Upload object to Firebase
+                // Upload to Firebase
+                let newRef = self.root.childByAppendingPath("testimonials/\(self.textField.text!)")
+                newRef.setValue(testimonial.toDict())
+            }
+        })
         
         // Dismiss the view
         self.dismissViewControllerAnimated(true, completion: nil)
