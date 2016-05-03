@@ -1,6 +1,4 @@
 Pods/
-Podfile
-Podfile.lock
 *.framework
 PoogleMaps.xcodeproj
 PoogleMaps.xcworkspace
