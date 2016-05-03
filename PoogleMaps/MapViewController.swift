@@ -25,6 +25,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     @IBOutlet weak var uploadImageButton: UIButton!
     @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
     @IBOutlet weak var takeImageButton: UIButton!
+    @IBOutlet weak var addScreenTopContraint: NSLayoutConstraint!
     
     // Stars
     @IBOutlet weak var ratingsView: UIView!
@@ -39,7 +40,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     let imagePicker = UIImagePickerController()
     var addScreenHeight: CGFloat = 0.0
     let checkPlusMargin: CGFloat = 5.0
-    var plusButtonOffset: CGFloat = 0.0
+    var initialBottomConstraintConstant: CGFloat = 0.0
     var addScreenUp = false
     var localPoogles = [:]
     var currentRating: Int = 0
@@ -72,8 +73,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         checkButton.layer.shadowOpacity = 0.0 // Start 0
         checkButton.layer.shadowRadius = 1.0
         
-        // Calculate plus button offset
-        plusButtonOffset = UIScreen.mainScreen().bounds.height - plusButton.frame.origin.y - 5.0
+        // Store initial values for animation
+        initialBottomConstraintConstant = plusButtonBottomSpaceConstraint.constant
         addScreenHeight = addScreenView.frame.height
         
         // Clip image view
@@ -90,7 +91,11 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         underline.opacity = 0.5
         nameTextField.layer.addSublayer(underline)
         
+        // Enable location
         self.mapView.myLocationEnabled = true
+        
+        // Update AddScreenView place
+        addScreenTopContraint.constant = UIScreen.mainScreen().bounds.height
         
         // Load all currently stored Poogles 
         // Eventually this will need to be JUST local Poogles
@@ -316,7 +321,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         UIView.animateWithDuration(0.5, animations: {
             
             // Plus button pushes up from bottom and spins
-            self.plusButtonBottomSpaceConstraint.constant += (self.addScreenView.frame.height - self.plusButtonOffset)
+            self.plusButtonBottomSpaceConstraint.constant += (self.addScreenView.frame.height - self.initialBottomConstraintConstant - 10.0)
             self.plusButton.transform = CGAffineTransformMakeRotation(angleInRadians)
             
             // Transform button shadow along with spin
@@ -375,7 +380,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
                 
                 UIView.animateWithDuration(0.5, animations: {
                     self.plusButton.transform = CGAffineTransformMakeRotation(0.0)
-                    self.plusButtonBottomSpaceConstraint.constant -= (self.addScreenView.frame.height - self.plusButtonOffset)
+                    self.plusButtonBottomSpaceConstraint.constant = self.initialBottomConstraintConstant
                     
                     self.plusButton.layer.shadowOffset = self.correctedShadowOffsetForRotatedView(0.0, anOffset: CGSizeMake(0.0, 2.0))
                     
