@@ -27,15 +27,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     @IBOutlet weak var takeImageButton: UIButton!
     @IBOutlet weak var addScreenTopContraint: NSLayoutConstraint!
     
-    // Stars
-    @IBOutlet weak var ratingsView: UIView!
-    @IBOutlet weak var star1: UIImageView!
-    @IBOutlet weak var star2: UIImageView!
-    @IBOutlet weak var star3: UIImageView!
-    @IBOutlet weak var star4: UIImageView!
-    @IBOutlet weak var star5: UIImageView!
-    
-    
     let locationManager = CLLocationManager()
     let imagePicker = UIImagePickerController()
     var addScreenHeight: CGFloat = 0.0
@@ -43,7 +34,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     var initialBottomConstraintConstant: CGFloat = 0.0
     var addScreenUp = false
     var localPoogles = [:]
-    var currentRating: Float = 0.0
     
     // Create a reference to a Firebase location
     var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
@@ -125,28 +115,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     //
     // MARK: - Actions
     //
-    @IBAction func ratingsButtonTouched(sender: UITapGestureRecognizer) {
-    
-        let w = sender.view?.frame.width
-        
-        if sender.locationInView(sender.view).x < w!/5 {
-            setRating(1)
-            currentRating = 1.0
-        } else if sender.locationInView(sender.view).x < 2*w!/5 {
-            setRating(2)
-            currentRating = 2.0
-        } else if sender.locationInView(sender.view).x < 3*w!/5 {
-            setRating(3)
-            currentRating = 3.0
-        } else if sender.locationInView(sender.view).x < 4*w!/5 {
-            setRating(4)
-            currentRating = 4.0
-        } else {
-            setRating(5)
-            currentRating = 5.0
-        }
-    
-    }
     
     @IBAction func takeImageButtonTouched(sender: AnyObject) {
     
@@ -255,32 +223,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     //
     // MARK: - Class helper functions
     //
-    
-    func setRating (rating: Int) {
-        
-        star1.image = UIImage(named: "star-empty")
-        star2.image = UIImage(named: "star-empty")
-        star3.image = UIImage(named: "star-empty")
-        star4.image = UIImage(named: "star-empty")
-        star5.image = UIImage(named: "star-empty")
-        
-        if rating >= 1 {
-            star1.image = UIImage(named: "star")
-            if rating >= 2 {
-                star2.image = UIImage(named: "star")
-                if rating >= 3 {
-                    star3.image = UIImage(named: "star")
-                    if rating >= 4 {
-                        star4.image = UIImage(named: "star")
-                        if rating >= 5 {
-                            star5.image = UIImage(named: "star")
-                            
-                        }
-                    }
-                }
-            }
-        }
-    }
     
     func encodedImage (image: UIImage, compressionFactor: CGFloat) -> String {
         
@@ -420,9 +362,9 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         return CGSizeMake(CGFloat(x), CGFloat(y));
     }
     
-    /*
-    *  Text Field functions
-    */
+    //
+    //  MARK: - Text Field functions
+    //
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         

@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lowerButtonLabel: UILabel!
     @IBOutlet weak var lowerButton: UIButton!
     @IBOutlet weak var lowerContainerView: UIView!
+    
     // Create a reference to a Firebase location
     var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
     

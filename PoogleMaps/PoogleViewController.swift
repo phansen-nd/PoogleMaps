@@ -35,15 +35,13 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Create url string
         let urlStr: String = "https://poogle-maps.firebaseio.com/largeImages/\(infoDict!["largeImage"] as! String)"
         
+        // Load the image and stop the loading icon when finished
         let imageRef = Firebase(url:urlStr)
         imageRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
             self.topImageView.image = self.decodedImage(snapshot.value as! String)
             self.imageLoadingActivityIndicator.stopAnimating()
         })
 
-        // Set image background
-        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "lightblue-back")!)
-        
         // Give top image shadow
         topImageView.layer.shadowColor = UIColor.blackColor().CGColor
         topImageView.layer.shadowRadius = 10
@@ -70,12 +68,13 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.ratingCount += 1
             self.ratings.append(snapshot.value["rating"] as! Float)
             
-            // Add whole object
+            // Add whole object to a local store
             self.testimonials.append(snapshot.value as! NSDictionary)
             
         })
     }
     
+    // Reload whenever we return from adding a testimonial so we can see it
     override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
     }
@@ -91,7 +90,6 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func decodedImage (str: String) -> UIImage {
         let decodedData = NSData(base64EncodedString: str, options: .IgnoreUnknownCharacters)
-        
         let decodedImage = UIImage(data: decodedData!)
         
         return decodedImage!
@@ -132,8 +130,6 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-        // Eventually, if indexpath is greater than 0, launch testimonial VC
     }
     
     // Hard code alert!!!!!!!!!!!!!!!!!!!!!
@@ -152,6 +148,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return 2
     }
     
+    // Add a basic info cell on top and all testimonial cells underneath
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var basicCell: PoogleBasicInfoTableViewCell
@@ -159,6 +156,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         switch indexPath.section {
         case 0:
+            // Load basic info from Poogle and testimonial averages
             basicCell = tableView.dequeueReusableCellWithIdentifier("basicInfo", forIndexPath: indexPath) as! PoogleBasicInfoTableViewCell
             basicCell.nameLabel.text = infoDict!["name"] as? String
             basicCell.genderLabel.text = infoDict!["gender"] as? String
@@ -169,6 +167,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             basicCell.updateRating(ratings)
             return basicCell
         case 1:
+            // Load testimonials from the local store
             testimonialCell = tableView.dequeueReusableCellWithIdentifier("testimonial")! as! TestimonialTableViewCell
             testimonialCell.titleLabel.text = testimonials[indexPath.row]["title"] as? String
             testimonialCell.commentTextView.text = testimonials[indexPath.row]["comment"] as? String
@@ -182,7 +181,6 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
-        
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.whiteColor()
     }
@@ -208,6 +206,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
+        // Pass the relevant info about the Poogle to the new VC
         let dest: AddTestimonialViewController = segue.destinationViewController as! AddTestimonialViewController
         dest.name = (infoDict!["name"] as? String)!
         dest.previousRatings = ratings

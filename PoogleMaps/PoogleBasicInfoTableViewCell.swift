@@ -30,16 +30,11 @@ class PoogleBasicInfoTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
         self.contentView.backgroundColor = UIColor.clearColor()
         self.backgroundColor = UIColor.clearColor()
         
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func setRating (rating: Int) {
@@ -68,6 +63,8 @@ class PoogleBasicInfoTableViewCell: UITableViewCell {
     }
     
     func setAttributes(attr: [String:[Float]]) {
+        
+        // Average attribute values from all testimonials and update labels
         let cleanArr: [Float] = attr["clean"]! as [Float]
         let cleanAvg: Float = cleanArr.reduce(0, combine: +) / Float(cleanArr.count)
         let cleanRounded: NSString = NSString(format: "%.01f", cleanAvg)
@@ -103,6 +100,7 @@ class PoogleBasicInfoTableViewCell: UITableViewCell {
     }
     
     func updateRating(ratings: [Float]) {
+        // Get average rating and set stars to reflect it
         if ratings.count > 0 {
             var avg: Float = 0.0
             for num in ratings {

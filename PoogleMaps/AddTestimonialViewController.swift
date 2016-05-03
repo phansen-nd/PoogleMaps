@@ -28,7 +28,6 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
     @IBOutlet weak var convenienceSlider: UISlider!
     @IBOutlet weak var spaciousnessSlider: UISlider!
     
-    
     var name: String = ""
     var currentRating = 0
     var initial: Bool = false
@@ -50,6 +49,7 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
     //
     
     func textViewDidBeginEditing(textView: UITextView) {
+        // Essentially make "Add a comment..." function as placeholder text
         if textView.text == "Add a comment..." {
             textView.text = ""
         }
@@ -68,6 +68,7 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
     // MARK: - Helper functions
     //
     
+    // Add a tool bar to enable Done button that exits editing in TextView
     func addToolBar(textView: UITextView) {
         
         let toolBar = UIToolbar()
@@ -115,6 +116,8 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
     //
     // MARK: - IB Actions
     //
+    
+    // Check for touch in rating view and set accordingly
     @IBAction func ratingsViewTouched(sender: AnyObject) {
     
         let w = sender.view?.frame.width
