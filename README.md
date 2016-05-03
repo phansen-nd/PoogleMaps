@@ -26,5 +26,8 @@ There is a lot of room to grow with Poogle Maps, from a sleeker UI to a more int
 * User loyalty - gain credit for frequenting certain bathrooms?
 * Public Poogle verification - no manual content checking
 
+## Final Presentation Slides
+[Link](https://docs.google.com/presentation/d/1KpfVCQdAtuc_-ZCpLHm0SRZivkMhLpecfHhmPWxRzxw/edit?usp=sharing)
+
 ### Acknowledgements
 *This idea was conceived by Lonald Dunkerton and Max Shepherd.*
