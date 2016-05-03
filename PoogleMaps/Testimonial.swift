@@ -13,11 +13,11 @@ class Testimonial {
     var creator: String
     var title: String
     var subject: String
-    var attributes: [String]
+    var attributes: [String:Float]
     var rating: Float
     var comment: String = ""
     
-    init (creator: String, title: String, subject: String, attributes: [String], rating: Float, comment: String) {
+    init (creator: String, title: String, subject: String, attributes: [String:Float], rating: Float, comment: String) {
         self.creator = creator
         self.title = title
         self.subject = subject

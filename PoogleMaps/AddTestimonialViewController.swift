@@ -22,6 +22,12 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
     @IBOutlet weak var star4: UIImageView!
     @IBOutlet weak var star5: UIImageView!
     
+    // Sliders
+    @IBOutlet weak var cleanlinessSlider: UISlider!
+    @IBOutlet weak var seclusionSlider: UISlider!
+    @IBOutlet weak var convenienceSlider: UISlider!
+    @IBOutlet weak var spaciousnessSlider: UISlider!
+    
     
     var name: String = ""
     var currentRating = 0
@@ -149,8 +155,11 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
             if let dict = snapshot.value as! NSDictionary? {
                 username = dict["name"] as! String
                 
+                // Get attribute values
+                let attr = ["cleanliness": self.cleanlinessSlider.value, "seclusion": self.seclusionSlider.value, "convenience": self.convenienceSlider.value, "spaciousness": self.spaciousnessSlider.value]
+                
                 // Create the rest of the object
-                let testimonial = Testimonial(creator: username, title: self.textField.text!, subject: self.name, attributes: ["None"], rating: Float(self.currentRating), comment: self.textView.text!)
+                let testimonial = Testimonial(creator: username, title: self.textField.text!, subject: self.name, attributes: attr, rating: Float(self.currentRating), comment: self.textView.text!)
                 
                 // Upload object to Firebase
                 // Upload to Firebase
