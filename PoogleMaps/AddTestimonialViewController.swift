@@ -136,6 +136,10 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
     
     }
     
+    @IBAction func cancelButtonTouched(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     @IBAction func testifyButtonPressed(sender: AnyObject) {
     
         // Validate fields
@@ -156,14 +160,14 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
                 username = dict["name"] as! String
                 
                 // Get attribute values
-                let attr = ["cleanliness": self.cleanlinessSlider.value, "seclusion": self.seclusionSlider.value, "convenience": self.convenienceSlider.value, "spaciousness": self.spaciousnessSlider.value]
+                let attr = ["clean": self.cleanlinessSlider.value, "secluded": self.seclusionSlider.value, "convenient": self.convenienceSlider.value, "spacious": self.spaciousnessSlider.value]
                 
                 // Create the rest of the object
                 let testimonial = Testimonial(creator: username, title: self.textField.text!, subject: self.name, attributes: attr, rating: Float(self.currentRating), comment: self.textView.text!)
                 
                 // Upload object to Firebase
                 // Upload to Firebase
-                let newRef = self.root.childByAppendingPath("testimonials/\(self.textField.text!)")
+                let newRef = self.root.childByAppendingPath("testimonials/\(self.name)/\(self.textField.text!)")
                 newRef.setValue(testimonial.toDict())
             }
         })

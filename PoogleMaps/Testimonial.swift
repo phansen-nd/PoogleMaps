@@ -27,7 +27,7 @@ class Testimonial {
     }
     
     func toDict() -> NSDictionary {
-        let dict = ["creator": creator, "title": title, "subject": subject, "attribtues": attributes, "rating": rating, "comment": comment]
+        let dict = ["creator": creator, "title": title, "subject": subject, "attributes": attributes, "rating": rating, "comment": comment]
         
         return dict
     }

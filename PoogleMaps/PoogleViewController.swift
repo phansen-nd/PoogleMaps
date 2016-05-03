@@ -17,6 +17,11 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     
     var infoDict: NSDictionary?
+    var testimonialObserver: FirebaseHandle?
+    var attrDict: [String:[Float]] = ["clean": [], "spacious": [], "convenient": [], "secluded": []]
+    var ratingCount = 0
+    var ratings: [Int] = []
+    var currentRating: Float = 0.0
     
     // Create a reference to a Firebase location
     var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
@@ -50,6 +55,37 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         swipeDown.direction = .Down
         topImageView.addGestureRecognizer(swipeDown)
         
+        // Set listener for attributes to account for new testimonials
+        let attrRef = root.childByAppendingPath("/testimonials/\(infoDict!["name"] as! String)")
+        testimonialObserver = attrRef.observeEventType(.ChildAdded, withBlock: { snapshot in
+            
+            // Update attributes
+            let dict = snapshot.value["attributes"] as! [String:Float]
+            self.attrDict["clean"]?.append(dict["clean"]! as Float)
+            self.attrDict["spacious"]?.append(dict["spacious"]! as Float)
+            self.attrDict["convenient"]?.append(dict["convenient"]! as Float)
+            self.attrDict["secluded"]?.append(dict["secluded"]! as Float)
+            
+            // Update rating and ratings count
+            self.ratingCount += 1
+            self.ratings.append(snapshot.value["rating"] as! Int)
+            
+        })
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        tableView.reloadData()
+        
+        // Update rating in Firebase object
+        if currentRating != 0.0 {
+            let poogleRef = root.childByAppendingPath("/poogles/\((infoDict!["name"] as? String)!)/rating")
+            poogleRef.setValue(currentRating)
+        }
+    }
+    
+    // Remove Firebase observers on unload
+    deinit {
+        root.removeObserverWithHandle(testimonialObserver!)
     }
     
     //
@@ -100,7 +136,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 140
+            return 160
         default:
             return 160
         }
@@ -140,6 +176,9 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             basicCell.genderLabel.text = infoDict!["gender"] as? String
             basicCell.userLabel.text = infoDict!["creator"] as? String
             basicCell.setRating((infoDict!["rating"] as? Int)!)
+            basicCell.setAttributes(attrDict)
+            basicCell.setRatingCount(self.ratingCount)
+            self.currentRating = basicCell.updateRating(ratings)
             return basicCell
         case 1:
             testimonialCell = tableView.dequeueReusableCellWithIdentifier("testimonial")! as! TestimonialTableViewCell

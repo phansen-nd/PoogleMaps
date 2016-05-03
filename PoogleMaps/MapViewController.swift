@@ -43,7 +43,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     var initialBottomConstraintConstant: CGFloat = 0.0
     var addScreenUp = false
     var localPoogles = [:]
-    var currentRating: Int = 0
+    var currentRating: Float = 0.0
     
     // Create a reference to a Firebase location
     var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
@@ -131,19 +131,19 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         if sender.locationInView(sender.view).x < w!/5 {
             setRating(1)
-            currentRating = 1
+            currentRating = 1.0
         } else if sender.locationInView(sender.view).x < 2*w!/5 {
             setRating(2)
-            currentRating = 2
+            currentRating = 2.0
         } else if sender.locationInView(sender.view).x < 3*w!/5 {
             setRating(3)
-            currentRating = 3
+            currentRating = 3.0
         } else if sender.locationInView(sender.view).x < 4*w!/5 {
             setRating(4)
-            currentRating = 4
+            currentRating = 4.0
         } else {
             setRating(5)
-            currentRating = 5
+            currentRating = 5.0
         }
     
     }
@@ -238,6 +238,12 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         // Hide add controller
         hideAddView()
+        
+        // Launch Testimonial view to get initial values
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let testimonialVC: AddTestimonialViewController = storyboard.instantiateViewControllerWithIdentifier("AddTestimonial") as! AddTestimonialViewController
+        testimonialVC.name = nameTextField.text!
+        self.presentViewController(testimonialVC, animated: true, completion: nil)
         
         // Clear text fields
         nameTextField.text = ""
@@ -503,7 +509,7 @@ extension MapViewController: GMSMapViewDelegate {
         let infoWindow: CustomInfoWindow = NSBundle.mainBundle().loadNibNamed("InfoWindow", owner: self, options: nil)[0] as! CustomInfoWindow
         infoWindow.nameLabel.text = info!["name"] as? String
         infoWindow.userLabel.text = info!["creator"] as? String
-        infoWindow.setRating((info!["rating"] as? Int)!)
+        infoWindow.setRating(Int((info!["rating"] as? Float)!))
         infoWindow.imageView.image = decodedImage(marker.snippet)
         
         return infoWindow
