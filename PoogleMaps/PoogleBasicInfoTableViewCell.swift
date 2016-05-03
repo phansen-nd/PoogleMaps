@@ -102,19 +102,16 @@ class PoogleBasicInfoTableViewCell: UITableViewCell {
         reviewNumberLabel.text = "(\(count))"
     }
     
-    func updateRating(ratings: [Int]) -> Float {
+    func updateRating(ratings: [Float]) {
         if ratings.count > 0 {
             var avg: Float = 0.0
             for num in ratings {
-                avg += Float(num)
+                avg += num
             }
             avg /= Float(ratings.count)
             
             setRating(Int(avg))
-            return avg
         }
-        
-        return 0.0
     }
 
 }

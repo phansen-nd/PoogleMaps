@@ -20,8 +20,8 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var testimonialObserver: FirebaseHandle?
     var attrDict: [String:[Float]] = ["clean": [], "spacious": [], "convenient": [], "secluded": []]
     var ratingCount = 0
-    var ratings: [Int] = []
-    var currentRating: Float = 0.0
+    var ratings: [Float] = []
+    var testimonials: [NSDictionary] = []
     
     // Create a reference to a Firebase location
     var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
@@ -68,19 +68,16 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             // Update rating and ratings count
             self.ratingCount += 1
-            self.ratings.append(snapshot.value["rating"] as! Int)
+            self.ratings.append(snapshot.value["rating"] as! Float)
+            
+            // Add whole object
+            self.testimonials.append(snapshot.value as! NSDictionary)
             
         })
     }
     
     override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
-        
-        // Update rating in Firebase object
-        if currentRating != 0.0 {
-            let poogleRef = root.childByAppendingPath("/poogles/\((infoDict!["name"] as? String)!)/rating")
-            poogleRef.setValue(currentRating)
-        }
     }
     
     // Remove Firebase observers on unload
@@ -109,14 +106,6 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     //
-    // MARK: - IB Actions
-    //
-    
-    @IBAction func testifyButtonTouched(sender: AnyObject) {
-        
-    }
-    
-    //
     // MARK: - TableViewDelegate
     //
     
@@ -125,8 +114,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case 0:
             return 1
         case 1:
-            // Ultimately return count of [Testimonials]
-            return 5
+            return testimonials.count
         default:
             return 0
         }
@@ -138,7 +126,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case 0:
             return 160
         default:
-            return 160
+            return 140
         }
     }
     
@@ -178,10 +166,13 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             basicCell.setRating((infoDict!["rating"] as? Int)!)
             basicCell.setAttributes(attrDict)
             basicCell.setRatingCount(self.ratingCount)
-            self.currentRating = basicCell.updateRating(ratings)
+            basicCell.updateRating(ratings)
             return basicCell
         case 1:
             testimonialCell = tableView.dequeueReusableCellWithIdentifier("testimonial")! as! TestimonialTableViewCell
+            testimonialCell.titleLabel.text = testimonials[indexPath.row]["title"] as? String
+            testimonialCell.commentTextView.text = testimonials[indexPath.row]["comment"] as? String
+            testimonialCell.userLabel.text = testimonials[indexPath.row]["creator"] as? String
             return testimonialCell
         default:
             basicCell = tableView.dequeueReusableCellWithIdentifier("basicInfo", forIndexPath: indexPath) as! PoogleBasicInfoTableViewCell
@@ -219,6 +210,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let dest: AddTestimonialViewController = segue.destinationViewController as! AddTestimonialViewController
         dest.name = (infoDict!["name"] as? String)!
+        dest.previousRatings = ratings
     }
 
 }

@@ -32,6 +32,7 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
     var name: String = ""
     var currentRating = 0
     var initial: Bool = false
+    var previousRatings: [Float] = []
     
     var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
     
@@ -173,10 +174,20 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
             }
         })
         
-        // Set Poogle initial rating
+        // Set Poogle initial rating or update considering all previous ratings
+        let poogleRef = self.root.childByAppendingPath("/poogles/\(name)/rating")
+    
         if initial {
-            let poogleRef = self.root.childByAppendingPath("/poogles/\(name)/rating")
             poogleRef.setValue(currentRating)
+        } else {
+            previousRatings.append(Float(currentRating))
+            var avg: Float = 0.0
+            for num in previousRatings {
+                avg += num
+            }
+            avg /= Float(previousRatings.count)
+            
+            poogleRef.setValue(avg)
         }
         
         // Dismiss the view
