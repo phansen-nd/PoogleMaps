@@ -31,6 +31,7 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
     
     var name: String = ""
     var currentRating = 0
+    var initial: Bool = false
     
     var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
     
@@ -171,6 +172,12 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
                 newRef.setValue(testimonial.toDict())
             }
         })
+        
+        // Set Poogle initial rating
+        if initial {
+            let poogleRef = self.root.childByAppendingPath("/poogles/\(name)/rating")
+            poogleRef.setValue(currentRating)
+        }
         
         // Dismiss the view
         self.dismissViewControllerAnimated(true, completion: nil)

@@ -24,7 +24,7 @@ class Poogle {
     var locale: String?
     var gender: String?
     
-    init (name: String, creator: String, lat: Double, long: Double, owner: String, smallImage: String, largeImage: String, locale: String, gender: String, rating: Float) {
+    init (name: String, creator: String, lat: Double, long: Double, owner: String, smallImage: String, largeImage: String, locale: String, gender: String) {
         self.name = name
         self.creator = creator
         self.lat = lat
@@ -34,7 +34,6 @@ class Poogle {
         self.largeImage = largeImage
         self.locale = locale
         self.gender = gender
-        self.rating = rating
     }
     
     init (dict: NSDictionary) {

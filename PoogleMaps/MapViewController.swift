@@ -222,7 +222,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         largeImageRef.setValue(encodedImage(imageView.image!, compressionFactor: 0.7))
         
         // Create Poogle object
-        let poo = Poogle(name: nameTextField.text!, creator: currentUsername, lat: loc.latitude, long: loc.longitude, owner: currentUsername, smallImage: nameTextField.text!, largeImage: nameTextField.text!, locale: "Campus", gender: gender, rating: currentRating)
+        let poo = Poogle(name: nameTextField.text!, creator: currentUsername, lat: loc.latitude, long: loc.longitude, owner: currentUsername, smallImage: nameTextField.text!, largeImage: nameTextField.text!, locale: "Campus", gender: gender)
         
         // Upload to Firebase
         let newRef = root.childByAppendingPath("poogles/\(nameTextField.text!)")
@@ -243,6 +243,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let testimonialVC: AddTestimonialViewController = storyboard.instantiateViewControllerWithIdentifier("AddTestimonial") as! AddTestimonialViewController
         testimonialVC.name = nameTextField.text!
+        testimonialVC.initial = true
         self.presentViewController(testimonialVC, animated: true, completion: nil)
         
         // Clear text fields
@@ -497,6 +498,9 @@ extension MapViewController: GMSMapViewDelegate {
             marker.snippet = snapshot.value as! String
             mapView.selectedMarker = marker
         })
+        
+        // Center camera
+        mapView.animateToLocation(marker.position)
 
         return true
     }
@@ -526,6 +530,7 @@ extension MapViewController: GMSMapViewDelegate {
             poogleVC.infoDict = snapshot.value as? NSDictionary
             
             self.presentViewController(poogleVC, animated: true, completion: nil)
+            mapView.selectedMarker = nil
         })
     }
     
