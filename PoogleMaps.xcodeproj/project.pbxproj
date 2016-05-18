@@ -28,6 +28,7 @@
 		436A796E1C62A78200C36BAE /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A796D1C62A78200C36BAE /* Firebase.framework */; };
 		436A79701C62A7A300C36BAE /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A796F1C62A7A300C36BAE /* libicucore.tbd */; };
 		436A79721C62A7B300C36BAE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A79711C62A7B300C36BAE /* libc++.tbd */; };
+		437F6B861CED0BA000F01436 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 437F6B851CED0BA000F01436 /* GoogleService-Info.plist */; };
 		43C75D151CB606AB00B4A1EB /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */; };
 		43C75D191CB606CC00B4A1EB /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43C75D181CB606CC00B4A1EB /* InfoWindow.xib */; };
 		43DCCC271C58854A00B64A85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCCC261C58854A00B64A85 /* AppDelegate.swift */; };
@@ -67,6 +68,7 @@
 		436A796D1C62A78200C36BAE /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
 		436A796F1C62A7A300C36BAE /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		436A79711C62A7B300C36BAE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		437F6B851CED0BA000F01436 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
 		43C75D181CB606CC00B4A1EB /* InfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindow.xib; sourceTree = "<group>"; };
 		43DCCC231C58854A00B64A85 /* PoogleMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoogleMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +190,7 @@
 		43DCCC251C58854A00B64A85 /* PoogleMaps */ = {
 			isa = PBXGroup;
 			children = (
+				437F6B851CED0BA000F01436 /* GoogleService-Info.plist */,
 				4347961A1C629AC600585CFF /* Model */,
 				4347961B1C629AD500585CFF /* View */,
 				4347961C1C629ADB00585CFF /* Controller */,
@@ -299,6 +302,7 @@
 				43DCCC2E1C58854A00B64A85 /* Assets.xcassets in Resources */,
 				434795F01C596BB000585CFF /* todo in Resources */,
 				43DCCC2C1C58854A00B64A85 /* Main.storyboard in Resources */,
+				437F6B861CED0BA000F01436 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     override init() {
         super.init()
         
+        
+        
         // Enable offline persistence for Firebase
         Firebase.defaultConfig().persistenceEnabled = true
     }
