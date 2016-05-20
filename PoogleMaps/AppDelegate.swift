@@ -18,10 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     override init() {
         super.init()
         
-        
+        FIRApp.configure()
         
         // Enable offline persistence for Firebase
-        Firebase.defaultConfig().persistenceEnabled = true
+        //Firebase.defaultConfig().persistenceEnabled = true
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

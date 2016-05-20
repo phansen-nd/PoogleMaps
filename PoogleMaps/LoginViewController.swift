@@ -25,7 +25,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lowerContainerView: UIView!
     
     // Create a reference to a Firebase location
-    var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
+    var root = FIRDatabase.database().reference()
     
     // Default to login mode for now
     var mode: Mode = .Login
@@ -49,10 +49,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func signInButtonTouched(sender: AnyObject) {
         
         if mode == .Login {
-            root.authUser(emailTextField.text, password: passwordTextField.text, withCompletionBlock: { error, authData in
+            FIRAuth.auth()?.signInWithEmail(emailTextField.text!, password: passwordTextField.text!, completion: { user, error in
+                
+                // May need to do something with user?
                 
                 if error != nil {
-                    let alert = UIAlertController(title: "Whoops", message: "Error logging in: \(error.localizedDescription)", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Whoops", message: "Error logging in: \(error!.localizedDescription)", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 } else {
@@ -71,10 +73,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
             
             // Try creating a user, if successful, log them in
-            root.createUser(emailTextField.text, password: passwordTextField.text, withValueCompletionBlock: { error, result in
+            FIRAuth.auth()?.createUserWithEmail(emailTextField.text!, password: passwordTextField.text!, completion: { user, error in
 
                 if error != nil {
-                    let alert = UIAlertController(title: "Whoops", message: "Error signing up: \(error.localizedDescription)", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Whoops", message: "Error signing up: \(error!.localizedDescription)", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 } else {
@@ -83,15 +85,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let username = self.emailTextField.text?.componentsSeparatedByString("@")[0]
                     
                     // Create a user object in Firebase
-                    let newUser: [String: AnyObject] = ["name": username!, "auth": result]
-                    let newUserRef = self.root.childByAppendingPath("/users/\(result["uid"]!)")
+                    let newUser: [String: AnyObject] = ["name": username!, "auth": user!]
+                    let newUserRef = self.root.child("/users/\(user?.uid)")
                     newUserRef.setValue(newUser)
                     
                     // If sign up was a success, log the user in
-                    self.root.authUser(self.emailTextField.text, password: self.passwordTextField.text, withCompletionBlock: { error, authData in
-                    
+                    FIRAuth.auth()?.signInWithEmail(self.emailTextField.text!, password: self.passwordTextField.text!, completion: { user, error in
+                        
                         if error != nil {
-                            let alert = UIAlertController(title: "Whoops", message: "Error logging in: \(error.localizedDescription)", preferredStyle: UIAlertControllerStyle.Alert)
+                            let alert = UIAlertController(title: "Whoops", message: "Error logging in: \(error!.localizedDescription)", preferredStyle: UIAlertControllerStyle.Alert)
                             alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
                             self.presentViewController(alert, animated: true, completion: nil)
                         } else {

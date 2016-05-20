@@ -36,7 +36,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     var localPoogles = [:]
     
     // Create a reference to a Firebase location
-    var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
+    var root = FIRDatabase.database().reference()//Firebase(url:"https://poogle-maps.firebaseio.com/")
     var currentUsername: String = ""
     
     override func viewDidLoad() {
@@ -89,7 +89,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         // Load all currently stored Poogles 
         // Eventually this will need to be JUST local Poogles
-        let newref = root.childByAppendingPath("/poogles/")
+        let newref = root.child("/poogles/")
         newref.observeEventType(.Value, withBlock: { snapshot in
             if let dict = snapshot.value as! NSDictionary? {
                 self.localPoogles = dict
@@ -98,11 +98,11 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         })
         
         // Set observer for auth updates
-        root.observeAuthEventWithBlock { authData in
-            if authData != nil {
+        FIRAuth.auth()?.addAuthStateDidChangeListener {auth, user in
+            if let user = user {
                 
                 // Get username
-                let newref = self.root.childByAppendingPath("/users/\(authData.uid)")
+                let newref = self.root.child("/users/\(user.uid)")
                 newref.observeSingleEventOfType(.Value, withBlock: { snapshot in
                     if let dict = snapshot.value as! NSDictionary? {
                         self.currentUsername = dict["name"] as! String
@@ -138,15 +138,15 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
 
         if !addScreenUp {
             // Check for user
-            if root.authData == nil {
+            if (FIRAuth.auth()?.currentUser) != nil {
+                showAddView()
+            } else {
                 // No user - warn and return
                 let alert = UIAlertController(title: "Whoops", message: "You have to be logged in to create a Poogle!", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
-                return
             }
             
-            showAddView()
         } else {
             hideAddView()
         }
@@ -155,15 +155,18 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     @IBAction func login(sender: AnyObject) {
         
-        if root.authData == nil {
-        
+        if (FIRAuth.auth()?.currentUser) != nil {
+            // Logout
+            try! FIRAuth.auth()!.signOut()
+
+        } else {
+            
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let loginVC: LoginViewController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
             
             self.presentViewController(loginVC, animated: true, completion: nil)
-        } else {
-            // Logout
-            root.unauth()
+
+        
         }
     }
     
@@ -182,18 +185,18 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         }
         
         // Create a small image object
-        let smallImageRef = root.childByAppendingPath("smallImages/\(nameTextField.text!)")
+        let smallImageRef = root.child("smallImages/\(nameTextField.text!)")
         smallImageRef.setValue(encodedImage(imageView.image!, compressionFactor: 0.1))
         
         // Create a large image object
-        let largeImageRef = root.childByAppendingPath("largeImages/\(nameTextField.text!)")
+        let largeImageRef = root.child("largeImages/\(nameTextField.text!)")
         largeImageRef.setValue(encodedImage(imageView.image!, compressionFactor: 0.7))
         
         // Create Poogle object
         let poo = Poogle(name: nameTextField.text!, creator: currentUsername, lat: loc.latitude, long: loc.longitude, owner: currentUsername, smallImage: nameTextField.text!, largeImage: nameTextField.text!, locale: "Campus", gender: gender)
         
         // Upload to Firebase
-        let newRef = root.childByAppendingPath("poogles/\(nameTextField.text!)")
+        let newRef = root.child("poogles/\(nameTextField.text!)")
         newRef.setValue(poo.toDict())
         
         // Create map marker
@@ -435,7 +438,7 @@ extension MapViewController: GMSMapViewDelegate {
     func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
         
         // Get small image from Firebase, show marker when it arrives
-        let smallImageRef = root.childByAppendingPath("smallImages/\(marker.title)")
+        let smallImageRef = root.child("smallImages/\(marker.title)")
         smallImageRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
             marker.snippet = snapshot.value as! String
             mapView.selectedMarker = marker
@@ -462,7 +465,7 @@ extension MapViewController: GMSMapViewDelegate {
     }
     
     func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
-        let ref = root.childByAppendingPath("/poogles/\(marker.title!)")
+        let ref = root.child("/poogles/\(marker.title!)")
         ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

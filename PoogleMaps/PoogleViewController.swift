@@ -17,14 +17,14 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     
     var infoDict: NSDictionary?
-    var testimonialObserver: FirebaseHandle?
+    var testimonialObserver: FIRDatabaseHandle?
     var attrDict: [String:[Float]] = ["clean": [], "spacious": [], "convenient": [], "secluded": []]
     var ratingCount = 0
     var ratings: [Float] = []
     var testimonials: [NSDictionary] = []
     
     // Create a reference to a Firebase location
-    var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
+    var root = FIRDatabase.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +32,8 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Start loading icon
         imageLoadingActivityIndicator.startAnimating()
         
-        // Create url string
-        let urlStr: String = "https://poogle-maps.firebaseio.com/largeImages/\(infoDict!["largeImage"] as! String)"
-        
         // Load the image and stop the loading icon when finished
-        let imageRef = Firebase(url:urlStr)
+        let imageRef = root.child("/largeImages/\(infoDict!["largeImage"] as! String)")
         imageRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
             self.topImageView.image = self.decodedImage(snapshot.value as! String)
             self.imageLoadingActivityIndicator.stopAnimating()
@@ -54,11 +51,11 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         topImageView.addGestureRecognizer(swipeDown)
         
         // Set listener for attributes to account for new testimonials
-        let attrRef = root.childByAppendingPath("/testimonials/\(infoDict!["name"] as! String)")
+        let attrRef = root.child("/testimonials/\(infoDict!["name"] as! String)")
         testimonialObserver = attrRef.observeEventType(.ChildAdded, withBlock: { snapshot in
             
             // Update attributes
-            let dict = snapshot.value["attributes"] as! [String:Float]
+            let dict = snapshot.value!["attributes"] as! [String:Float]
             self.attrDict["clean"]?.append(dict["clean"]! as Float)
             self.attrDict["spacious"]?.append(dict["spacious"]! as Float)
             self.attrDict["convenient"]?.append(dict["convenient"]! as Float)
@@ -66,11 +63,12 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             // Update rating and ratings count
             self.ratingCount += 1
-            self.ratings.append(snapshot.value["rating"] as! Float)
+            self.ratings.append(snapshot.value!["rating"] as! Float)
             
             // Add whole object to a local store
             self.testimonials.append(snapshot.value as! NSDictionary)
             
+            self.tableView.reloadData()
         })
     }
     
@@ -192,7 +190,7 @@ class PoogleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         if identifier == "addTestimonial" {
             // Check for user
-            if root.authData == nil {
+            if FIRAuth.auth()?.currentUser == nil {
                 // No user - warn and return
                 let alert = UIAlertController(title: "Whoops", message: "You have to be logged in to add a Testimonial!", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))

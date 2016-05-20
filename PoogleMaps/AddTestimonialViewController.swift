@@ -33,7 +33,7 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
     var initial: Bool = false
     var previousRatings: [Float] = []
     
-    var root = Firebase(url:"https://poogle-maps.firebaseio.com/")
+    var root = FIRDatabase.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,7 +159,7 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
         //
         // Get username
         var username = ""
-        let newref = self.root.childByAppendingPath("/users/\(root.authData.uid)")
+        let newref = self.root.child("/users/\(FIRAuth.auth()?.currentUser?.uid)")
         newref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             if let dict = snapshot.value as! NSDictionary? {
                 username = dict["name"] as! String
@@ -172,13 +172,13 @@ class AddTestimonialViewController: UIViewController, UITextViewDelegate, UIText
                 
                 // Upload object to Firebase
                 // Upload to Firebase
-                let newRef = self.root.childByAppendingPath("testimonials/\(self.name)/\(self.textField.text!)")
+                let newRef = self.root.child("testimonials/\(self.name)/\(self.textField.text!)")
                 newRef.setValue(testimonial.toDict())
             }
         })
         
         // Set Poogle initial rating or update considering all previous ratings
-        let poogleRef = self.root.childByAppendingPath("/poogles/\(name)/rating")
+        let poogleRef = self.root.child("/poogles/\(name)/rating")
     
         if initial {
             poogleRef.setValue(currentRating)
