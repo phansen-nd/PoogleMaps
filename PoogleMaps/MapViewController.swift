@@ -13,13 +13,10 @@ import CoreLocation
 
 class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var plusButton: UIButton!
-    @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var addScreenView: UIView!
     @IBOutlet weak var plusButtonBottomSpaceConstraint: NSLayoutConstraint!
-    @IBOutlet weak var checkButtonTrailingSpaceConstraint: NSLayoutConstraint!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var uploadImageButton: UIButton!
@@ -48,23 +45,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         imagePicker.delegate = self
         mapView.delegate = self
         
-        // Make buttons circles with little shadows under
-        plusButton.clipsToBounds = true
-        plusButton.layer.masksToBounds = false
-        plusButton.layer.cornerRadius = plusButton.frame.width/2.0
-        plusButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        plusButton.layer.shadowOpacity = 0.3
-        plusButton.layer.shadowRadius = 1.0
-        
-        checkButton.clipsToBounds = true
-        checkButton.layer.masksToBounds = false
-        checkButton.layer.cornerRadius = checkButton.frame.width/2.0
-        checkButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        checkButton.layer.shadowOpacity = 0.0 // Start 0
-        checkButton.layer.shadowRadius = 1.0
-        
         // Store initial values for animation
-        initialBottomConstraintConstant = plusButtonBottomSpaceConstraint.constant
+        //initialBottomConstraintConstant = plusButtonBottomSpaceConstraint.constant
         addScreenHeight = addScreenView.frame.height
         
         // Clip image view
@@ -136,10 +118,16 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     @IBAction func plusButtonTouched(_ sender: AnyObject) {
 
+        for view in mapView.subviews {
+            for v in view.subviews {
+                print("\n\n\(v) frame: \(v.frame)\n\n")
+            }
+        }
+        
         if !addScreenUp {
             // Check for user
             if (FIRAuth.auth()?.currentUser) != nil {
-                showAddView()
+                //showAddView()
             } else {
                 // No user - warn and return
                 let alert = UIAlertController(title: "Whoops", message: "You have to be logged in to create a Poogle!", preferredStyle: UIAlertControllerStyle.alert)
@@ -148,7 +136,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             }
             
         } else {
-            hideAddView()
+            //hideAddView()
         }
         
     }
@@ -208,7 +196,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         marker.map = mapView
         
         // Hide add controller
-        hideAddView()
+        //hideAddView()
         
         // Launch Testimonial view to get initial values
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -262,7 +250,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             
         }
     }
-    
+    /*
     func showAddView() {
         // Pre layout to ensure any pending changes take place before animation
         self.view.layoutIfNeeded()
@@ -343,7 +331,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         })
         
         addScreenUp = false
-    }
+    }*/
     
     func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
         
@@ -353,7 +341,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
             if let address = response?.firstResult() {
                 let lines = address.lines! as! [String]
-                self.locationLabel.text = lines.joined(separator: "\n")
             }
         }
     }
@@ -370,8 +357,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     //
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        
-        self.checkButton.isEnabled = true
         
         return false
     }
