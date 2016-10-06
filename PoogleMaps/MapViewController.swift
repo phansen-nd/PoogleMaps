@@ -14,6 +14,7 @@ import CoreLocation
 class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var addScreenView: UIView!
     @IBOutlet weak var plusButtonBottomSpaceConstraint: NSLayoutConstraint!
@@ -44,6 +45,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         imagePicker.delegate = self
         mapView.delegate = self
+        
+        profileButton.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
         
         // Store initial values for animation
         //initialBottomConstraintConstant = plusButtonBottomSpaceConstraint.constant
@@ -340,7 +343,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         // Get address from coordinate
         geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
             if let address = response?.firstResult() {
-                let lines = address.lines! as! [String]
+                _ = address.lines! as! [String]
             }
         }
     }
@@ -439,7 +442,7 @@ extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         
         // Get Poogle info from dict
-        let info = localPoogles[marker.title]
+        _ = localPoogles[marker.title]
         
         let infoWindow: CustomInfoWindow = Bundle.main.loadNibNamed("InfoWindow", owner: self, options: nil)![0] as! CustomInfoWindow
         //infoWindow.nameLabel.text = info!["name"] as? String

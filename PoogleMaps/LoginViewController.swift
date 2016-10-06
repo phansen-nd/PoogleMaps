@@ -11,12 +11,12 @@ import Firebase
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
-    
     @IBOutlet weak var confirmPasswordConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var emailConstraint: NSLayoutConstraint!
     @IBOutlet weak var upperLabel: UILabel!
     @IBOutlet weak var upperButton: UIButton!
     @IBOutlet weak var middleButton: UIButton!
@@ -31,15 +31,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var mode: Mode = .login
     
     var hiddenSignUpConstraint: CGFloat?
+    var hiddenEmailConstraint: CGFloat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        usernameTextField.delegate = self
         emailTextField.delegate = self
         passwordTextField.delegate = self
         confirmPasswordTextField.delegate = self
         
         hiddenSignUpConstraint = confirmPasswordConstraint.constant
+        hiddenEmailConstraint = emailConstraint.constant
     }
     
     //
@@ -124,10 +127,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.lowerButtonLabel.text = "Already signed up?"
             
             // Show confirm password text field
-            self.confirmPasswordConstraint.constant = -2.0
+            self.confirmPasswordConstraint.constant += 42
+            self.emailConstraint.constant -= 42
             
-            UIView.animate(withDuration: 0.8, delay: 0.0, options: UIViewAnimationOptions(), animations: {
-                
+            UIView.animate(withDuration: 0.8, delay: 0.0, options: .curveEaseInOut, animations: {
+            
+                self.confirmPasswordTextField.alpha = 1.0
+                self.emailTextField.alpha = 1.0
                 self.view.layoutIfNeeded()
                 
             }, completion: nil)
@@ -145,10 +151,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.lowerButtonLabel.text = "Need an account?"
             
             // Hide confirm password text field
-            self.confirmPasswordConstraint.constant = self.hiddenSignUpConstraint!
+            self.confirmPasswordConstraint.constant -= 42
+            self.emailConstraint.constant += 42
             
-            UIView.animate(withDuration: 0.8, delay: 0.0, options: UIViewAnimationOptions(), animations: {
-                
+            UIView.animate(withDuration: 0.8, delay: 0.0, options: .curveEaseInOut, animations: {
+            
+                self.emailTextField.alpha = 0.0
+                self.confirmPasswordTextField.alpha = 0.0
                 self.view.layoutIfNeeded()
                 
             }, completion: nil)
