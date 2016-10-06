@@ -21,7 +21,7 @@ class CustomInfoWindow: UIView {
     @IBOutlet weak var star4: UIImageView!
     @IBOutlet weak var star5: UIImageView!
     
-    func setRating (rating: Int) {
+    func setRating (_ rating: Int) {
         star1.image = UIImage(named: "star-empty")
         star2.image = UIImage(named: "star-empty")
         star3.image = UIImage(named: "star-empty")

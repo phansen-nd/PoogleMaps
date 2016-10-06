@@ -28,7 +28,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var root = FIRDatabase.database().reference()
     
     // Default to login mode for now
-    var mode: Mode = .Login
+    var mode: Mode = .login
     
     var hiddenSignUpConstraint: CGFloat?
     
@@ -46,58 +46,58 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - IBActions
     //
     
-    @IBAction func signInButtonTouched(sender: AnyObject) {
+    @IBAction func signInButtonTouched(_ sender: AnyObject) {
         
-        if mode == .Login {
-            FIRAuth.auth()?.signInWithEmail(emailTextField.text!, password: passwordTextField.text!, completion: { user, error in
+        if mode == .login {
+            FIRAuth.auth()?.signIn(withEmail: emailTextField.text!, password: passwordTextField.text!, completion: { user, error in
                 
                 // May need to do something with user?
                 
                 if error != nil {
-                    let alert = UIAlertController(title: "Whoops", message: "Error logging in: \(error!.localizedDescription)", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    let alert = UIAlertController(title: "Whoops", message: "Error logging in: \(error!.localizedDescription)", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 } else {
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 }
                 
             })
-        } else if mode == .Signup {
+        } else if mode == .signup {
             
             // Make sure passwords match
             if passwordTextField.text != confirmPasswordTextField.text {
-                let alert = UIAlertController(title: "Whoops", message: "Error signing up: the passwords you entered did not match!", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+                let alert = UIAlertController(title: "Whoops", message: "Error signing up: the passwords you entered did not match!", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
                 return
             }
             
             // Try creating a user, if successful, log them in
-            FIRAuth.auth()?.createUserWithEmail(emailTextField.text!, password: passwordTextField.text!, completion: { user, error in
+            FIRAuth.auth()?.createUser(withEmail: emailTextField.text!, password: passwordTextField.text!, completion: { user, error in
 
                 if error != nil {
-                    let alert = UIAlertController(title: "Whoops", message: "Error signing up: \(error!.localizedDescription)", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    let alert = UIAlertController(title: "Whoops", message: "Error signing up: \(error!.localizedDescription)", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 } else {
                     
                     // Create a username based on email
-                    let username = self.emailTextField.text?.componentsSeparatedByString("@")[0]
+                    let username = self.emailTextField.text?.components(separatedBy: "@")[0]
                     
                     // Create a user object in Firebase
-                    let newUser: [String: AnyObject] = ["name": username!, "auth": user!]
+                    let newUser: [String: AnyObject] = ["name": username! as AnyObject, "auth": user!]
                     let newUserRef = self.root.child("/users/\(user?.uid)")
                     newUserRef.setValue(newUser)
                     
                     // If sign up was a success, log the user in
-                    FIRAuth.auth()?.signInWithEmail(self.emailTextField.text!, password: self.passwordTextField.text!, completion: { user, error in
+                    FIRAuth.auth()?.signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!, completion: { user, error in
                         
                         if error != nil {
-                            let alert = UIAlertController(title: "Whoops", message: "Error logging in: \(error!.localizedDescription)", preferredStyle: UIAlertControllerStyle.Alert)
-                            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                            self.presentViewController(alert, animated: true, completion: nil)
+                            let alert = UIAlertController(title: "Whoops", message: "Error logging in: \(error!.localizedDescription)", preferredStyle: UIAlertControllerStyle.alert)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
                         } else {
-                            self.dismissViewControllerAnimated(true, completion: nil)
+                            self.dismiss(animated: true, completion: nil)
                         }
                     })
                 }
@@ -110,44 +110,44 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
 
-    @IBAction func toggleSignUpLogin(sender: AnyObject) {
+    @IBAction func toggleSignUpLogin(_ sender: AnyObject) {
     
-        if mode == .Login {
-            mode = .Signup
-            passwordTextField.returnKeyType = .Next
+        if mode == .login {
+            mode = .signup
+            passwordTextField.returnKeyType = .next
 
             // Update button titles and labels
             self.upperLabel.text = "SIGN UP"
-            self.upperButton.setTitle("Sign Up", forState: .Normal)
-            self.middleButton.setTitle("", forState: .Normal)
-            self.lowerButton.setTitle("Log in!", forState: .Normal)
+            self.upperButton.setTitle("Sign Up", for: UIControlState())
+            self.middleButton.setTitle("", for: UIControlState())
+            self.lowerButton.setTitle("Log in!", for: UIControlState())
             self.lowerButtonLabel.text = "Already signed up?"
             
             // Show confirm password text field
             self.confirmPasswordConstraint.constant = -2.0
             
-            UIView.animateWithDuration(0.8, delay: 0.0, options: .CurveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.8, delay: 0.0, options: UIViewAnimationOptions(), animations: {
                 
                 self.view.layoutIfNeeded()
                 
             }, completion: nil)
             
             
-        } else  if mode == .Signup {
-            mode = .Login
-            passwordTextField.returnKeyType = .Done
+        } else  if mode == .signup {
+            mode = .login
+            passwordTextField.returnKeyType = .done
             
             // Update button titles and labels
             self.upperLabel.text = "SIGN IN"
-            self.upperButton.setTitle("Sign In", forState: .Normal)
-            self.middleButton.setTitle("Forgot password?", forState: .Normal)
-            self.lowerButton.setTitle("Sign up!", forState: .Normal)
+            self.upperButton.setTitle("Sign In", for: UIControlState())
+            self.middleButton.setTitle("Forgot password?", for: UIControlState())
+            self.lowerButton.setTitle("Sign up!", for: UIControlState())
             self.lowerButtonLabel.text = "Need an account?"
             
             // Hide confirm password text field
             self.confirmPasswordConstraint.constant = self.hiddenSignUpConstraint!
             
-            UIView.animateWithDuration(0.8, delay: 0.0, options: .CurveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.8, delay: 0.0, options: UIViewAnimationOptions(), animations: {
                 
                 self.view.layoutIfNeeded()
                 
@@ -158,22 +158,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancel(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     //
     // MARK: - TextFieldDelegate
     //
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         textField.resignFirstResponder()
         
         if textField.tag == 1 {
             textField.resignFirstResponder()
             passwordTextField.becomeFirstResponder()
-        } else if textField.tag == 2 && mode == .Signup {
+        } else if textField.tag == 2 && mode == .signup {
             confirmPasswordTextField.becomeFirstResponder()
         }
         return true
@@ -182,6 +182,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 }
 
 enum Mode {
-    case Login
-    case Signup
+    case login
+    case signup
 }

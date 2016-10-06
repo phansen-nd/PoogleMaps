@@ -33,7 +33,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     let checkPlusMargin: CGFloat = 5.0
     var initialBottomConstraintConstant: CGFloat = 0.0
     var addScreenUp = false
-    var localPoogles = [:]
+    var localPoogles: [AnyHashable:Any] = [:]
     
     // Create a reference to a Firebase location
     var root = FIRDatabase.database().reference()//Firebase(url:"https://poogle-maps.firebaseio.com/")
@@ -52,14 +52,14 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         plusButton.clipsToBounds = true
         plusButton.layer.masksToBounds = false
         plusButton.layer.cornerRadius = plusButton.frame.width/2.0
-        plusButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+        plusButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         plusButton.layer.shadowOpacity = 0.3
         plusButton.layer.shadowRadius = 1.0
         
         checkButton.clipsToBounds = true
         checkButton.layer.masksToBounds = false
         checkButton.layer.cornerRadius = checkButton.frame.width/2.0
-        checkButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+        checkButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         checkButton.layer.shadowOpacity = 0.0 // Start 0
         checkButton.layer.shadowRadius = 1.0
         
@@ -76,34 +76,34 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         // Add bottom line to text fields
         let underline: CALayer = CALayer()
-        underline.frame = CGRectMake(5.0, nameTextField.frame.height - 1, nameTextField.frame.width - 20, 1.0)
-        underline.backgroundColor = UIColor(netHex: 0x0b0b7a).CGColor
+        underline.frame = CGRect(x: 5.0, y: nameTextField.frame.height - 1, width: nameTextField.frame.width - 20, height: 1.0)
+        underline.backgroundColor = UIColor(netHex: 0x0b0b7a).cgColor
         underline.opacity = 0.5
         nameTextField.layer.addSublayer(underline)
         
         // Enable location
-        self.mapView.myLocationEnabled = true
+        self.mapView.isMyLocationEnabled = true
         
         // Update AddScreenView place
-        addScreenTopContraint.constant = UIScreen.mainScreen().bounds.height
+        addScreenTopContraint.constant = UIScreen.main.bounds.height
         
         // Load all currently stored Poogles 
         // Eventually this will need to be JUST local Poogles
         let newref = root.child("/poogles/")
-        newref.observeEventType(.Value, withBlock: { snapshot in
+        newref.observe(.value, with: { snapshot in
             if let dict = snapshot.value as! NSDictionary? {
-                self.localPoogles = dict
+                self.localPoogles = dict as! [AnyHashable : Any]
                 self.preloadMarkers(dict)
             }
         })
         
         // Set observer for auth updates
-        FIRAuth.auth()?.addAuthStateDidChangeListener {auth, user in
+        FIRAuth.auth()?.addStateDidChangeListener {auth, user in
             if let user = user {
                 
                 // Get username
                 let newref = self.root.child("/users/\(user.uid)")
-                newref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                newref.observeSingleEvent(of: .value, with: { snapshot in
                     if let dict = snapshot.value as! NSDictionary? {
                         self.currentUsername = dict["name"] as! String
                     }
@@ -116,25 +116,25 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     // MARK: - Actions
     //
     
-    @IBAction func takeImageButtonTouched(sender: AnyObject) {
+    @IBAction func takeImageButtonTouched(_ sender: AnyObject) {
     
         imagePicker.allowsEditing = false
-        imagePicker.sourceType = .Camera
+        imagePicker.sourceType = .camera
         
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
         
     }
     
-    @IBAction func uploadImageButtonTouched(sender: AnyObject) {
+    @IBAction func uploadImageButtonTouched(_ sender: AnyObject) {
 
         imagePicker.allowsEditing = false
-        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.sourceType = .photoLibrary
         
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
         
     }
     
-    @IBAction func plusButtonTouched(sender: AnyObject) {
+    @IBAction func plusButtonTouched(_ sender: AnyObject) {
 
         if !addScreenUp {
             // Check for user
@@ -142,9 +142,9 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
                 showAddView()
             } else {
                 // No user - warn and return
-                let alert = UIAlertController(title: "Whoops", message: "You have to be logged in to create a Poogle!", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+                let alert = UIAlertController(title: "Whoops", message: "You have to be logged in to create a Poogle!", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
             
         } else {
@@ -153,7 +153,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
     }
     
-    @IBAction func login(sender: AnyObject) {
+    @IBAction func login(_ sender: AnyObject) {
         
         if (FIRAuth.auth()?.currentUser) != nil {
             // Logout
@@ -162,19 +162,19 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         } else {
             
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let loginVC: LoginViewController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+            let loginVC: LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
             
-            self.presentViewController(loginVC, animated: true, completion: nil)
+            self.present(loginVC, animated: true, completion: nil)
 
         
         }
     }
     
-    @IBAction func checkButtonTouched(sender: AnyObject) {
+    @IBAction func checkButtonTouched(_ sender: AnyObject) {
         
         // Get current map location
         // Currently just takes center of the screen -- eventually put in crosshairs
-        let loc: CLLocationCoordinate2D = mapView.projection.coordinateForPoint(mapView.center)
+        let loc: CLLocationCoordinate2D = mapView.projection.coordinate(for: mapView.center)
         
         // Get gender from segmented control
         var gender = "Men"
@@ -212,10 +212,10 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         // Launch Testimonial view to get initial values
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let testimonialVC: AddTestimonialViewController = storyboard.instantiateViewControllerWithIdentifier("AddTestimonial") as! AddTestimonialViewController
+        let testimonialVC: AddTestimonialViewController = storyboard.instantiateViewController(withIdentifier: "AddTestimonial") as! AddTestimonialViewController
         testimonialVC.name = nameTextField.text!
         testimonialVC.initial = true
-        self.presentViewController(testimonialVC, animated: true, completion: nil)
+        self.present(testimonialVC, animated: true, completion: nil)
         
         // Clear text fields
         nameTextField.text = ""
@@ -227,22 +227,22 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     // MARK: - Class helper functions
     //
     
-    func encodedImage (image: UIImage, compressionFactor: CGFloat) -> String {
+    func encodedImage (_ image: UIImage, compressionFactor: CGFloat) -> String {
         
-        let imageData: NSData = UIImageJPEGRepresentation(image, compressionFactor)!
-        let str = imageData.base64EncodedStringWithOptions([.Encoding64CharacterLineLength])
+        let imageData: Data = UIImageJPEGRepresentation(image, compressionFactor)!
+        let str = imageData.base64EncodedString(options: [.lineLength64Characters])
         return str
     }
     
-    func decodedImage (str: String) -> UIImage {
-        let decodedData = NSData(base64EncodedString: str, options: .IgnoreUnknownCharacters)
+    func decodedImage (_ str: String) -> UIImage {
+        let decodedData = Data(base64Encoded: str, options: .ignoreUnknownCharacters)
         
         let decodedImage = UIImage(data: decodedData!)
         
         return decodedImage!
     }
     
-    func preloadMarkers (poogles: NSDictionary) {
+    func preloadMarkers (_ poogles: NSDictionary) {
         
         let pooglesList: [NSDictionary] = poogles.allValues as! [NSDictionary]
         let icon = UIImage(named: "toilet-icon")
@@ -253,12 +253,12 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             let poo = Poogle(dict: dict)
             
             // Create map marker
-            let coordinates = CLLocationCoordinate2D(latitude: poo.lat!, longitude: poo.long!)
+            let coordinates = CLLocationCoordinate2D(latitude: poo.lat, longitude: poo.long)
             let marker = GMSMarker(position: coordinates)
-            marker.map = self.mapView
-            marker.icon = icon
-            marker.infoWindowAnchor = CGPointMake(0.6, 0.0)
-            marker.title = poo.name
+            marker?.map = self.mapView
+            marker?.icon = icon
+            marker?.infoWindowAnchor = CGPoint(x: 0.6, y: 0.0)
+            marker?.title = poo.name
             
         }
     }
@@ -270,19 +270,19 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         // Keep track of 5pi/4
         let angleInRadians: CGFloat = -5/4*3.14
         
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             
             // Plus button pushes up from bottom and spins
             self.plusButtonBottomSpaceConstraint.constant += (self.addScreenView.frame.height - self.initialBottomConstraintConstant - 10.0)
-            self.plusButton.transform = CGAffineTransformMakeRotation(angleInRadians)
+            self.plusButton.transform = CGAffineTransform(rotationAngle: angleInRadians)
             
             // Transform button shadow along with spin
-            self.plusButton.layer.shadowOffset = self.correctedShadowOffsetForRotatedView(Float(angleInRadians), anOffset: CGSizeMake(0.0, 2.0))
+            self.plusButton.layer.shadowOffset = self.correctedShadowOffsetForRotatedView(Float(angleInRadians), anOffset: CGSize(width: 0.0, height: 2.0))
             
             // Show add screen and add shadow
-            self.addScreenView.transform = CGAffineTransformMakeTranslation(0.0, -self.addScreenHeight)
+            self.addScreenView.transform = CGAffineTransform(translationX: 0.0, y: -self.addScreenHeight)
             self.addScreenView.layer.masksToBounds = false
-            self.addScreenView.layer.shadowOffset = CGSizeMake(0, -3.0)
+            self.addScreenView.layer.shadowOffset = CGSize(width: 0, height: -3.0)
             self.addScreenView.layer.shadowOpacity = 0.15
             self.addScreenView.layer.shadowRadius = 1.0
             
@@ -292,13 +292,13 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             }, completion: { finished in
                 
                 // Start the check button upside down so it can roll out
-                self.checkButton.transform = CGAffineTransformMakeRotation(3.14)
+                self.checkButton.transform = CGAffineTransform(rotationAngle: 3.14)
                 
-                UIView.animateWithDuration(0.3, animations: {
+                UIView.animate(withDuration: 0.3, animations: {
                     
                     // Check button pushes out from plus button, spins, and grows shadow
                     self.checkButtonTrailingSpaceConstraint.constant += (self.checkPlusMargin + self.plusButton.bounds.width)
-                    self.checkButton.transform = CGAffineTransformMakeRotation(0.0)
+                    self.checkButton.transform = CGAffineTransform(rotationAngle: 0.0)
                     self.checkButton.layer.shadowOpacity = 0.3
                     
                     // Enact constraint changes again
@@ -307,7 +307,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
                     }, completion: { finished in
                         
                         // Initially, disable the add button - enable once the fields are filled out
-                        self.checkButton.enabled = false
+                        self.checkButton.isEnabled = false
                 })
         })
         
@@ -321,8 +321,8 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         self.view.layoutIfNeeded()
         
-        UIView.animateWithDuration(0.3, animations: {
-            self.checkButton.transform = CGAffineTransformMakeRotation(3.14)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.checkButton.transform = CGAffineTransform(rotationAngle: 3.14)
             self.checkButton.layer.shadowOpacity = 0.0
             self.checkButtonTrailingSpaceConstraint.constant -= (self.checkPlusMargin + self.plusButton.bounds.width)
             
@@ -330,13 +330,13 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             
             }, completion: {finished in
                 
-                UIView.animateWithDuration(0.5, animations: {
-                    self.plusButton.transform = CGAffineTransformMakeRotation(0.0)
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.plusButton.transform = CGAffineTransform(rotationAngle: 0.0)
                     self.plusButtonBottomSpaceConstraint.constant = self.initialBottomConstraintConstant
                     
-                    self.plusButton.layer.shadowOffset = self.correctedShadowOffsetForRotatedView(0.0, anOffset: CGSizeMake(0.0, 2.0))
+                    self.plusButton.layer.shadowOffset = self.correctedShadowOffsetForRotatedView(0.0, anOffset: CGSize(width: 0.0, height: 2.0))
                     
-                    self.addScreenView.transform = CGAffineTransformMakeTranslation(0.0, self.addScreenHeight)
+                    self.addScreenView.transform = CGAffineTransform(translationX: 0.0, y: self.addScreenHeight)
                     
                     self.view.layoutIfNeeded()
                 })
@@ -345,7 +345,7 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         addScreenUp = false
     }
     
-    func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
+    func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
         
         let geocoder = GMSGeocoder()
         
@@ -353,25 +353,25 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
             if let address = response?.firstResult() {
                 let lines = address.lines! as! [String]
-                self.locationLabel.text = lines.joinWithSeparator("\n")
+                self.locationLabel.text = lines.joined(separator: "\n")
             }
         }
     }
     
-    func correctedShadowOffsetForRotatedView(anAngle: Float, anOffset: CGSize) -> CGSize {
+    func correctedShadowOffsetForRotatedView(_ anAngle: Float, anOffset: CGSize) -> CGSize {
         let x: Float = Float(anOffset.height)*sinf(anAngle) + Float(anOffset.width)*cosf(anAngle);
         let y: Float = Float(anOffset.height)*cosf(anAngle) - Float(anOffset.width)*sinf(anAngle);
         
-        return CGSizeMake(CGFloat(x), CGFloat(y));
+        return CGSize(width: CGFloat(x), height: CGFloat(y));
     }
     
     //
     //  MARK: - Text Field functions
     //
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
-        self.checkButton.enabled = true
+        self.checkButton.isEnabled = true
         
         return false
     }
@@ -380,14 +380,14 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     // MARK: - Image Picker Delegate
     //
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            imageView.contentMode = .ScaleAspectFill
+            imageView.contentMode = .scaleAspectFill
             imageView.image = pickedImage
             imageView.clipsToBounds = true
         }
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
 }
@@ -396,19 +396,20 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
 extension MapViewController: CLLocationManagerDelegate {
     
     // Called when user authorizes or deauthorizes app to use location
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         // If it's positive authorization:
-        if status == .AuthorizedWhenInUse {
+        if status == .authorizedWhenInUse {
             
             // Start udpating
             locationManager.startUpdatingLocation()
-            mapView.myLocationEnabled = true
+            mapView.isMyLocationEnabled = true
             mapView.settings.myLocationButton = true
+            mapView.settings.compassButton = true
         }
     }
     
     // Once location manager starts receiving locations
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
       
             // Update the camera to user's location
@@ -421,60 +422,60 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error finding location: \(error.localizedDescription)")
     }
 }
 
 // GMSMapViewDelegate
 extension MapViewController: GMSMapViewDelegate {
-    func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         
         // Reverse geocodes the center of the screen
         // Could switch position.target to a custom location based on crosshairs or something
         reverseGeocodeCoordinate(position.target)
     }
     
-    func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
+    func mapView(_ mapView: GMSMapView!, didTap marker: GMSMarker!) -> Bool {
         
         // Get small image from Firebase, show marker when it arrives
         let smallImageRef = root.child("smallImages/\(marker.title)")
-        smallImageRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        smallImageRef.observeSingleEvent(of: .value, with: { snapshot in
             marker.snippet = snapshot.value as! String
             mapView.selectedMarker = marker
         })
         
         // Center camera
-        mapView.animateToLocation(marker.position)
+        mapView.animate(toLocation: marker.position)
 
         return true
     }
     
-    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         
         // Get Poogle info from dict
         let info = localPoogles[marker.title]
         
-        let infoWindow: CustomInfoWindow = NSBundle.mainBundle().loadNibNamed("InfoWindow", owner: self, options: nil)[0] as! CustomInfoWindow
-        infoWindow.nameLabel.text = info!["name"] as? String
-        infoWindow.userLabel.text = info!["creator"] as? String
-        infoWindow.setRating(Int((info!["rating"] as? Float)!))
+        let infoWindow: CustomInfoWindow = Bundle.main.loadNibNamed("InfoWindow", owner: self, options: nil)![0] as! CustomInfoWindow
+        //infoWindow.nameLabel.text = info!["name"] as? String
+        //infoWindow.userLabel.text = info!["creator"] as? String
+        //infoWindow.setRating(Int((info!["rating"] as? Float)!))
         infoWindow.imageView.image = decodedImage(marker.snippet)
         
         return infoWindow
     }
     
-    func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         let ref = root.child("/poogles/\(marker.title!)")
-        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        ref.observeSingleEvent(of: .value, with: { snapshot in
             
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let poogleVC: PoogleViewController = storyboard.instantiateViewControllerWithIdentifier("PoogleViewController") as! PoogleViewController
+            let poogleVC: PoogleViewController = storyboard.instantiateViewController(withIdentifier: "PoogleViewController") as! PoogleViewController
             
             // Set value of poogle's infoDict
             poogleVC.infoDict = snapshot.value as? NSDictionary
             
-            self.presentViewController(poogleVC, animated: true, completion: nil)
+            self.present(poogleVC, animated: true, completion: nil)
             mapView.selectedMarker = nil
         })
     }

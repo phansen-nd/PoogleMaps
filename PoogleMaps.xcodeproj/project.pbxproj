@@ -267,6 +267,7 @@
 					43DCCC221C58854A00B64A85 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = NY8624AGB8;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -493,6 +494,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Patrick Hansen (FM23UB944W)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Patrick Hansen (FM23UB944W)";
+				DEVELOPMENT_TEAM = NY8624AGB8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -502,9 +504,11 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = self.nd.PoogleMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5135fa60-bbf8-40bb-a6fd-223b900f4c68";
+				PROVISIONING_PROFILE = "d65bad5f-5d0d-464a-bbff-ccc6092b7fec";
+				PROVISIONING_PROFILE_SPECIFIER = "Poogle Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -516,6 +520,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Patrick Hansen (FM23UB944W)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Patrick Hansen (FM23UB944W)";
+				DEVELOPMENT_TEAM = NY8624AGB8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -525,8 +530,10 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = self.nd.PoogleMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5135fa60-bbf8-40bb-a6fd-223b900f4c68";
+				PROVISIONING_PROFILE = "d65bad5f-5d0d-464a-bbff-ccc6092b7fec";
+				PROVISIONING_PROFILE_SPECIFIER = "Poogle Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

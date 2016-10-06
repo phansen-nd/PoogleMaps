@@ -32,12 +32,12 @@ class PoogleBasicInfoTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         // Initialization code
-        self.contentView.backgroundColor = UIColor.clearColor()
-        self.backgroundColor = UIColor.clearColor()
+        self.contentView.backgroundColor = UIColor.clear
+        self.backgroundColor = UIColor.clear
         
     }
     
-    func setRating (rating: Int) {
+    func setRating (_ rating: Int) {
         star1.image = UIImage(named: "star-empty")
         star2.image = UIImage(named: "star-empty")
         star3.image = UIImage(named: "star-empty")
@@ -62,23 +62,23 @@ class PoogleBasicInfoTableViewCell: UITableViewCell {
         }
     }
     
-    func setAttributes(attr: [String:[Float]]) {
+    func setAttributes(_ attr: [String:[Float]]) {
         
         // Average attribute values from all testimonials and update labels
         let cleanArr: [Float] = attr["clean"]! as [Float]
-        let cleanAvg: Float = cleanArr.reduce(0, combine: +) / Float(cleanArr.count)
+        let cleanAvg: Float = cleanArr.reduce(0, +) / Float(cleanArr.count)
         let cleanRounded: NSString = NSString(format: "%.01f", cleanAvg)
         
         let secludedArr: [Float] = attr["secluded"]! as [Float]
-        let secludedAvg: Float = secludedArr.reduce(0, combine: +) / Float(secludedArr.count)
+        let secludedAvg: Float = secludedArr.reduce(0, +) / Float(secludedArr.count)
         let secludedRounded: NSString = NSString(format: "%.01f", secludedAvg)
         
         let convenientArr: [Float] = attr["convenient"]! as [Float]
-        let convenientAvg: Float = convenientArr.reduce(0, combine: +) / Float(convenientArr.count)
+        let convenientAvg: Float = convenientArr.reduce(0, +) / Float(convenientArr.count)
         let convenientRounded: NSString = NSString(format: "%.01f", convenientAvg)
         
         let spaciousArr: [Float] = attr["spacious"]! as [Float]
-        let spaciousAvg: Float = spaciousArr.reduce(0, combine: +) / Float(spaciousArr.count)
+        let spaciousAvg: Float = spaciousArr.reduce(0, +) / Float(spaciousArr.count)
         let spaciousRounded: NSString = NSString(format: "%.01f", spaciousAvg)
         
         if !cleanAvg.isNaN {
@@ -95,11 +95,11 @@ class PoogleBasicInfoTableViewCell: UITableViewCell {
         }
     }
     
-    func setRatingCount(count: Int) {
+    func setRatingCount(_ count: Int) {
         reviewNumberLabel.text = "(\(count))"
     }
     
-    func updateRating(ratings: [Float]) {
+    func updateRating(_ ratings: [Float]) {
         // Get average rating and set stars to reflect it
         if ratings.count > 0 {
             var avg: Float = 0.0

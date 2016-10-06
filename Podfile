@@ -1,10 +1,10 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.1'
+platform :ios, '9.3'
 
 use_frameworks!
 
 target "PoogleMaps" do
-       pod 'GoogleMaps', '~> 1.11.1'
+       pod 'GoogleMaps'
        pod 'Firebase/Core'
        pod 'Firebase/Database'
        pod 'Firebase/Auth'

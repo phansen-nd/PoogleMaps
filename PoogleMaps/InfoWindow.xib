@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,41 +14,33 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LXE-IQ-rWT">
-                    <rect key="frame" x="8" y="5" width="70" height="70"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="uHm-w4-mc5"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eLD-py-SqL">
-                    <rect key="frame" x="84" y="50" width="82" height="23"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="TM0-MV-t0a">
-                            <rect key="frame" x="2" y="2" width="15" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="15" id="hcA-xv-ghK"/>
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="cpK-Hb-sbu">
-                            <rect key="frame" x="17" y="2" width="15" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="15" id="RZa-6V-ucq"/>
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="o1q-hy-3x2">
-                            <rect key="frame" x="32" y="2" width="15" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="15" id="1cL-Jh-GdD"/>
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="oXB-Ug-px8">
-                            <rect key="frame" x="47" y="2" width="15" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="15" id="C85-g7-95n"/>
                             </constraints>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="KTB-lO-WwH">
-                            <rect key="frame" x="62" y="2" width="15" height="15"/>
-                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-empty" translatesAutoresizingMaskIntoConstraints="NO" id="KTB-lO-WwH"/>
                     </subviews>
                     <constraints>
                         <constraint firstItem="oXB-Ug-px8" firstAttribute="leading" secondItem="o1q-hy-3x2" secondAttribute="trailing" id="0jk-nY-eVt"/>
@@ -69,22 +62,20 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTQ-mp-UGO">
-                    <rect key="frame" x="86" y="8" width="106" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="1m9-0V-abd"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
-                    <color key="textColor" red="0.043137254899999998" green="0.043137254899999998" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.043137254899999998" green="0.043137254899999998" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcE-7g-FLU">
-                    <rect key="frame" x="86" y="28" width="106" height="24"/>
                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="15"/>
-                    <color key="textColor" red="0.043137254899999998" green="0.043137254899999998" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.043137254899999998" green="0.043137254899999998" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="LXE-IQ-rWT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="2u7-hd-Ke9"/>
                 <constraint firstItem="PTQ-mp-UGO" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="7tt-Qy-gR2"/>
