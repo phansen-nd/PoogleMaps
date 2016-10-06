@@ -5,6 +5,7 @@ use_frameworks!
 
 target "PoogleMaps" do
        pod 'GoogleMaps'
+       pod 'GoogleSignIn'
        pod 'Firebase/Core'
        pod 'Firebase/Database'
        pod 'Firebase/Auth'

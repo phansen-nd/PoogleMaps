@@ -85,14 +85,9 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         // Set observer for auth updates
         FIRAuth.auth()?.addStateDidChangeListener {auth, user in
             if let user = user {
-                
-                // Get username
-                let newref = self.root.child("/users/\(user.uid)")
-                newref.observeSingleEvent(of: .value, with: { snapshot in
-                    if let dict = snapshot.value as! NSDictionary? {
-                        self.currentUsername = dict["name"] as! String
-                    }
-                })
+                print("User is signed in: \(user.displayName!)")
+            } else {
+                print("No one is signed in at the moment.")
             }
         }
     }
@@ -121,12 +116,6 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     @IBAction func plusButtonTouched(_ sender: AnyObject) {
 
-        for view in mapView.subviews {
-            for v in view.subviews {
-                print("\n\n\(v) frame: \(v.frame)\n\n")
-            }
-        }
-        
         if !addScreenUp {
             // Check for user
             if (FIRAuth.auth()?.currentUser) != nil {
@@ -144,21 +133,12 @@ class MapViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
     }
     
-    @IBAction func login(_ sender: AnyObject) {
+    @IBAction func userButtonTouched(_ sender: AnyObject) {
         
-        if (FIRAuth.auth()?.currentUser) != nil {
-            // Logout
-            try! FIRAuth.auth()!.signOut()
-
-        } else {
-            
-            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let loginVC: LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-            
-            self.present(loginVC, animated: true, completion: nil)
-
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC: LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         
-        }
+        self.present(loginVC, animated: true, completion: nil)
     }
     
     @IBAction func checkButtonTouched(_ sender: AnyObject) {

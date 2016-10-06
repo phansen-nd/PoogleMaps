@@ -71,6 +71,7 @@
 		437F6B851CED0BA000F01436 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
 		43C75D181CB606CC00B4A1EB /* InfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindow.xib; sourceTree = "<group>"; };
+		43DAF1C81DA6FDA000C37CDA /* PoogleMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PoogleMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		43DCCC231C58854A00B64A85 /* PoogleMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoogleMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DCCC261C58854A00B64A85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43DCCC2B1C58854A00B64A85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -123,6 +124,7 @@
 		4304FDF71CAA354F00DFE53D /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				43DAF1C81DA6FDA000C37CDA /* PoogleMaps-Bridging-Header.h */,
 				437F6B851CED0BA000F01436 /* GoogleService-Info.plist */,
 				43DCCC261C58854A00B64A85 /* AppDelegate.swift */,
 				43DCCC2D1C58854A00B64A85 /* Assets.xcassets */,
@@ -511,7 +513,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d65bad5f-5d0d-464a-bbff-ccc6092b7fec";
 				PROVISIONING_PROFILE_SPECIFIER = "Poogle Dev";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "PoogleMaps/PoogleMaps-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -537,7 +539,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d65bad5f-5d0d-464a-bbff-ccc6092b7fec";
 				PROVISIONING_PROFILE_SPECIFIER = "Poogle Dev";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "PoogleMaps/PoogleMaps-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
