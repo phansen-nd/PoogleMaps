@@ -18,7 +18,6 @@
 		433704B91CC93049003336F4 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704B81CC93049003336F4 /* ImageIO.framework */; };
 		433704BB1CC9305A003336F4 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704BA1CC9305A003336F4 /* OpenGLES.framework */; };
 		433704BD1CCEB47A003336F4 /* AddTestimonialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433704BC1CCEB47A003336F4 /* AddTestimonialViewController.swift */; };
-		434795F01C596BB000585CFF /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 434795EF1C596BB000585CFF /* todo */; };
 		4361E7A91CAAD5D600D21A1E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7A81CAAD5D600D21A1E /* MapViewController.swift */; };
 		4361E7AD1CAAD76100D21A1E /* Poogle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7AC1CAAD76100D21A1E /* Poogle.swift */; };
 		4361E7AF1CAAD8B300D21A1E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7AE1CAAD8B300D21A1E /* User.swift */; };
@@ -63,7 +62,6 @@
 		433704B81CC93049003336F4 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		433704BA1CC9305A003336F4 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		433704BC1CCEB47A003336F4 /* AddTestimonialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTestimonialViewController.swift; sourceTree = "<group>"; };
-		434795EF1C596BB000585CFF /* todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo; sourceTree = "<group>"; };
 		4361E7A81CAAD5D600D21A1E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4361E7AC1CAAD76100D21A1E /* Poogle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poogle.swift; sourceTree = "<group>"; };
 		4361E7AE1CAAD8B300D21A1E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -135,7 +133,6 @@
 				43DCCC261C58854A00B64A85 /* AppDelegate.swift */,
 				43DCCC2D1C58854A00B64A85 /* Assets.xcassets */,
 				43DCCC321C58854A00B64A85 /* Info.plist */,
-				434795EF1C596BB000585CFF /* todo */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -316,7 +313,6 @@
 				43DCCC311C58854A00B64A85 /* LaunchScreen.storyboard in Resources */,
 				43C75D191CB606CC00B4A1EB /* InfoWindow.xib in Resources */,
 				43DCCC2E1C58854A00B64A85 /* Assets.xcassets in Resources */,
-				434795F01C596BB000585CFF /* todo in Resources */,
 				43DCCC2C1C58854A00B64A85 /* Main.storyboard in Resources */,
 				437F6B861CED0BA000F01436 /* GoogleService-Info.plist in Resources */,
 			);
