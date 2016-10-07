@@ -43,6 +43,6 @@ class User {
         self.dateJoined = data["dateJoined"]!
     }
     
-    // Download profile image in background and display.
+    // Set photo.
 
 }

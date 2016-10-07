@@ -23,8 +23,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDe
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     private var loginManager: LoginManager = LoginManager()
+    private var fileSaver: FileSaver = FileSaver()
     
-    // Create a reference to a Firebase location
     var root = FIRDatabase.database().reference()
     
     override func viewDidLoad() {
@@ -42,8 +42,17 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDe
         // If someone's already logged in, update the view.
         if let firUser = FIRAuth.auth()?.currentUser {
             activityIndicatorView.startAnimating()
+            
+            // Get data from Firebase.
             root.child("/users/\(firUser.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                // Create user.
                 self.loginManager.currentUser = User(withSnapshot: snapshot, andUID: firUser.uid)
+                
+                // Get image from phone and store in user object.
+                // (If they're already logged in, it's already downloaded.)
+                self.loginManager.currentUser?.profilePhoto = self.fileSaver.loadImage(named: firUser.uid)
+                
                 self.showUserView(with: self.loginManager.currentUser!)
                 self.activityIndicatorView.stopAnimating()
             })

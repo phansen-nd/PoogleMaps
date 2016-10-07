@@ -22,7 +22,8 @@ class FileSaver {
     }
     
     func saveImage(image: UIImage, named name: String) -> Bool {
-        let path = filepathInDocumentsDirectory(with: name)
+        let nameWithExtension = name + ".png"
+        let path = filepathInDocumentsDirectory(with: nameWithExtension)
         let png = UIImagePNGRepresentation(image)
         
         do {
@@ -31,15 +32,20 @@ class FileSaver {
             print("Error saving image: \(error)")
             return false
         }
+        print("Saved file \(nameWithExtension) to location: \(path)")
         return true
     }
     
     func loadImage(named name: String) -> UIImage? {
-        let fileURL = filepathInDocumentsDirectory(with: name)
-        let image = UIImage(contentsOfFile: fileURL.absoluteString)
+        
+        let nameWithExtension = name + ".png"
+        let fileURL = filepathInDocumentsDirectory(with: nameWithExtension)
+        let image = UIImage(contentsOfFile: fileURL.path)
+        
+        print("Loading file at url: \(fileURL.path)")
         
         if image == nil {
-            print("Error loading image named \(name)")
+            print("Error loading image named \(nameWithExtension)")
         }
         return image
     }

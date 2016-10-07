@@ -17,9 +17,9 @@ class LoginManager : NSObject, GIDSignInDelegate {
  
     var delegate: LoginManagerDelegate?
     var currentUser: User?
-    
-    // Create a reference to a Firebase location
     var root = FIRDatabase.database().reference()
+    
+    private var dataDownloader = DataDownloader()
 
     //
     // MARK: - GIDSignInDelegate functions.
@@ -65,7 +65,9 @@ class LoginManager : NSObject, GIDSignInDelegate {
             // Only do this first time.
             self.root.child("users/\(user.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                 if snapshot.exists() {
+                    
                     print("User info already stored.")
+                    
                     // User info stored already, repeat sign-in.
                     // Grab data and update current user object.
                     if let firUser = FIRAuth.auth()?.currentUser {
@@ -75,9 +77,12 @@ class LoginManager : NSObject, GIDSignInDelegate {
                         })
                     }
                 } else {
+                    
                     print("User info doesn't exist, store it.")
+                    
                     // User info doesn't exist yet, first time sign-in.
-                    // Data will already be stored in current user object from the function below.
+                    // Data will already be stored in current user object from the function below,
+                    //  so no need to fetch it from Firebase. Nice!
                     self.storeUserInfoInDatabase(with: user) {
                         self.delegate?.didSignInSuccessfully()
                     }
@@ -121,16 +126,21 @@ class LoginManager : NSObject, GIDSignInDelegate {
             let appDisplayNames = self.getDisplayNames(with: name!)
             let dateString = self.getFormattedDate()
             
+            // Debug info.
             print("\(providerID) info for \(name!):\nEmail address: \(email!)\nURL for photo: \(photoURL!)\nUID: \(uid)\nPoogle display name: \(appDisplayNames[0]), firstName: \(appDisplayNames[1]), dateJoined: \(dateString)")
             
+            // Download and store the profile photo locally for easy access. 
+            dataDownloader.downloadAndSaveImage(withURL: photoURL!, name: user.uid)
+            
+            // Create a user (dictionary of strings) and store in the database.
             let newUser: [String:String] = ["name": name!, "providerUID": uid, "email": email!, "photoURL": "\(photoURL!)", "displayName": appDisplayNames[0], "firstName": appDisplayNames[1], "dateJoined": dateString]
             let newUserRef = self.root.child("/users/\(user.uid)")
             newUserRef.setValue(newUser)
             
-            // Create current user.
+            // Create current user for access from Login VC.
             currentUser = User(withData: newUser, andUID: user.uid)
             
-            // Return the user in completion so UI can be updated right away.
+            // Execute the completion so UI can be updated right away.
             completion()
         }
     }
@@ -151,5 +161,4 @@ class LoginManager : NSObject, GIDSignInDelegate {
         
         return dateString
     }
-    
 }
