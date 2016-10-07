@@ -248,6 +248,9 @@
                                     <constraint firstAttribute="width" constant="230" id="Vdz-Rv-5ea"/>
                                     <constraint firstAttribute="height" constant="48" id="rZD-vH-rqV"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="googleLoginButtonTouched:" destination="Wze-Sm-pKy" eventType="touchUpInside" id="qAv-eA-PVs"/>
+                                </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Google to track your shit!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5le-DN-xBQ">
                                 <constraints>
@@ -308,6 +311,7 @@
                                 <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="X8C-RN-1wH"/>
                         </subviews>
                         <color key="backgroundColor" red="0.043137254899999998" green="0.043137254899999998" blue="0.33725490196000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -326,9 +330,11 @@
                             <constraint firstItem="WNv-Oe-Cla" firstAttribute="leading" secondItem="yLk-HC-6nv" secondAttribute="leadingMargin" constant="-10" id="iWM-an-5ja"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WNv-Oe-Cla" secondAttribute="trailing" constant="-10" id="jaw-MT-dgg"/>
                             <constraint firstItem="WNv-Oe-Cla" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="235" id="l7y-Vf-9Jm"/>
+                            <constraint firstItem="X8C-RN-1wH" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="316" id="lNe-qI-FN0"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Q77-iv-Z7a" secondAttribute="leading" id="mw7-94-cGa"/>
                             <constraint firstItem="5le-DN-xBQ" firstAttribute="centerX" secondItem="yLk-HC-6nv" secondAttribute="centerX" id="nhX-ok-PWb"/>
                             <constraint firstItem="eHF-eN-LKC" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" id="p0z-3o-dTD"/>
+                            <constraint firstItem="X8C-RN-1wH" firstAttribute="centerX" secondItem="yLk-HC-6nv" secondAttribute="centerX" id="qcC-5H-fSe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Q77-iv-Z7a" secondAttribute="trailing" id="sdK-cB-tGf"/>
                             <constraint firstItem="syE-4y-xu1" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="131" id="xgL-v2-MS0"/>
                             <constraint firstItem="syE-4y-xu1" firstAttribute="centerX" secondItem="yLk-HC-6nv" secondAttribute="centerX" id="y5G-EK-bDR"/>
@@ -337,6 +343,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="X8C-RN-1wH" id="N2s-BD-QAE"/>
                         <outlet property="googleSignInView" destination="gsW-lg-z4c" id="xa4-4Q-bTB"/>
                         <outlet property="instructionLabel" destination="5le-DN-xBQ" id="Z2O-Y8-Dxh"/>
                         <outlet property="logoutButton" destination="oaV-8w-3qh" id="XgJ-4P-A2h"/>
@@ -344,7 +351,6 @@
                         <outlet property="profileImageView" destination="syE-4y-xu1" id="lJb-Jc-TJy"/>
                         <outlet property="promiseLabel" destination="PWP-sg-RXu" id="cle-v4-dXZ"/>
                         <outlet property="startDateLabel" destination="Q77-iv-Z7a" id="D14-xw-clB"/>
-                        <outlet property="upperLabel" destination="EZX-ce-oJ1" id="sD0-LM-GOU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nrx-cO-6nc" userLabel="First Responder" sceneMemberID="firstResponder"/>

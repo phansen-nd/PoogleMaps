@@ -10,8 +10,6 @@ import UIKit
 import Firebase
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDelegate {
-
-    @IBOutlet weak var upperLabel: UILabel!
     
     @IBOutlet weak var instructionLabel: UILabel!
     @IBOutlet weak var googleSignInView: GIDSignInButton!
@@ -22,6 +20,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDe
     @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var logoutButton: UIButton!
     
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     private var loginManager: LoginManager = LoginManager()
     
@@ -42,27 +41,42 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDe
         
         // If someone's already logged in, update the view.
         if let firUser = FIRAuth.auth()?.currentUser {
+            activityIndicatorView.startAnimating()
             root.child("/users/\(firUser.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                 self.loginManager.currentUser = User(withSnapshot: snapshot, andUID: firUser.uid)
                 self.showUserView(with: self.loginManager.currentUser!)
+                self.activityIndicatorView.stopAnimating()
             })
         }
     }
     
     func didSignInSuccessfully() {
         self.showUserView(with: self.loginManager.currentUser!)
+        activityIndicatorView.stopAnimating()
     }
     
     @IBAction func logoutButtonTouched(_ sender: AnyObject) {
         loginManager.currentUser = nil
+        activityIndicatorView.startAnimating()
         loginManager.signOut {
-            showLoginView()
-            print("Signing out")
+            
+            // Make this wait a second so the user feels like they're actually logged out.
+            let dispatchTime = DispatchTime.now() + .seconds(1)
+            DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
+                self.activityIndicatorView.stopAnimating()
+                self.showLoginView()
+                print("Signing out")
+            })
         }
     }
     
     @IBAction func cancel(_ sender: AnyObject) {
+        activityIndicatorView.stopAnimating()
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func googleLoginButtonTouched(_ sender: AnyObject) {
+        activityIndicatorView.startAnimating()
     }
     
     // Call after a user has signed in.

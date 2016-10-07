@@ -30,6 +30,7 @@
 		43C75D151CB606AB00B4A1EB /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */; };
 		43C75D191CB606CC00B4A1EB /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43C75D181CB606CC00B4A1EB /* InfoWindow.xib */; };
 		43DAF1CC1DA7266900C37CDA /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DAF1CB1DA7266900C37CDA /* LoginManager.swift */; };
+		43DAF1CF1DA7FEDD00C37CDA /* FileSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DAF1CE1DA7FEDD00C37CDA /* FileSaver.swift */; };
 		43DCCC271C58854A00B64A85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCCC261C58854A00B64A85 /* AppDelegate.swift */; };
 		43DCCC2C1C58854A00B64A85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43DCCC2A1C58854A00B64A85 /* Main.storyboard */; };
 		43DCCC2E1C58854A00B64A85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DCCC2D1C58854A00B64A85 /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 		43C75D181CB606CC00B4A1EB /* InfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindow.xib; sourceTree = "<group>"; };
 		43DAF1C81DA6FDA000C37CDA /* PoogleMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PoogleMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		43DAF1CB1DA7266900C37CDA /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
+		43DAF1CE1DA7FEDD00C37CDA /* FileSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSaver.swift; sourceTree = "<group>"; };
 		43DCCC231C58854A00B64A85 /* PoogleMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoogleMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DCCC261C58854A00B64A85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43DCCC2B1C58854A00B64A85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				43DAF1CB1DA7266900C37CDA /* LoginManager.swift */,
+				43DAF1CE1DA7FEDD00C37CDA /* FileSaver.swift */,
 			);
 			name = "Service Objects";
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				433704AB1CC72133003336F4 /* TestimonialTableViewCell.swift in Sources */,
 				433704BD1CCEB47A003336F4 /* AddTestimonialViewController.swift in Sources */,
 				433704AF1CC7CC21003336F4 /* LoginViewController.swift in Sources */,
+				43DAF1CF1DA7FEDD00C37CDA /* FileSaver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
