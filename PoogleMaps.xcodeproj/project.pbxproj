@@ -29,6 +29,7 @@
 		437F6B861CED0BA000F01436 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 437F6B851CED0BA000F01436 /* GoogleService-Info.plist */; };
 		43C75D151CB606AB00B4A1EB /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */; };
 		43C75D191CB606CC00B4A1EB /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43C75D181CB606CC00B4A1EB /* InfoWindow.xib */; };
+		43DAF1CC1DA7266900C37CDA /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DAF1CB1DA7266900C37CDA /* LoginManager.swift */; };
 		43DCCC271C58854A00B64A85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DCCC261C58854A00B64A85 /* AppDelegate.swift */; };
 		43DCCC2C1C58854A00B64A85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43DCCC2A1C58854A00B64A85 /* Main.storyboard */; };
 		43DCCC2E1C58854A00B64A85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DCCC2D1C58854A00B64A85 /* Assets.xcassets */; };
@@ -72,6 +73,7 @@
 		43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
 		43C75D181CB606CC00B4A1EB /* InfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindow.xib; sourceTree = "<group>"; };
 		43DAF1C81DA6FDA000C37CDA /* PoogleMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PoogleMaps-Bridging-Header.h"; sourceTree = "<group>"; };
+		43DAF1CB1DA7266900C37CDA /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		43DCCC231C58854A00B64A85 /* PoogleMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoogleMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DCCC261C58854A00B64A85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43DCCC2B1C58854A00B64A85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -169,6 +171,14 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		43DAF1CD1DA7267000C37CDA /* Service Objects */ = {
+			isa = PBXGroup;
+			children = (
+				43DAF1CB1DA7266900C37CDA /* LoginManager.swift */,
+			);
+			name = "Service Objects";
+			sourceTree = "<group>";
+		};
 		43DCCC1A1C58854A00B64A85 = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +203,7 @@
 				4347961A1C629AC600585CFF /* Model */,
 				4347961B1C629AD500585CFF /* View */,
 				4347961C1C629ADB00585CFF /* Controller */,
+				43DAF1CD1DA7267000C37CDA /* Service Objects */,
 				4304FDF71CAA354F00DFE53D /* Other */,
 			);
 			path = PoogleMaps;
@@ -365,6 +376,7 @@
 				432324E01CB6BE24001615DE /* PoogleViewController.swift in Sources */,
 				4361E7AF1CAAD8B300D21A1E /* User.swift in Sources */,
 				43DCCC271C58854A00B64A85 /* AppDelegate.swift in Sources */,
+				43DAF1CC1DA7266900C37CDA /* LoginManager.swift in Sources */,
 				433704A91CC71ECC003336F4 /* PoogleBasicInfoTableViewCell.swift in Sources */,
 				4361E7B11CAAD8CA00D21A1E /* Locale.swift in Sources */,
 				4361E7B31CAAD8D300D21A1E /* Testimonial.swift in Sources */,
