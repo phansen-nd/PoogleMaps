@@ -9,9 +9,15 @@
 import Foundation
 import Firebase
 
+protocol LoginManagerDelegate {
+    func didSignInSuccessfully()
+}
 
 class LoginManager : NSObject, GIDSignInDelegate {
  
+    var delegate: LoginManagerDelegate?
+    var currentUser: User?
+    
     // Create a reference to a Firebase location
     var root = FIRDatabase.database().reference()
 
@@ -60,15 +66,29 @@ class LoginManager : NSObject, GIDSignInDelegate {
             self.root.child("users/\(user.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                 if snapshot.exists() {
                     print("User info already stored.")
+                    // User info stored already, repeat sign-in.
+                    // Grab data and update current user object.
+                    if let firUser = FIRAuth.auth()?.currentUser {
+                        self.root.child("/users/\(firUser.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
+                            self.currentUser = User(withSnapshot: snapshot, andUID: firUser.uid)
+                            self.delegate?.didSignInSuccessfully()
+                        })
+                    }
                 } else {
                     print("User info doesn't exist, store it.")
-                    self.storeUserInfoInDatabase(with: user)
+                    // User info doesn't exist yet, first time sign-in.
+                    // Data will already be stored in current user object from the function below.
+                    self.storeUserInfoInDatabase(with: user) {
+                        self.delegate?.didSignInSuccessfully()
+                    }
+                    
+                    // TODO: Something awesome welcoming the person!
                 }
             })
         }
     }
     
-    func signOut() {
+    func signOut(withCompletion completion: () -> Void) {
         if (FIRAuth.auth()?.currentUser) != nil {
             // Logout
             do {
@@ -79,6 +99,9 @@ class LoginManager : NSObject, GIDSignInDelegate {
             }
             print("Successfully signed out.")
             GIDSignIn.sharedInstance().signOut()
+            
+            // Do whatever the caller wants done (probably to the UI).
+            completion()
         } else {
             print("No one was signed in.")
         }
@@ -88,29 +111,45 @@ class LoginManager : NSObject, GIDSignInDelegate {
     // MARK: - Helper functions.
     //
     
-    func storeUserInfoInDatabase(with user: FIRUser) {
+    func storeUserInfoInDatabase(with user: FIRUser, completion: () -> Void) {
         for profile in user.providerData {
             let providerID = profile.providerID
             let uid = profile.uid
             let name = profile.displayName
             let email = profile.email
             let photoURL = profile.photoURL
-            let appDisplayName = self.getDisplayName(with: name!)
+            let appDisplayNames = self.getDisplayNames(with: name!)
+            let dateString = self.getFormattedDate()
             
-            print("\(providerID) info for \(name!):\nEmail address: \(email!)\nURL for photo: \(photoURL!)\nUID: \(uid)\nPoogle display name: \(appDisplayName)")
+            print("\(providerID) info for \(name!):\nEmail address: \(email!)\nURL for photo: \(photoURL!)\nUID: \(uid)\nPoogle display name: \(appDisplayNames[0]), firstName: \(appDisplayNames[1]), dateJoined: \(dateString)")
             
-            let newUser: [String:String] = ["name": name!, "providerUID": uid, "email": email!, "photoURL": "\(photoURL!)", "displayName": appDisplayName]
+            let newUser: [String:String] = ["name": name!, "providerUID": uid, "email": email!, "photoURL": "\(photoURL!)", "displayName": appDisplayNames[0], "firstName": appDisplayNames[1], "dateJoined": dateString]
             let newUserRef = self.root.child("/users/\(user.uid)")
             newUserRef.setValue(newUser)
+            
+            // Create current user.
+            currentUser = User(withData: newUser, andUID: user.uid)
+            
+            // Return the user in completion so UI can be updated right away.
+            completion()
         }
     }
     
-    func getDisplayName(with name: String) -> String {
+    func getDisplayNames(with name: String) -> [String] {
         
         let arr = name.components(separatedBy: " ")
         let appName = "\(arr[0]) \(arr[1].characters.first!)"
+        let firstName = arr[0]
+        return [appName, firstName]
+    }
+    
+    func getFormattedDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
         
-        return appName
+        let dateString = formatter.string(from: Date())
+        
+        return dateString
     }
     
 }
