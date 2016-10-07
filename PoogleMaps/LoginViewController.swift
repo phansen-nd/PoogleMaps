@@ -11,10 +11,12 @@ import Firebase
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDelegate {
     
+    // Group 1 - Ready to login.
     @IBOutlet weak var instructionLabel: UILabel!
     @IBOutlet weak var googleSignInView: GIDSignInButton!
     @IBOutlet weak var promiseLabel: UILabel!
     
+    // Group 2 - Account details.
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var startDateLabel: UILabel!
@@ -73,7 +75,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDe
         loginManager.signOut {
             
             // Make this wait a second so the user feels like they're actually logged out.
-            let dispatchTime = DispatchTime.now() + .milliseconds(500)
+            let dispatchTime = DispatchTime.now() + .milliseconds(300)
             DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
                 self.activityIndicatorView.stopAnimating()
                 self.showLoginView()
