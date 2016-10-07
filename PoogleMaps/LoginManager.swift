@@ -20,6 +20,7 @@ class LoginManager : NSObject, GIDSignInDelegate {
     var root = FIRDatabase.database().reference()
     
     private var dataDownloader = DataDownloader()
+    private var fileSaver = FileSaver()
 
     //
     // MARK: - GIDSignInDelegate functions.
@@ -73,6 +74,7 @@ class LoginManager : NSObject, GIDSignInDelegate {
                     if let firUser = FIRAuth.auth()?.currentUser {
                         self.root.child("/users/\(firUser.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                             self.currentUser = User(withSnapshot: snapshot, andUID: firUser.uid)
+                            self.currentUser?.profilePhoto = self.fileSaver.loadImage(named: firUser.uid)
                             self.delegate?.didSignInSuccessfully()
                         })
                     }
@@ -139,6 +141,7 @@ class LoginManager : NSObject, GIDSignInDelegate {
             
             // Create current user for access from Login VC.
             currentUser = User(withData: newUser, andUID: user.uid)
+            currentUser?.profilePhoto = fileSaver.loadImage(named: user.uid)
             
             // Execute the completion so UI can be updated right away.
             completion()
