@@ -118,7 +118,7 @@ class LoginManager : NSObject, GIDSignInDelegate {
     // MARK: - Helper functions.
     //
     
-    func storeUserInfoInDatabase(with user: FIRUser, completion: () -> Void) {
+    func storeUserInfoInDatabase(with user: FIRUser, completion: @escaping () -> Void) {
         for profile in user.providerData {
             let providerID = profile.providerID
             let uid = profile.uid
@@ -131,20 +131,25 @@ class LoginManager : NSObject, GIDSignInDelegate {
             // Debug info.
             print("\(providerID) info for \(name!):\nEmail address: \(email!)\nURL for photo: \(photoURL!)\nUID: \(uid)\nPoogle display name: \(appDisplayNames[0]), firstName: \(appDisplayNames[1]), dateJoined: \(dateString)")
             
-            // Download and store the profile photo locally for easy access. 
-            dataDownloader.downloadAndSaveImage(withURL: photoURL!, name: user.uid)
+            // Download and store the profile photo locally for easy access. Everything else
+            //  should wait until it's safely saved (or not) to continue.
+            dataDownloader.downloadAndSaveImage(withURL: photoURL!, name: user.uid) {
             
-            // Create a user (dictionary of strings) and store in the database.
-            let newUser: [String:String] = ["name": name!, "providerUID": uid, "email": email!, "photoURL": "\(photoURL!)", "displayName": appDisplayNames[0], "firstName": appDisplayNames[1], "dateJoined": dateString]
-            let newUserRef = self.root.child("/users/\(user.uid)")
-            newUserRef.setValue(newUser)
-            
-            // Create current user for access from Login VC.
-            currentUser = User(withData: newUser, andUID: user.uid)
-            currentUser?.profilePhoto = fileSaver.loadImage(named: user.uid)
-            
-            // Execute the completion so UI can be updated right away.
-            completion()
+                // Create a user (dictionary of strings) and store in the database.
+                let newUser: [String:String] = ["name": name!, "providerUID": uid, "email": email!, "photoURL": "\(photoURL!)", "displayName": appDisplayNames[0], "firstName": appDisplayNames[1], "dateJoined": dateString]
+                let newUserRef = self.root.child("/users/\(user.uid)")
+                newUserRef.setValue(newUser)
+                
+                // Create current user for access from Login VC.
+                self.currentUser = User(withData: newUser, andUID: user.uid)
+                self.currentUser?.profilePhoto = self.fileSaver.loadImage(named: user.uid)
+                
+                // Execute the completion so UI can be updated right away.
+                // It's going to be UI, so make sure it's on main thread.
+                DispatchQueue.main.async {
+                    completion()
+                }
+            }
         }
     }
     

@@ -12,7 +12,7 @@ class DataDownloader {
 
     private var fileSaver = FileSaver()
     
-    func downloadAndSaveImage(withURL url: URL, name: String) {
+    func downloadAndSaveImage(withURL url: URL, name: String, completion: @escaping () -> Void) {
         print("Image download began.")
         
         // Should already be in the background, so save it here.
@@ -34,6 +34,9 @@ class DataDownloader {
             } else {
                 print("FileSaver couldn't save image.")
             }
+            
+            // Do things with the knowledge that image has been saved or not, but isn't mid-save.
+            completion()
         }
     }
     

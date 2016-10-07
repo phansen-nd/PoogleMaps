@@ -213,6 +213,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view hidden="YES" alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dz8-Xe-dMX">
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.90000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCOUNT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZX-ce-oJ1">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="95" id="4qc-LW-5iz"/>
@@ -323,11 +338,13 @@
                             <constraint firstItem="5le-DN-xBQ" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="156" id="Izc-zt-fyU"/>
                             <constraint firstItem="fKg-Sk-Dcr" firstAttribute="centerX" secondItem="yLk-HC-6nv" secondAttribute="centerX" id="NbV-Dn-GKP"/>
                             <constraint firstItem="oaV-8w-3qh" firstAttribute="centerX" secondItem="yLk-HC-6nv" secondAttribute="centerX" id="RYZ-Bn-hzW"/>
+                            <constraint firstItem="Dz8-Xe-dMX" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="114" id="U44-ug-OKp"/>
                             <constraint firstItem="dOd-w6-HTG" firstAttribute="top" secondItem="oaV-8w-3qh" secondAttribute="bottom" constant="20" id="ZBD-pH-vBA"/>
                             <constraint firstItem="gsW-lg-z4c" firstAttribute="centerY" secondItem="yLk-HC-6nv" secondAttribute="centerY" id="aae-Jy-vZ9"/>
                             <constraint firstItem="fKg-Sk-Dcr" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="40" id="by4-5M-nPI"/>
                             <constraint firstItem="EZX-ce-oJ1" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="14" id="cgS-5G-vRa"/>
                             <constraint firstItem="PWP-sg-RXu" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="384" id="eTn-2S-L6P"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Dz8-Xe-dMX" secondAttribute="trailing" constant="3" id="fCV-gc-NDp"/>
                             <constraint firstItem="WNv-Oe-Cla" firstAttribute="leading" secondItem="yLk-HC-6nv" secondAttribute="leadingMargin" constant="-10" id="iWM-an-5ja"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WNv-Oe-Cla" secondAttribute="trailing" constant="-10" id="jaw-MT-dgg"/>
                             <constraint firstItem="WNv-Oe-Cla" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="235" id="l7y-Vf-9Jm"/>
@@ -335,16 +352,19 @@
                             <constraint firstAttribute="leadingMargin" secondItem="Q77-iv-Z7a" secondAttribute="leading" id="mw7-94-cGa"/>
                             <constraint firstItem="5le-DN-xBQ" firstAttribute="centerX" secondItem="yLk-HC-6nv" secondAttribute="centerX" id="nhX-ok-PWb"/>
                             <constraint firstItem="eHF-eN-LKC" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" id="p0z-3o-dTD"/>
+                            <constraint firstItem="Dz8-Xe-dMX" firstAttribute="leading" secondItem="yLk-HC-6nv" secondAttribute="leadingMargin" constant="3" id="qHH-sI-crw"/>
                             <constraint firstItem="X8C-RN-1wH" firstAttribute="centerX" secondItem="yLk-HC-6nv" secondAttribute="centerX" id="qcC-5H-fSe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Q77-iv-Z7a" secondAttribute="trailing" id="sdK-cB-tGf"/>
                             <constraint firstItem="syE-4y-xu1" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="131" id="xgL-v2-MS0"/>
                             <constraint firstItem="syE-4y-xu1" firstAttribute="centerX" secondItem="yLk-HC-6nv" secondAttribute="centerX" id="y5G-EK-bDR"/>
                             <constraint firstItem="gsW-lg-z4c" firstAttribute="centerX" secondItem="yLk-HC-6nv" secondAttribute="centerX" id="zfW-Aw-fDY"/>
+                            <constraint firstItem="oaV-8w-3qh" firstAttribute="top" secondItem="Dz8-Xe-dMX" secondAttribute="bottom" constant="30" id="zfs-rG-zac"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="X8C-RN-1wH" id="N2s-BD-QAE"/>
+                        <outlet property="encapsulatingView" destination="Dz8-Xe-dMX" id="Rc3-Dv-xWa"/>
                         <outlet property="googleSignInView" destination="gsW-lg-z4c" id="xa4-4Q-bTB"/>
                         <outlet property="instructionLabel" destination="5le-DN-xBQ" id="Z2O-Y8-Dxh"/>
                         <outlet property="logoutButton" destination="oaV-8w-3qh" id="XgJ-4P-A2h"/>

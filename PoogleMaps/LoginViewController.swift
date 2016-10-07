@@ -18,6 +18,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDe
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var startDateLabel: UILabel!
+    @IBOutlet weak var encapsulatingView: UIView!
     @IBOutlet weak var logoutButton: UIButton!
     
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
@@ -38,6 +39,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDe
         
         // Configure sign-in button look/feel.
         googleSignInView.colorScheme = .dark
+        
+        encapsulatingView.layer.shadowColor = UIColor.black.cgColor
         
         // If someone's already logged in, update the view.
         if let firUser = FIRAuth.auth()?.currentUser {
@@ -70,7 +73,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDe
         loginManager.signOut {
             
             // Make this wait a second so the user feels like they're actually logged out.
-            let dispatchTime = DispatchTime.now() + .seconds(1)
+            let dispatchTime = DispatchTime.now() + .milliseconds(500)
             DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
                 self.activityIndicatorView.stopAnimating()
                 self.showLoginView()
@@ -118,5 +121,6 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDe
         nameLabel.isHidden = !nameLabel.isHidden
         startDateLabel.isHidden = !startDateLabel.isHidden
         logoutButton.isHidden = !logoutButton.isHidden
+        encapsulatingView.isHidden = !encapsulatingView.isHidden
     }
 }
