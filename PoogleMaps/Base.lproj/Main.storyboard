@@ -249,12 +249,24 @@
                                     <constraint firstAttribute="height" constant="48" id="rZD-vH-rqV"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oaV-8w-3qh">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Qui-3m-6GY"/>
+                                    <constraint firstAttribute="width" constant="52" id="dKW-Rg-Ny7"/>
+                                </constraints>
+                                <state key="normal" title="Log out"/>
+                                <connections>
+                                    <action selector="logoutButtonTouched:" destination="Wze-Sm-pKy" eventType="touchUpInside" id="1rd-mK-43r"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.043137254899999998" green="0.043137254899999998" blue="0.33725490196000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="EZX-ce-oJ1" firstAttribute="centerX" secondItem="yLk-HC-6nv" secondAttribute="centerX" id="1l3-ZG-3vo"/>
                             <constraint firstItem="eHF-eN-LKC" firstAttribute="leading" secondItem="yLk-HC-6nv" secondAttribute="leadingMargin" constant="-9" id="8bc-ty-wez"/>
+                            <constraint firstItem="oaV-8w-3qh" firstAttribute="top" secondItem="gsW-lg-z4c" secondAttribute="bottom" constant="38" id="JNV-Te-8ur"/>
                             <constraint firstItem="fKg-Sk-Dcr" firstAttribute="centerX" secondItem="yLk-HC-6nv" secondAttribute="centerX" id="NbV-Dn-GKP"/>
+                            <constraint firstItem="oaV-8w-3qh" firstAttribute="centerX" secondItem="gsW-lg-z4c" secondAttribute="centerX" id="Pgr-zz-4fc"/>
                             <constraint firstItem="gsW-lg-z4c" firstAttribute="centerY" secondItem="yLk-HC-6nv" secondAttribute="centerY" id="aae-Jy-vZ9"/>
                             <constraint firstItem="fKg-Sk-Dcr" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="40" id="by4-5M-nPI"/>
                             <constraint firstItem="EZX-ce-oJ1" firstAttribute="top" secondItem="jYc-2e-8A0" secondAttribute="bottom" constant="14" id="cgS-5G-vRa"/>
