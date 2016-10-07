@@ -74,8 +74,19 @@ class LoginManager : NSObject, GIDSignInDelegate {
                     if let firUser = FIRAuth.auth()?.currentUser {
                         self.root.child("/users/\(firUser.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                             self.currentUser = User(withSnapshot: snapshot, andUID: firUser.uid)
-                            self.currentUser?.profilePhoto = self.fileSaver.loadImage(named: firUser.uid)
-                            self.delegate?.didSignInSuccessfully()
+                            
+                            // Could be signing in on a new device.
+                            // If the image is there. Good to go, just set the user object's property.
+                            // If not, we need to download and save it.
+                            if let image = self.fileSaver.loadImage(named: firUser.uid) {
+                                self.currentUser?.profilePhoto = image
+                                self.delegate?.didSignInSuccessfully()
+                            } else {
+                                print("User data exists, but can't find the local picture store. This must be is a new device.")
+                                self.storeUserInfoInDatabase(with: user, shouldCreateDataObject: false) {
+                                    self.delegate?.didSignInSuccessfully()
+                                }
+                            }
                         })
                     }
                 } else {
@@ -85,7 +96,7 @@ class LoginManager : NSObject, GIDSignInDelegate {
                     // User info doesn't exist yet, first time sign-in.
                     // Data will already be stored in current user object from the function below,
                     //  so no need to fetch it from Firebase. Nice!
-                    self.storeUserInfoInDatabase(with: user) {
+                    self.storeUserInfoInDatabase(with: user, shouldCreateDataObject: true) {
                         self.delegate?.didSignInSuccessfully()
                     }
                     
@@ -118,7 +129,7 @@ class LoginManager : NSObject, GIDSignInDelegate {
     // MARK: - Helper functions.
     //
     
-    func storeUserInfoInDatabase(with user: FIRUser, completion: @escaping () -> Void) {
+    func storeUserInfoInDatabase(with user: FIRUser, shouldCreateDataObject: Bool, completion: @escaping () -> Void) {
         for profile in user.providerData {
             let providerID = profile.providerID
             let uid = profile.uid
@@ -131,16 +142,21 @@ class LoginManager : NSObject, GIDSignInDelegate {
             // Debug info.
             print("\(providerID) info for \(name!):\nEmail address: \(email!)\nURL for photo: \(photoURL!)\nUID: \(uid)\nPoogle display name: \(appDisplayNames[0]), firstName: \(appDisplayNames[1]), dateJoined: \(dateString)")
             
+            // Create a user (dictionary of strings).
+            let newUser: [String:String] = ["name": name!, "providerUID": uid, "email": email!, "photoURL": "\(photoURL!)", "displayName": appDisplayNames[0], "firstName": appDisplayNames[1], "dateJoined": dateString]
+            
+            // If this is the first time creating user, upload data to Firebase.
+            // If the data is already there, just move on and save the profile photo locally.
+            if shouldCreateDataObject {
+                let newUserRef = self.root.child("/users/\(user.uid)")
+                newUserRef.setValue(newUser)
+            }
+            
             // Download and store the profile photo locally for easy access. Everything else
             //  should wait until it's safely saved (or not) to continue.
             dataDownloader.downloadAndSaveImage(withURL: photoURL!, name: user.uid) {
-            
-                // Create a user (dictionary of strings) and store in the database.
-                let newUser: [String:String] = ["name": name!, "providerUID": uid, "email": email!, "photoURL": "\(photoURL!)", "displayName": appDisplayNames[0], "firstName": appDisplayNames[1], "dateJoined": dateString]
-                let newUserRef = self.root.child("/users/\(user.uid)")
-                newUserRef.setValue(newUser)
                 
-                // Create current user for access from Login VC.
+                // Create current user object for access from Login VC.
                 self.currentUser = User(withData: newUser, andUID: user.uid)
                 self.currentUser?.profilePhoto = self.fileSaver.loadImage(named: user.uid)
                 
