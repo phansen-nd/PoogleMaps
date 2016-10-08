@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		432324E01CB6BE24001615DE /* PoogleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432324DF1CB6BE24001615DE /* PoogleViewController.swift */; };
-		433704A91CC71ECC003336F4 /* PoogleBasicInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433704A81CC71ECC003336F4 /* PoogleBasicInfoTableViewCell.swift */; };
-		433704AB1CC72133003336F4 /* TestimonialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433704AA1CC72133003336F4 /* TestimonialTableViewCell.swift */; };
 		433704AF1CC7CC21003336F4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433704AE1CC7CC21003336F4 /* LoginViewController.swift */; };
 		433704B11CC93022003336F4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704B01CC93022003336F4 /* AVFoundation.framework */; };
 		433704B31CC9302D003336F4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704B21CC9302D003336F4 /* CoreData.framework */; };
@@ -17,12 +14,8 @@
 		433704B71CC9303F003336F4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704B61CC9303F003336F4 /* GLKit.framework */; };
 		433704B91CC93049003336F4 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704B81CC93049003336F4 /* ImageIO.framework */; };
 		433704BB1CC9305A003336F4 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704BA1CC9305A003336F4 /* OpenGLES.framework */; };
-		433704BD1CCEB47A003336F4 /* AddTestimonialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433704BC1CCEB47A003336F4 /* AddTestimonialViewController.swift */; };
 		4361E7A91CAAD5D600D21A1E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7A81CAAD5D600D21A1E /* MapViewController.swift */; };
-		4361E7AD1CAAD76100D21A1E /* Poogle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7AC1CAAD76100D21A1E /* Poogle.swift */; };
 		4361E7AF1CAAD8B300D21A1E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7AE1CAAD8B300D21A1E /* User.swift */; };
-		4361E7B11CAAD8CA00D21A1E /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7B01CAAD8CA00D21A1E /* Locale.swift */; };
-		4361E7B31CAAD8D300D21A1E /* Testimonial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7B21CAAD8D300D21A1E /* Testimonial.swift */; };
 		436A79701C62A7A300C36BAE /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A796F1C62A7A300C36BAE /* libicucore.tbd */; };
 		436A79721C62A7B300C36BAE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A79711C62A7B300C36BAE /* libc++.tbd */; };
 		437F6B861CED0BA000F01436 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 437F6B851CED0BA000F01436 /* GoogleService-Info.plist */; };
@@ -51,9 +44,6 @@
 /* Begin PBXFileReference section */
 		20B9313EE9BF12DEEB289102 /* Pods-PoogleMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoogleMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PoogleMaps/Pods-PoogleMaps.debug.xcconfig"; sourceTree = "<group>"; };
 		245A74ED60BB422794E98497 /* Pods_PoogleMaps.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoogleMaps.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		432324DF1CB6BE24001615DE /* PoogleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoogleViewController.swift; sourceTree = "<group>"; };
-		433704A81CC71ECC003336F4 /* PoogleBasicInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoogleBasicInfoTableViewCell.swift; sourceTree = "<group>"; };
-		433704AA1CC72133003336F4 /* TestimonialTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestimonialTableViewCell.swift; sourceTree = "<group>"; };
 		433704AE1CC7CC21003336F4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		433704B01CC93022003336F4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		433704B21CC9302D003336F4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -61,12 +51,8 @@
 		433704B61CC9303F003336F4 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		433704B81CC93049003336F4 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		433704BA1CC9305A003336F4 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		433704BC1CCEB47A003336F4 /* AddTestimonialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTestimonialViewController.swift; sourceTree = "<group>"; };
 		4361E7A81CAAD5D600D21A1E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		4361E7AC1CAAD76100D21A1E /* Poogle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poogle.swift; sourceTree = "<group>"; };
 		4361E7AE1CAAD8B300D21A1E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		4361E7B01CAAD8CA00D21A1E /* Locale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
-		4361E7B21CAAD8D300D21A1E /* Testimonial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Testimonial.swift; sourceTree = "<group>"; };
 		436A796F1C62A7A300C36BAE /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		436A79711C62A7B300C36BAE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		437F6B851CED0BA000F01436 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -140,10 +126,7 @@
 		4347961A1C629AC600585CFF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4361E7AC1CAAD76100D21A1E /* Poogle.swift */,
 				4361E7AE1CAAD8B300D21A1E /* User.swift */,
-				4361E7B01CAAD8CA00D21A1E /* Locale.swift */,
-				4361E7B21CAAD8D300D21A1E /* Testimonial.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -163,11 +146,7 @@
 			children = (
 				4361E7A81CAAD5D600D21A1E /* MapViewController.swift */,
 				43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */,
-				432324DF1CB6BE24001615DE /* PoogleViewController.swift */,
-				433704A81CC71ECC003336F4 /* PoogleBasicInfoTableViewCell.swift */,
-				433704AA1CC72133003336F4 /* TestimonialTableViewCell.swift */,
 				433704AE1CC7CC21003336F4 /* LoginViewController.swift */,
-				433704BC1CCEB47A003336F4 /* AddTestimonialViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -373,19 +352,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4361E7AD1CAAD76100D21A1E /* Poogle.swift in Sources */,
 				43DAF1D11DA8063300C37CDA /* DataDownloader.swift in Sources */,
 				4361E7A91CAAD5D600D21A1E /* MapViewController.swift in Sources */,
-				432324E01CB6BE24001615DE /* PoogleViewController.swift in Sources */,
 				4361E7AF1CAAD8B300D21A1E /* User.swift in Sources */,
 				43DCCC271C58854A00B64A85 /* AppDelegate.swift in Sources */,
 				43DAF1CC1DA7266900C37CDA /* LoginManager.swift in Sources */,
-				433704A91CC71ECC003336F4 /* PoogleBasicInfoTableViewCell.swift in Sources */,
-				4361E7B11CAAD8CA00D21A1E /* Locale.swift in Sources */,
-				4361E7B31CAAD8D300D21A1E /* Testimonial.swift in Sources */,
 				43C75D151CB606AB00B4A1EB /* CustomInfoWindow.swift in Sources */,
-				433704AB1CC72133003336F4 /* TestimonialTableViewCell.swift in Sources */,
-				433704BD1CCEB47A003336F4 /* AddTestimonialViewController.swift in Sources */,
 				433704AF1CC7CC21003336F4 /* LoginViewController.swift in Sources */,
 				43DAF1CF1DA7FEDD00C37CDA /* FileSaver.swift in Sources */,
 			);

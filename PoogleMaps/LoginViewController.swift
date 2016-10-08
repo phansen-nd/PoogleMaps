@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDelegate {
+class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDelegate, UIGestureRecognizerDelegate {
     
     // Group 1 - Ready to login.
     @IBOutlet weak var instructionLabel: UILabel!
@@ -125,4 +125,13 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, LoginManagerDe
         logoutButton.isHidden = !logoutButton.isHidden
         encapsulatingView.isHidden = !encapsulatingView.isHidden
     }
+    
+    //
+    // MARK: - Gesture Recognizer delegate.
+    //
+    
+    @IBAction func swipedDown(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

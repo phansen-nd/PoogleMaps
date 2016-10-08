@@ -66,11 +66,11 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
 // CLLocationManagerDelegate
 extension MapViewController: CLLocationManagerDelegate {
     
-    // Called when user authorizes or deauthorizes app to use location
+    // Called when user authorizes or deauthorizes app to use location.
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         // If it's positive authorization:
         if status == .authorizedWhenInUse {
-            // Start udpating
+            // Start udpating.
             locationManager.startUpdatingLocation()
             mapView.isMyLocationEnabled = true
             mapView.settings.myLocationButton = true
@@ -79,15 +79,14 @@ extension MapViewController: CLLocationManagerDelegate {
     
     // Once location manager starts receiving locations.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         if let location = locations.first {
-      
             // Update the camera to user's location
             mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
             
             // Then stop updating after initial location grab
             locationManager.stopUpdatingLocation()
         }
-        
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -108,21 +107,13 @@ extension MapViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        
-        
         let infoWindow: CustomInfoWindow = Bundle.main.loadNibNamed("InfoWindow", owner: self, options: nil)![0] as! CustomInfoWindow
-        //infoWindow.nameLabel.text = info!["name"] as? String
-        //infoWindow.userLabel.text = info!["creator"] as? String
-        //infoWindow.setRating(Int((info!["rating"] as? Float)!))
-        //infoWindow.imageView.image = decodedImage(marker.snippet)
-        
         return infoWindow
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
     }
-    
 }
 
 // UIColor extension
