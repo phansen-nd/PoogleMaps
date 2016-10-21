@@ -26,7 +26,6 @@ class Place {
         let i2 = Int(arc4random_uniform(5))
         name = "\(firstWords[i1])\(secondWords[i2])\(num)"
         
-        
     }
     
 }

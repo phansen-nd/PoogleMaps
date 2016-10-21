@@ -17,9 +17,10 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var addOverlayView: PassThroughableView!
+    @IBOutlet weak var createButton: UIButton!
     
     let locationManager = CLLocationManager()
-    var root = FIRDatabase.database().reference()
+    let dataManager = DataManager()
     var isAdding = false
     
     override func viewDidLoad() {
@@ -65,7 +66,17 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
         self.present(loginVC, animated: true, completion: nil)
     }
     
-    // 
+    @IBAction func createButtonTouched(_ sender: AnyObject) {
+    
+        let place = Place()
+        
+        print("Create button touched, called \(place.name).");
+    }
+    
+    //
+    // MARK: - Navigation
+    //
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "showAdd":
@@ -82,7 +93,7 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
     // Do UI things to enable/disable adding.
     func animatePlusButtonTouch() {
         if !isAdding {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 
                 // Swap alphas.
                 self.profileButton.alpha = 0.0;

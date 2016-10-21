@@ -82,17 +82,47 @@
                             </button>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="159-2M-Gdm" customClass="PassThroughableView" customModule="PoogleMaps" customModuleProvider="target">
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNw-kc-MYu">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crosshair" translatesAutoresizingMaskIntoConstraints="NO" id="En4-N8-9ir">
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="46" id="D0J-d0-wDd"/>
-                                            <constraint firstAttribute="height" constant="30" id="kYs-5Y-gOM"/>
+                                            <constraint firstAttribute="width" constant="73" id="cfY-e9-hMW"/>
+                                            <constraint firstAttribute="height" constant="73" id="oIF-ry-yT1"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oq1-qG-koM">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="3d5-9W-Zt2"/>
+                                            <constraint firstAttribute="width" constant="200" id="gNm-XD-w9c"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
+                                        <state key="normal" title="There's a toilet here!">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                <real key="value" value="0.25"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                <size key="value" width="0.0" height="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="createButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GeA-va-aY6"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="UNw-kc-MYu" firstAttribute="centerX" secondItem="159-2M-Gdm" secondAttribute="centerX" id="fhs-wV-qQb"/>
-                                    <constraint firstItem="UNw-kc-MYu" firstAttribute="centerY" secondItem="159-2M-Gdm" secondAttribute="centerY" id="iNx-PQ-ARH"/>
+                                    <constraint firstItem="Oq1-qG-koM" firstAttribute="centerX" secondItem="159-2M-Gdm" secondAttribute="centerX" id="af5-TE-26M"/>
+                                    <constraint firstItem="Oq1-qG-koM" firstAttribute="top" secondItem="159-2M-Gdm" secondAttribute="top" constant="29" id="feG-u2-Gnt"/>
+                                    <constraint firstItem="En4-N8-9ir" firstAttribute="centerX" secondItem="159-2M-Gdm" secondAttribute="centerX" id="hmE-HK-afv"/>
+                                    <constraint firstItem="En4-N8-9ir" firstAttribute="centerY" secondItem="159-2M-Gdm" secondAttribute="centerY" id="zg4-OI-BOA"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -114,6 +144,7 @@
                     </view>
                     <connections>
                         <outlet property="addOverlayView" destination="159-2M-Gdm" id="icX-zb-j1h"/>
+                        <outlet property="createButton" destination="Oq1-qG-koM" id="fJD-d3-y9x"/>
                         <outlet property="mapView" destination="y4G-WN-ZxP" id="Kfx-Xw-7oT"/>
                         <outlet property="plusButton" destination="BJZ-vi-AQ9" id="K4o-mk-pgq"/>
                         <outlet property="profileButton" destination="a1a-Yt-8RJ" id="Of2-zu-y2C"/>
@@ -317,6 +348,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="crosshair" width="300" height="300"/>
         <image name="down-arrow" width="128" height="128"/>
         <image name="loginicon" width="512" height="512"/>
         <image name="plusbutton" width="256" height="256"/>
