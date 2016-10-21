@@ -16,9 +16,11 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var addOverlayView: PassThroughableView!
     
     let locationManager = CLLocationManager()
     var root = FIRDatabase.database().reference()
+    var isAdding = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +52,8 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
     //
     
     @IBAction func plusButtonTouched(_ sender: AnyObject) {
-        print("Add button touched.")
+        animatePlusButtonTouch()
+        isAdding = !isAdding
     }
     
     // Launch the Login VC.
@@ -69,6 +72,33 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
             print("Add")
         default:
             print("Unrecognized segue.")
+        }
+    }
+    
+    // 
+    // MARK: - Helper functions
+    // 
+    
+    // Do UI things to enable/disable adding.
+    func animatePlusButtonTouch() {
+        if !isAdding {
+            UIView.animate(withDuration: 0.5, animations: {
+                
+                // Swap alphas.
+                self.profileButton.alpha = 0.0;
+                self.addOverlayView.alpha = 1.0;
+                
+                // Rotate plus button to make it an 'X'.
+                self.plusButton.transform = CGAffineTransform(rotationAngle: (5.0 * 3.14159265 / 4.0))
+                self.plusButton.layer.shadowOpacity = 0.0
+            })
+        } else {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.profileButton.alpha = 1.0;
+                self.addOverlayView.alpha = 0.0;
+                self.plusButton.transform = CGAffineTransform(rotationAngle: 0.0)
+                self.plusButton.layer.shadowOpacity = 0.25
+            })
         }
     }
 }

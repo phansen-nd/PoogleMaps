@@ -80,20 +80,40 @@
                                     <action selector="plusButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="coc-fk-NXI"/>
                                 </connections>
                             </button>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="159-2M-Gdm" customClass="PassThroughableView" customModule="PoogleMaps" customModuleProvider="target">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNw-kc-MYu">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="D0J-d0-wDd"/>
+                                            <constraint firstAttribute="height" constant="30" id="kYs-5Y-gOM"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="UNw-kc-MYu" firstAttribute="centerX" secondItem="159-2M-Gdm" secondAttribute="centerX" id="fhs-wV-qQb"/>
+                                    <constraint firstItem="UNw-kc-MYu" firstAttribute="centerY" secondItem="159-2M-Gdm" secondAttribute="centerY" id="iNx-PQ-ARH"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="a1a-Yt-8RJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="2Fh-Vc-yiI"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="a1a-Yt-8RJ" secondAttribute="bottom" constant="73" id="2bc-p0-B5b"/>
+                            <constraint firstItem="159-2M-Gdm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="38W-64-0iN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="159-2M-Gdm" secondAttribute="trailing" constant="-20" id="AmC-wu-aLZ"/>
                             <constraint firstItem="y4G-WN-ZxP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="GUl-cC-Xnf"/>
                             <constraint firstItem="y4G-WN-ZxP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="HDt-Fs-7wd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="y4G-WN-ZxP" secondAttribute="trailing" constant="-20" id="c3f-GC-c3K"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="159-2M-Gdm" secondAttribute="bottom" id="icb-36-OG2"/>
                             <constraint firstItem="BJZ-vi-AQ9" firstAttribute="leading" secondItem="y4G-WN-ZxP" secondAttribute="trailing" constant="-66" id="sMn-pg-Jf3"/>
                             <constraint firstItem="BJZ-vi-AQ9" firstAttribute="top" secondItem="y4G-WN-ZxP" secondAttribute="bottom" constant="-129" id="tZi-yn-5xD"/>
+                            <constraint firstItem="159-2M-Gdm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="txX-KO-zNU"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="y4G-WN-ZxP" secondAttribute="bottom" id="z5L-L6-zE3"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addOverlayView" destination="159-2M-Gdm" id="icX-zb-j1h"/>
                         <outlet property="mapView" destination="y4G-WN-ZxP" id="Kfx-Xw-7oT"/>
                         <outlet property="plusButton" destination="BJZ-vi-AQ9" id="K4o-mk-pgq"/>
                         <outlet property="profileButton" destination="a1a-Yt-8RJ" id="Of2-zu-y2C"/>
@@ -106,7 +126,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="410" y="239"/>
+            <point key="canvasLocation" x="408.75" y="238.73239436619718"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="8PT-Ez-Cfk">

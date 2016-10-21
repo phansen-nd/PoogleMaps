@@ -14,6 +14,7 @@
 		433704B71CC9303F003336F4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704B61CC9303F003336F4 /* GLKit.framework */; };
 		433704B91CC93049003336F4 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704B81CC93049003336F4 /* ImageIO.framework */; };
 		433704BB1CC9305A003336F4 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704BA1CC9305A003336F4 /* OpenGLES.framework */; };
+		434764C61DB9A4D500150D7F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434764C51DB9A4D500150D7F /* Place.swift */; };
 		4361E7A91CAAD5D600D21A1E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7A81CAAD5D600D21A1E /* MapViewController.swift */; };
 		4361E7AF1CAAD8B300D21A1E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7AE1CAAD8B300D21A1E /* User.swift */; };
 		436A79701C62A7A300C36BAE /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A796F1C62A7A300C36BAE /* libicucore.tbd */; };
@@ -52,6 +53,7 @@
 		433704B61CC9303F003336F4 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		433704B81CC93049003336F4 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		433704BA1CC9305A003336F4 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		434764C51DB9A4D500150D7F /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		4361E7A81CAAD5D600D21A1E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4361E7AE1CAAD8B300D21A1E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		436A796F1C62A7A300C36BAE /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				4361E7AE1CAAD8B300D21A1E /* User.swift */,
+				434764C51DB9A4D500150D7F /* Place.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				43C75D151CB606AB00B4A1EB /* CustomInfoWindow.swift in Sources */,
 				433704AF1CC7CC21003336F4 /* LoginViewController.swift in Sources */,
 				43DAF1CF1DA7FEDD00C37CDA /* FileSaver.swift in Sources */,
+				434764C61DB9A4D500150D7F /* Place.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
