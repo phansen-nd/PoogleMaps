@@ -38,6 +38,7 @@
 		43DCCC4C1C58862700B64A85 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43DCCC4B1C58862700B64A85 /* SystemConfiguration.framework */; };
 		43DCCC4E1C58862E00B64A85 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 43DCCC4D1C58862E00B64A85 /* libz.tbd */; };
 		43DCCC501C58863C00B64A85 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 43DCCC4F1C58863C00B64A85 /* libsqlite3.tbd */; };
+		43EEC9BB1DB9980C00A7F977 /* PassThroughableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EEC9BA1DB9980C00A7F977 /* PassThroughableView.swift */; };
 		D41D3005D707BBCAF03B1681 /* Pods_PoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245A74ED60BB422794E98497 /* Pods_PoogleMaps.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		43DCCC4B1C58862700B64A85 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		43DCCC4D1C58862E00B64A85 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		43DCCC4F1C58863C00B64A85 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		43EEC9BA1DB9980C00A7F977 /* PassThroughableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassThroughableView.swift; sourceTree = "<group>"; };
 		E62C14B5FEF22CDE3BCCE949 /* Pods-PoogleMaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoogleMaps.release.xcconfig"; path = "Pods/Target Support Files/Pods-PoogleMaps/Pods-PoogleMaps.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,6 +139,7 @@
 				43DCCC2A1C58854A00B64A85 /* Main.storyboard */,
 				43DCCC2F1C58854A00B64A85 /* LaunchScreen.storyboard */,
 				43C75D181CB606CC00B4A1EB /* InfoWindow.xib */,
+				43EEC9BA1DB9980C00A7F977 /* PassThroughableView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = NY8624AGB8;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -353,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43DAF1D11DA8063300C37CDA /* DataDownloader.swift in Sources */,
+				43EEC9BB1DB9980C00A7F977 /* PassThroughableView.swift in Sources */,
 				4361E7A91CAAD5D600D21A1E /* MapViewController.swift in Sources */,
 				4361E7AF1CAAD8B300D21A1E /* User.swift in Sources */,
 				43DCCC271C58854A00B64A85 /* AppDelegate.swift in Sources */,
@@ -488,7 +493,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Patrick Hansen (FM23UB944W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Patrick Hansen (FM23UB944W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = NY8624AGB8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -499,7 +504,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = self.nd.PoogleMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d65bad5f-5d0d-464a-bbff-ccc6092b7fec";
+				PROVISIONING_PROFILE = "179cd3d8-3408-4ca2-ac89-84a1d06cb951";
 				PROVISIONING_PROFILE_SPECIFIER = "Poogle Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "PoogleMaps/PoogleMaps-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -514,7 +519,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Patrick Hansen (FM23UB944W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Patrick Hansen (FM23UB944W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = NY8624AGB8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -525,7 +530,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = self.nd.PoogleMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d65bad5f-5d0d-464a-bbff-ccc6092b7fec";
+				PROVISIONING_PROFILE = "179cd3d8-3408-4ca2-ac89-84a1d06cb951";
 				PROVISIONING_PROFILE_SPECIFIER = "Poogle Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "PoogleMaps/PoogleMaps-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

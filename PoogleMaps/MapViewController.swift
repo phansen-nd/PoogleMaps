@@ -61,6 +61,16 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
         let loginVC: LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         self.present(loginVC, animated: true, completion: nil)
     }
+    
+    // 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier! {
+        case "showAdd":
+            print("Add")
+        default:
+            print("Unrecognized segue.")
+        }
+    }
 }
 
 // CLLocationManagerDelegate
