@@ -31,6 +31,10 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
         locationManager.requestWhenInUseAuthorization()
         mapView.delegate = self
         
+        // Assume DataManager delegate and get listener set up pronto.
+        dataManager.delegate = self
+        dataManager.setNewPlaceListener()
+        
         // UI changes.
         profileButton.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
         
@@ -67,10 +71,13 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     @IBAction func createButtonTouched(_ sender: AnyObject) {
-    
-        let place = Place()
         
-        print("Create button touched, called \(place.name).");
+        // Save place - nice simple object.
+        dataManager.saveNewPlace(with: mapView.camera.target.latitude, long: mapView.camera.target.longitude)
+        
+        // Go back to browse mode.
+        animatePlusButtonTouch()
+        isAdding = !isAdding
     }
     
     //
@@ -148,22 +155,40 @@ extension MapViewController: CLLocationManagerDelegate {
 // GMSMapViewDelegate
 extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        
+        // TODO: When all Places aren't loaded indiscriminately, this spot can be
+        //       used to load local Places (within some range of 'position').
     }
     
-    func mapView(_ mapView: GMSMapView!, didTap marker: GMSMarker!) -> Bool {
-        // Center camera.
-        mapView.animate(toLocation: marker.position)
-        return true
-    }
+//    func mapView(_ mapView: GMSMapView!, didTap marker: GMSMarker!) -> Bool {
+//        // Center camera.
+//        mapView.animate(toLocation: marker.position)
+//        return true
+//    }
     
-    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        let infoWindow: CustomInfoWindow = Bundle.main.loadNibNamed("InfoWindow", owner: self, options: nil)![0] as! CustomInfoWindow
-        return infoWindow
-    }
+    // TODO: Check what 'level' the Place is, and if it's got a name/picture,
+    //       create an appropriate infoWindow.
+    
+//    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+//        let infoWindow: CustomInfoWindow = Bundle.main.loadNibNamed("InfoWindow", owner: self, options: nil)![0] as! CustomInfoWindow
+//        return infoWindow
+//    }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
+    }
+}
+
+// DataManagerDelegate
+extension MapViewController: DataManagerDelegate {
+    func handleNewPlace(with place: [String : AnyObject]) {
+        let lat: CLLocationDegrees = Double(place["lat"] as! NSNumber)
+        let long: CLLocationDegrees = Double(place["long"] as! NSNumber)
+        let position = CLLocationCoordinate2DMake(lat, long)
+        
+        let marker = GMSMarker(position: position)
+        marker?.title = place["name"] as! String
+        
+        marker?.map = mapView
     }
 }
 
