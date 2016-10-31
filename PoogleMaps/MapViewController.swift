@@ -35,6 +35,7 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
         // Assume DataManager delegate and get listener set up pronto.
         dataManager.delegate = self
         dataManager.setNewPlaceListener()
+        dataManager.setNewBuildingListener()
         
         // UI changes.
         profileButton.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
@@ -164,12 +165,16 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         if let location = locations.first {
-            // Update the camera to user's location
-            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+            
+            // Update the camera to user's location the first time.
+            if self.currentLocation == nil {
+                mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+            }
+            
             self.currentLocation = location
             
-            // Then stop updating after initial location grab
-            locationManager.stopUpdatingLocation()
+            // Then stop updating after initial location grab.
+            //locationManager.stopUpdatingLocation()
         }
     }
 
@@ -206,14 +211,26 @@ extension MapViewController: GMSMapViewDelegate {
 
 // DataManagerDelegate
 extension MapViewController: DataManagerDelegate {
-    func handleNewPlace(with place: [String : AnyObject]) {
-        let lat: CLLocationDegrees = Double(place["lat"] as! NSNumber)
-        let long: CLLocationDegrees = Double(place["long"] as! NSNumber)
+    func handleNewPlace(with place: Place) {
+        let lat: CLLocationDegrees = place.lat
+        let long: CLLocationDegrees = place.long
         let position = CLLocationCoordinate2DMake(lat, long)
         
         let marker = GMSMarker(position: position)
-        marker?.title = place["name"] as! String
+        marker?.title = place.name
         marker?.icon = UIImage(imageLiteralResourceName: "toilet-icon")
+        
+        marker?.map = mapView
+    }
+    
+    func handleNewBuilding(with building: Building) {
+        let lat: CLLocationDegrees = building.lat
+        let long: CLLocationDegrees = building.long
+        let position = CLLocationCoordinate2DMake(lat, long)
+        
+        let marker = GMSMarker(position: position)
+        marker?.title = building.displayName
+        marker?.icon = UIImage(imageLiteralResourceName: "building-icon")
         
         marker?.map = mapView
     }

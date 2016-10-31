@@ -10,7 +10,8 @@ import Firebase
 import CoreLocation
 
 protocol DataManagerDelegate {
-    func handleNewPlace(with place: [String:AnyObject])
+    func handleNewPlace(with place: Place)
+    func handleNewBuilding(with building: Building)
 }
 
 class DataManager {
@@ -21,6 +22,7 @@ class DataManager {
     let maxProximity: Double = 10.0 // Meters.
     
     var validLocales: [Locale] = []
+    var allLocales: [Locale] = []
     
     init() {
         // Download locale info.
@@ -32,6 +34,7 @@ class DataManager {
                 if newLocale.valid {
                     self.validLocales.append(newLocale)
                 }
+                self.allLocales.append(newLocale)
             }
         })
     }
@@ -49,7 +52,17 @@ class DataManager {
     func setNewPlaceListener() {
         refHandle = root.child("/places").observe(FIRDataEventType.childAdded, with: { (snapshot) in
             let data = snapshot.value as! [String:AnyObject]
-            self.delegate?.handleNewPlace(with: data)
+            let place = Place(data)
+            self.delegate?.handleNewPlace(with: place)
+        })
+    }
+    
+    // TODO: check for closest/current locale and only download buildings where locale==locale.
+    func setNewBuildingListener() {
+        refHandle = root.child("/buildings").observe(FIRDataEventType.childAdded, with: { (snapshot) in
+            let data = snapshot.value as! [String:AnyObject]
+            let building = Building(data, allLocales: self.allLocales)
+            self.delegate?.handleNewBuilding(with: building)
         })
     }
     

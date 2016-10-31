@@ -20,6 +20,12 @@ class Place {
     var lat: Double
     var long: Double
     
+    init(_ data: [String:AnyObject]) {
+        name = data["name"] as! String
+        lat = data["lat"] as! Double
+        long = data["long"] as! Double
+    }
+    
     init(_ latitude: Double, longitude: Double) {
         
         // Create a random name with our words and a number between 1-100.
