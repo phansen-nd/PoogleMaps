@@ -187,6 +187,7 @@ extension MapViewController: DataManagerDelegate {
         
         let marker = GMSMarker(position: position)
         marker?.title = place["name"] as! String
+        marker?.icon = UIImage(imageLiteralResourceName: "toilet-icon")
         
         marker?.map = mapView
     }
