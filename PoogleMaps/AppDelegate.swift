@@ -28,7 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        GMSServices.provideAPIKey("AIzaSyBiOMNxLyvyRJtM0a5Y8VfDLjrceVCX9GI")
+        var keys: NSDictionary?
+        
+        if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") {
+            keys = NSDictionary(contentsOfFile: path)
+        }
+        
+        if let dict = keys {
+            let gmsApiKey = dict["API_KEY"] as? String
+            GMSServices.provideAPIKey(gmsApiKey)
+        } else {
+            print("Error connecting to API")
+        }
         
         return true
     }
