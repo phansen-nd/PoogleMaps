@@ -20,6 +20,7 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var createButton: UIButton!
     
     let locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
     let dataManager = DataManager()
     var isAdding = false
     
@@ -71,6 +72,30 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     @IBAction func createButtonTouched(_ sender: AnyObject) {
+        
+        // Check geofences.
+        guard let current = currentLocation else {
+            print("Error, no current location available. Can't compute distance to target Place.")
+            return
+        }
+        
+        let target: CLLocation = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
+        
+        if !(dataManager.inProximityGeofence(with: current, targetLocation: target)) {
+            let alertView = UIAlertController(title: "Error", message: "You've gotta be within 10m of the place you're trying to create.", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertView.addAction(ok)
+            present(alertView, animated: true, completion: nil)
+            return
+        }
+        
+        if !(dataManager.inLocalesGeofence(with: target)) {
+            let alertView = UIAlertController(title: "Error", message: "Poogle Maps is only available in selected locations. You are not in one.", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertView.addAction(ok)
+            present(alertView, animated: true, completion: nil)
+            return
+        }
         
         // Save place - nice simple object.
         dataManager.saveNewPlace(with: mapView.camera.target.latitude, long: mapView.camera.target.longitude)
@@ -141,6 +166,7 @@ extension MapViewController: CLLocationManagerDelegate {
         if let location = locations.first {
             // Update the camera to user's location
             mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+            self.currentLocation = location
             
             // Then stop updating after initial location grab
             locationManager.stopUpdatingLocation()

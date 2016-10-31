@@ -14,13 +14,15 @@
 		433704B71CC9303F003336F4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704B61CC9303F003336F4 /* GLKit.framework */; };
 		433704B91CC93049003336F4 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704B81CC93049003336F4 /* ImageIO.framework */; };
 		433704BB1CC9305A003336F4 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433704BA1CC9305A003336F4 /* OpenGLES.framework */; };
+		4343B0F81DC6DE6A00955447 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4343B0F71DC6DE6A00955447 /* GoogleService-Info.plist */; };
+		4343B0FA1DC702E700955447 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343B0F91DC702E700955447 /* Locale.swift */; };
+		4343B0FC1DC7086F00955447 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4343B0FB1DC7086F00955447 /* Keys.plist */; };
 		434764C61DB9A4D500150D7F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434764C51DB9A4D500150D7F /* Place.swift */; };
 		434764C81DB9ACAB00150D7F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434764C71DB9ACAB00150D7F /* DataManager.swift */; };
 		4361E7A91CAAD5D600D21A1E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7A81CAAD5D600D21A1E /* MapViewController.swift */; };
 		4361E7AF1CAAD8B300D21A1E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7AE1CAAD8B300D21A1E /* User.swift */; };
 		436A79701C62A7A300C36BAE /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A796F1C62A7A300C36BAE /* libicucore.tbd */; };
 		436A79721C62A7B300C36BAE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A79711C62A7B300C36BAE /* libc++.tbd */; };
-		437F6B861CED0BA000F01436 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 437F6B851CED0BA000F01436 /* GoogleService-Info.plist */; };
 		43C75D151CB606AB00B4A1EB /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */; };
 		43C75D191CB606CC00B4A1EB /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43C75D181CB606CC00B4A1EB /* InfoWindow.xib */; };
 		43DAF1CC1DA7266900C37CDA /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DAF1CB1DA7266900C37CDA /* LoginManager.swift */; };
@@ -54,13 +56,15 @@
 		433704B61CC9303F003336F4 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		433704B81CC93049003336F4 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		433704BA1CC9305A003336F4 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		4343B0F71DC6DE6A00955447 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4343B0F91DC702E700955447 /* Locale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
+		4343B0FB1DC7086F00955447 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		434764C51DB9A4D500150D7F /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		434764C71DB9ACAB00150D7F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		4361E7A81CAAD5D600D21A1E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4361E7AE1CAAD8B300D21A1E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		436A796F1C62A7A300C36BAE /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		436A79711C62A7B300C36BAE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		437F6B851CED0BA000F01436 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
 		43C75D181CB606CC00B4A1EB /* InfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindow.xib; sourceTree = "<group>"; };
 		43DAF1C81DA6FDA000C37CDA /* PoogleMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PoogleMaps-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -121,10 +125,11 @@
 			isa = PBXGroup;
 			children = (
 				43DAF1C81DA6FDA000C37CDA /* PoogleMaps-Bridging-Header.h */,
-				437F6B851CED0BA000F01436 /* GoogleService-Info.plist */,
+				4343B0F71DC6DE6A00955447 /* GoogleService-Info.plist */,
 				43DCCC261C58854A00B64A85 /* AppDelegate.swift */,
 				43DCCC2D1C58854A00B64A85 /* Assets.xcassets */,
 				43DCCC321C58854A00B64A85 /* Info.plist */,
+				4343B0FB1DC7086F00955447 /* Keys.plist */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 			children = (
 				4361E7AE1CAAD8B300D21A1E /* User.swift */,
 				434764C51DB9A4D500150D7F /* Place.swift */,
+				4343B0F91DC702E700955447 /* Locale.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -299,11 +305,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4343B0FC1DC7086F00955447 /* Keys.plist in Resources */,
 				43DCCC311C58854A00B64A85 /* LaunchScreen.storyboard in Resources */,
 				43C75D191CB606CC00B4A1EB /* InfoWindow.xib in Resources */,
 				43DCCC2E1C58854A00B64A85 /* Assets.xcassets in Resources */,
 				43DCCC2C1C58854A00B64A85 /* Main.storyboard in Resources */,
-				437F6B861CED0BA000F01436 /* GoogleService-Info.plist in Resources */,
+				4343B0F81DC6DE6A00955447 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +380,7 @@
 				434764C81DB9ACAB00150D7F /* DataManager.swift in Sources */,
 				43DAF1CF1DA7FEDD00C37CDA /* FileSaver.swift in Sources */,
 				434764C61DB9A4D500150D7F /* Place.swift in Sources */,
+				4343B0FA1DC702E700955447 /* Locale.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

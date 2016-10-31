@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         
-        // Enable offline persistence.
-        FIRDatabase.database().persistenceEnabled = true
+        // Disable offline persistence until testing is done and data is complete.
+        FIRDatabase.database().persistenceEnabled = false
         root = FIRDatabase.database().reference()
     }
     
@@ -30,12 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         var keys: NSDictionary?
         
-        if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") {
+        if let path = Bundle.main.path(forResource: "Keys", ofType: "plist") {
             keys = NSDictionary(contentsOfFile: path)
         }
         
         if let dict = keys {
-            let gmsApiKey = dict["API_KEY"] as? String
+            let gmsApiKey = dict["GMS_API_KEY"] as! String
             GMSServices.provideAPIKey(gmsApiKey)
         } else {
             print("Error connecting to API")
