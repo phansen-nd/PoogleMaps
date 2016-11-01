@@ -16,13 +16,19 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
-    @IBOutlet weak var addOverlayView: PassThroughableView!
     @IBOutlet weak var createButton: UIButton!
     
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     let dataManager = DataManager()
     var isAdding = false
+    
+    enum ViewState {
+        case Pan
+        case ViewingMarker
+    }
+    
+    var currentViewState: ViewState = .Pan
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +65,19 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
     //
     
     @IBAction func plusButtonTouched(_ sender: AnyObject) {
-        animatePlusButtonTouch()
-        isAdding = !isAdding
+        
+        switch currentViewState {
+        case .Pan:
+            let alert = UIAlertController(title: "Whoops", message: "To add a place, select a building first!", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
+            break
+        case .ViewingMarker:
+            animatePlusButtonTouch()
+            isAdding = !isAdding
+        }
+        
     }
     
     // Launch the Login VC.
@@ -130,7 +147,6 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
                 
                 // Swap alphas.
                 self.profileButton.alpha = 0.0;
-                self.addOverlayView.alpha = 1.0;
                 
                 // Rotate plus button to make it an 'X'.
                 self.plusButton.transform = CGAffineTransform(rotationAngle: (5.0 * 3.14159265 / 4.0))
@@ -139,7 +155,8 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
         } else {
             UIView.animate(withDuration: 0.5, animations: {
                 self.profileButton.alpha = 1.0;
-                self.addOverlayView.alpha = 0.0;
+                
+                // Rotate the button back to plus.
                 self.plusButton.transform = CGAffineTransform(rotationAngle: 0.0)
                 self.plusButton.layer.shadowOpacity = 0.25
             })
@@ -147,7 +164,10 @@ class MapViewController: UIViewController, UINavigationControllerDelegate {
     }
 }
 
-// CLLocationManagerDelegate
+//
+// MARK: - CLLocationManagerDelegate
+///
+
 extension MapViewController: CLLocationManagerDelegate {
     
     // Called when user authorizes or deauthorizes app to use location.
@@ -183,33 +203,53 @@ extension MapViewController: CLLocationManagerDelegate {
     }
 }
 
-// GMSMapViewDelegate
+//
+// MARK: - GMSMapViewDelegate
+//
+
 extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         // TODO: When all Places aren't loaded indiscriminately, this spot can be
         //       used to load local Places (within some range of 'position').
     }
     
-//    func mapView(_ mapView: GMSMapView!, didTap marker: GMSMarker!) -> Bool {
-//        // Center camera.
-//        mapView.animate(toLocation: marker.position)
-//        return true
-//    }
+    func mapView(_ mapView: GMSMapView!, didTap marker: GMSMarker!) -> Bool {
+        // Move camera to a spot where we can see the InfoWindow.
+        let heightCorrection = UIScreen.main.bounds.size.height/4
+        var point = mapView.projection.point(for: marker.position)
+        point.y -= heightCorrection
+        let loc = mapView.projection.coordinate(for: point)
+        mapView.animate(toLocation: loc)
+        
+        currentViewState = .ViewingMarker
+        
+        mapView.selectedMarker = marker
+        
+        return true
+    }
     
     // TODO: Check what 'level' the Place is, and if it's got a name/picture,
     //       create an appropriate infoWindow.
     
-//    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-//        let infoWindow: CustomInfoWindow = Bundle.main.loadNibNamed("InfoWindow", owner: self, options: nil)![0] as! CustomInfoWindow
-//        return infoWindow
-//    }
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        let infoWindow: BuildingInfoWindow = Bundle.main.loadNibNamed("BuildingInfoWindow", owner: self, options: nil)![0] as! BuildingInfoWindow
+        
+        return infoWindow
+    }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
     }
+    
+    func mapView(_ mapView: GMSMapView!, didCloseInfoWindowOf marker: GMSMarker!) {
+        currentViewState = .Pan
+    }
 }
 
-// DataManagerDelegate
+//
+// MARK: - DataManagerDelegate
+//
+
 extension MapViewController: DataManagerDelegate {
     func handleNewPlace(with place: Place) {
         let lat: CLLocationDegrees = place.lat
@@ -236,7 +276,10 @@ extension MapViewController: DataManagerDelegate {
     }
 }
 
-// UIColor extension
+//
+// MARK: - UIColor extension
+//
+
 extension UIColor {
     convenience init(red: Int, green: Int, blue: Int) {
         assert(red >= 0 && red <= 255, "Invalid red component")

@@ -18,14 +18,14 @@
 		4343B0FA1DC702E700955447 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343B0F91DC702E700955447 /* Locale.swift */; };
 		4343B0FC1DC7086F00955447 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4343B0FB1DC7086F00955447 /* Keys.plist */; };
 		4343B0FE1DC806A500955447 /* Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343B0FD1DC806A500955447 /* Building.swift */; };
+		4343B1001DC8429300955447 /* BuildingInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343B0FF1DC8429300955447 /* BuildingInfoWindow.swift */; };
+		4343B1021DC842DC00955447 /* BuildingInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4343B1011DC842DC00955447 /* BuildingInfoWindow.xib */; };
 		434764C61DB9A4D500150D7F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434764C51DB9A4D500150D7F /* Place.swift */; };
 		434764C81DB9ACAB00150D7F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434764C71DB9ACAB00150D7F /* DataManager.swift */; };
 		4361E7A91CAAD5D600D21A1E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7A81CAAD5D600D21A1E /* MapViewController.swift */; };
 		4361E7AF1CAAD8B300D21A1E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4361E7AE1CAAD8B300D21A1E /* User.swift */; };
 		436A79701C62A7A300C36BAE /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A796F1C62A7A300C36BAE /* libicucore.tbd */; };
 		436A79721C62A7B300C36BAE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A79711C62A7B300C36BAE /* libc++.tbd */; };
-		43C75D151CB606AB00B4A1EB /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */; };
-		43C75D191CB606CC00B4A1EB /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43C75D181CB606CC00B4A1EB /* InfoWindow.xib */; };
 		43DAF1CC1DA7266900C37CDA /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DAF1CB1DA7266900C37CDA /* LoginManager.swift */; };
 		43DAF1CF1DA7FEDD00C37CDA /* FileSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DAF1CE1DA7FEDD00C37CDA /* FileSaver.swift */; };
 		43DAF1D11DA8063300C37CDA /* DataDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DAF1D01DA8063300C37CDA /* DataDownloader.swift */; };
@@ -43,7 +43,6 @@
 		43DCCC4C1C58862700B64A85 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43DCCC4B1C58862700B64A85 /* SystemConfiguration.framework */; };
 		43DCCC4E1C58862E00B64A85 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 43DCCC4D1C58862E00B64A85 /* libz.tbd */; };
 		43DCCC501C58863C00B64A85 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 43DCCC4F1C58863C00B64A85 /* libsqlite3.tbd */; };
-		43EEC9BB1DB9980C00A7F977 /* PassThroughableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EEC9BA1DB9980C00A7F977 /* PassThroughableView.swift */; };
 		D41D3005D707BBCAF03B1681 /* Pods_PoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245A74ED60BB422794E98497 /* Pods_PoogleMaps.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,14 +60,14 @@
 		4343B0F91DC702E700955447 /* Locale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
 		4343B0FB1DC7086F00955447 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		4343B0FD1DC806A500955447 /* Building.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Building.swift; sourceTree = "<group>"; };
+		4343B0FF1DC8429300955447 /* BuildingInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildingInfoWindow.swift; sourceTree = "<group>"; };
+		4343B1011DC842DC00955447 /* BuildingInfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BuildingInfoWindow.xib; sourceTree = "<group>"; };
 		434764C51DB9A4D500150D7F /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		434764C71DB9ACAB00150D7F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		4361E7A81CAAD5D600D21A1E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4361E7AE1CAAD8B300D21A1E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		436A796F1C62A7A300C36BAE /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		436A79711C62A7B300C36BAE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
-		43C75D181CB606CC00B4A1EB /* InfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindow.xib; sourceTree = "<group>"; };
 		43DAF1C81DA6FDA000C37CDA /* PoogleMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PoogleMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		43DAF1CB1DA7266900C37CDA /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		43DAF1CE1DA7FEDD00C37CDA /* FileSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSaver.swift; sourceTree = "<group>"; };
@@ -89,7 +88,6 @@
 		43DCCC4B1C58862700B64A85 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		43DCCC4D1C58862E00B64A85 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		43DCCC4F1C58863C00B64A85 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		43EEC9BA1DB9980C00A7F977 /* PassThroughableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassThroughableView.swift; sourceTree = "<group>"; };
 		E62C14B5FEF22CDE3BCCE949 /* Pods-PoogleMaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoogleMaps.release.xcconfig"; path = "Pods/Target Support Files/Pods-PoogleMaps/Pods-PoogleMaps.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,8 +150,8 @@
 			children = (
 				43DCCC2A1C58854A00B64A85 /* Main.storyboard */,
 				43DCCC2F1C58854A00B64A85 /* LaunchScreen.storyboard */,
-				43C75D181CB606CC00B4A1EB /* InfoWindow.xib */,
-				43EEC9BA1DB9980C00A7F977 /* PassThroughableView.swift */,
+				4343B0FF1DC8429300955447 /* BuildingInfoWindow.swift */,
+				4343B1011DC842DC00955447 /* BuildingInfoWindow.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -162,7 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				4361E7A81CAAD5D600D21A1E /* MapViewController.swift */,
-				43C75D141CB606AB00B4A1EB /* CustomInfoWindow.swift */,
 				433704AE1CC7CC21003336F4 /* LoginViewController.swift */,
 			);
 			name = Controller;
@@ -310,9 +307,9 @@
 			files = (
 				4343B0FC1DC7086F00955447 /* Keys.plist in Resources */,
 				43DCCC311C58854A00B64A85 /* LaunchScreen.storyboard in Resources */,
-				43C75D191CB606CC00B4A1EB /* InfoWindow.xib in Resources */,
 				43DCCC2E1C58854A00B64A85 /* Assets.xcassets in Resources */,
 				43DCCC2C1C58854A00B64A85 /* Main.storyboard in Resources */,
+				4343B1021DC842DC00955447 /* BuildingInfoWindow.xib in Resources */,
 				4343B0F81DC6DE6A00955447 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,15 +371,14 @@
 			files = (
 				43DAF1D11DA8063300C37CDA /* DataDownloader.swift in Sources */,
 				4343B0FE1DC806A500955447 /* Building.swift in Sources */,
-				43EEC9BB1DB9980C00A7F977 /* PassThroughableView.swift in Sources */,
 				4361E7A91CAAD5D600D21A1E /* MapViewController.swift in Sources */,
 				4361E7AF1CAAD8B300D21A1E /* User.swift in Sources */,
 				43DCCC271C58854A00B64A85 /* AppDelegate.swift in Sources */,
 				43DAF1CC1DA7266900C37CDA /* LoginManager.swift in Sources */,
-				43C75D151CB606AB00B4A1EB /* CustomInfoWindow.swift in Sources */,
 				433704AF1CC7CC21003336F4 /* LoginViewController.swift in Sources */,
 				434764C81DB9ACAB00150D7F /* DataManager.swift in Sources */,
 				43DAF1CF1DA7FEDD00C37CDA /* FileSaver.swift in Sources */,
+				4343B1001DC8429300955447 /* BuildingInfoWindow.swift in Sources */,
 				434764C61DB9A4D500150D7F /* Place.swift in Sources */,
 				4343B0FA1DC702E700955447 /* Locale.swift in Sources */,
 			);

@@ -20,6 +20,60 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4G-WN-ZxP" customClass="GMSMapView">
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZfR-Jj-6ve">
+                                        <frame key="frameInset" minX="4" minY="60" width="320" height="211"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a descriptive name..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qPe-mM-Yvn">
+                                                <frame key="frameInset" minX="48" minY="15" width="224" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Tt6-qK-t0H">
+                                                <frame key="frameInset" minX="48" minY="53" width="224" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <segments>
+                                                    <segment title="Residential"/>
+                                                    <segment title="Public"/>
+                                                </segments>
+                                            </segmentedControl>
+                                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yaz-OV-WC4">
+                                                <frame key="frameInset" minX="48" minY="89" height="74" maxX="48"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            </pickerView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oq1-qG-koM">
+                                                <frame key="frameInset" minX="60" minY="163" width="200" height="48"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
+                                                <state key="normal" title="There's a toilet here!">
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                        <real key="value" value="0.25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                        <size key="value" width="0.0" height="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="createButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GeA-va-aY6"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1a-Yt-8RJ">
@@ -80,92 +134,20 @@
                                     <action selector="plusButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="coc-fk-NXI"/>
                                 </connections>
                             </button>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="159-2M-Gdm" customClass="PassThroughableView" customModule="PoogleMaps" customModuleProvider="target">
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crosshair" translatesAutoresizingMaskIntoConstraints="NO" id="En4-N8-9ir">
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="73" id="cfY-e9-hMW"/>
-                                            <constraint firstAttribute="height" constant="73" id="oIF-ry-yT1"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="En4-N8-9ir" firstAttribute="centerX" secondItem="159-2M-Gdm" secondAttribute="centerX" id="hmE-HK-afv"/>
-                                    <constraint firstItem="En4-N8-9ir" firstAttribute="centerY" secondItem="159-2M-Gdm" secondAttribute="centerY" id="zg4-OI-BOA"/>
-                                </constraints>
-                            </view>
-                            <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZfR-Jj-6ve">
-                                <frame key="frameInset" minY="220" width="320" height="211"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a descriptive name..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qPe-mM-Yvn">
-                                        <frame key="frameInset" minX="48" minY="15" width="224" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Tt6-qK-t0H">
-                                        <frame key="frameInset" minX="48" minY="53" width="224" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <segments>
-                                            <segment title="Residential"/>
-                                            <segment title="Public"/>
-                                            <segment title="Business"/>
-                                        </segments>
-                                    </segmentedControl>
-                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yaz-OV-WC4">
-                                        <frame key="frameInset" minX="48" minY="89" height="74" maxX="48"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    </pickerView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oq1-qG-koM">
-                                        <frame key="frameInset" minX="60" minY="163" width="200" height="48"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
-                                        <state key="normal" title="There's a toilet here!">
-                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                                <real key="value" value="0.25"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                                <size key="value" width="0.0" height="2"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="createButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GeA-va-aY6"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="a1a-Yt-8RJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="2Fh-Vc-yiI"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="a1a-Yt-8RJ" secondAttribute="bottom" constant="73" id="2bc-p0-B5b"/>
-                            <constraint firstItem="159-2M-Gdm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="38W-64-0iN"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="159-2M-Gdm" secondAttribute="trailing" constant="-20" id="AmC-wu-aLZ"/>
                             <constraint firstItem="y4G-WN-ZxP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="GUl-cC-Xnf"/>
                             <constraint firstItem="y4G-WN-ZxP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="HDt-Fs-7wd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="y4G-WN-ZxP" secondAttribute="trailing" constant="-20" id="c3f-GC-c3K"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="159-2M-Gdm" secondAttribute="bottom" id="icb-36-OG2"/>
                             <constraint firstItem="BJZ-vi-AQ9" firstAttribute="leading" secondItem="y4G-WN-ZxP" secondAttribute="trailing" constant="-66" id="sMn-pg-Jf3"/>
                             <constraint firstItem="BJZ-vi-AQ9" firstAttribute="top" secondItem="y4G-WN-ZxP" secondAttribute="bottom" constant="-129" id="tZi-yn-5xD"/>
-                            <constraint firstItem="159-2M-Gdm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="txX-KO-zNU"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="y4G-WN-ZxP" secondAttribute="bottom" id="z5L-L6-zE3"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addOverlayView" destination="159-2M-Gdm" id="icX-zb-j1h"/>
                         <outlet property="createButton" destination="Oq1-qG-koM" id="fJD-d3-y9x"/>
                         <outlet property="mapView" destination="y4G-WN-ZxP" id="Kfx-Xw-7oT"/>
                         <outlet property="plusButton" destination="BJZ-vi-AQ9" id="K4o-mk-pgq"/>
@@ -370,7 +352,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="crosshair" width="300" height="300"/>
         <image name="down-arrow" width="128" height="128"/>
         <image name="loginicon" width="512" height="512"/>
         <image name="plusbutton" width="256" height="256"/>
